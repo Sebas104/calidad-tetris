@@ -29,4 +29,9 @@ public class MainActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
+    public void enterControls(View view) {
+        Intent intent = new Intent(this, Controls.class);
+        startActivity(intent);
+    }
 }

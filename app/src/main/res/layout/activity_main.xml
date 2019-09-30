@@ -25,10 +25,11 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/round_button"
         android:fontFamily="@font/lemon"
+        android:onClick="enterControls"
         android:text="CONTROLS"
         android:textColor="@android:color/white"
-        android:textSize="22sp"
 
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

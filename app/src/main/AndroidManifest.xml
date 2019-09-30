@@ -5,8 +5,8 @@
 
     <application
         android:allowBackup="true"
-        android:isGame="true"
         android:icon="@mipmap/ic_launcher"
+        android:isGame="true"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -24,8 +24,19 @@
         </activity>
         <activity
             android:name=".ProTetris"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".Controls"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity">
+            android:theme="@style/AppControlsTheme">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
