@@ -4,4 +4,6 @@
     <color name="colorSplashScreen">#065D6B</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorOrange">#FF6D00</color>
+    <color name="colorBlack">#2C2B2B</color>
 </resources>
