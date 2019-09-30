@@ -4,15 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/controls_bg"
+    android:background="@drawable/main_bg"
     tools:context=".Controls">
+
+    <TextView
+        android:id="@+id/textLeft3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="572dp"
+        android:fontFamily="cursive"
+        android:text="Rotate"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#000752"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textLeft2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="400dp"
+        android:fontFamily="cursive"
+        android:text="Move Right"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#000752"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="76dp"
         android:layout_height="87dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="212dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/left" />
@@ -22,12 +54,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="192dp"
+        android:layout_marginTop="228dp"
+        android:fontFamily="cursive"
         android:text="Move Left"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#FFFFFF"
+        android:textColor="#000752"
         android:textSize="30dp"
+        android:textStyle="bold"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="75dp"
+        android:layout_height="74dp"
+        app:srcCompat="@drawable/right"
+        tools:layout_editor_absoluteX="49dp"
+        tools:layout_editor_absoluteY="381dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="206dp"
+        android:layout_height="56dp"
+        android:alpha="1"
+        android:fontFamily="@font/lemon"
+        android:foregroundTint="#3F51B5"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="CONTROLS"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000752"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="102dp"
+        tools:layout_editor_absoluteY="69dp" />
+
+    <ImageView
+        android:id="@+id/button"
+        android:layout_width="77dp"
+        android:layout_height="78dp"
+        app:srcCompat="@drawable/rotate"
+        tools:layout_editor_absoluteX="49dp"
+        tools:layout_editor_absoluteY="560dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
