@@ -9,8 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-
 public class Block extends View {
 
     protected static final int EMPTY_BLOCK = 0;
@@ -60,7 +58,7 @@ public class Block extends View {
         blockBoard = new int[XBlockNumber][YBlockNumber];
     }
 
-    public Block(Context context, @Nullable AttributeSet attrs, int style) {
+    public Block(Context context, AttributeSet attrs, int style) {
         super(context, attrs, style);
         blockBoard= new int[XBlockNumber][YBlockNumber];
     }

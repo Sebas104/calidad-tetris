@@ -8,10 +8,11 @@
     tools:context=".ProTetris">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/rotateButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/rightButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.92"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,9 +21,10 @@
         app:srcCompat="@drawable/rotate" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/rightButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.92"
@@ -32,14 +34,15 @@
         app:srcCompat="@drawable/right" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/leftButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.92"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/rightButton"
         app:layout_constraintVertical_bias="0.20999998"
         app:srcCompat="@drawable/left" />
 
@@ -54,12 +57,17 @@
         android:textColor="#D8CBA3"
         android:textColorHint="#D8CBA3"
         android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintBottom_toTopOf="@+id/rotateButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.981"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.22000003" />
+
+    <com.example.protetris.MainBoard
+        android:id="@+id/protetris"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group"

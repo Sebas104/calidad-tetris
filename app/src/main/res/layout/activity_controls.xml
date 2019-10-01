@@ -2,18 +2,24 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@drawable/main_bg"
     tools:context=".Controls">
+
+
+    <ImageView
+        android:id="@+id/imagePhone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/phone_controls" />
 
     <TextView
         android:id="@+id/textLeft2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="128dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="56dp"
         android:fontFamily="cursive"
         android:text="Move Right"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -21,28 +27,26 @@
         android:textSize="30dp"
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/textLeft" />
+        app:layout_constraintBottom_toTopOf="@+id/textLeft3"
+        app:layout_constraintEnd_toEndOf="@+id/imagePhone" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView6"
         app:layout_constraintEnd_toStartOf="@+id/textLeft"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/left"
-        tools:layout_editor_absoluteY="242dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.875"
+        app:srcCompat="@drawable/left" />
 
     <TextView
         android:id="@+id/textLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="132dp"
-        android:layout_marginEnd="142dp"
+        android:layout_marginEnd="96dp"
         android:fontFamily="cursive"
         android:text="Move Left"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -50,28 +54,27 @@
         android:textSize="30dp"
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/textLeft2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.805" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toStartOf="@+id/textLeft2"
+        app:layout_constraintHorizontal_bias="0.569"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/right"
-        tools:layout_editor_absoluteY="381dp" />
+        app:srcCompat="@drawable/right" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="206dp"
         android:layout_height="56dp"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="69dp"
-        android:layout_marginEnd="103dp"
+        android:layout_marginTop="124dp"
         android:alpha="1"
         android:fontFamily="@font/lemon"
         android:foregroundTint="#3F51B5"
@@ -83,18 +86,18 @@
         android:textColor="#000752"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/imagePhone" />
 
     <ImageView
         android:id="@+id/button"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="152dp"
+        android:layout_marginBottom="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textLeft3"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/rotate" />
 
@@ -102,10 +105,8 @@
         android:id="@+id/textLeft3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="93dp"
-        android:layout_marginEnd="174dp"
-        android:layout_marginBottom="155dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginBottom="216dp"
         android:fontFamily="cursive"
         android:text="Rotate"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -114,9 +115,6 @@
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/textLeft2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
