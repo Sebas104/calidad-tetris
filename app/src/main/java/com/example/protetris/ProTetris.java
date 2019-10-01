@@ -9,9 +9,12 @@ import android.widget.TextView;
 
 public class ProTetris extends AppCompatActivity {
 
+    private MainBoard mainBoard;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_tetris);
+        mainBoard = findViewById(R.id.group);
     }
 }

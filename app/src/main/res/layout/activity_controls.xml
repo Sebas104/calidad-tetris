@@ -8,27 +8,12 @@
     tools:context=".Controls">
 
     <TextView
-        android:id="@+id/textLeft3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="572dp"
-        android:fontFamily="cursive"
-        android:text="Rotate"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#000752"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textLeft2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="128dp"
         android:fontFamily="cursive"
         android:text="Move Right"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -36,25 +21,28 @@
         android:textSize="30dp"
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textLeft" />
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="76dp"
-        android:layout_height="87dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="212dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/textLeft"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/left" />
+        app:srcCompat="@drawable/left"
+        tools:layout_editor_absoluteY="242dp" />
 
     <TextView
         android:id="@+id/textLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="228dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="132dp"
+        android:layout_marginEnd="142dp"
         android:fontFamily="cursive"
         android:text="Move Left"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -62,21 +50,28 @@
         android:textSize="30dp"
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="75dp"
-        android:layout_height="74dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/textLeft2"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/right"
-        tools:layout_editor_absoluteX="49dp"
         tools:layout_editor_absoluteY="381dp" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="206dp"
         android:layout_height="56dp"
+        android:layout_marginStart="102dp"
+        android:layout_marginTop="69dp"
+        android:layout_marginEnd="103dp"
         android:alpha="1"
         android:fontFamily="@font/lemon"
         android:foregroundTint="#3F51B5"
@@ -87,15 +82,41 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000752"
         android:textSize="36sp"
-        tools:layout_editor_absoluteX="102dp"
-        tools:layout_editor_absoluteY="69dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/button"
-        android:layout_width="77dp"
-        android:layout_height="78dp"
-        app:srcCompat="@drawable/rotate"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="560dp" />
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="152dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textLeft3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/rotate" />
+
+    <TextView
+        android:id="@+id/textLeft3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="93dp"
+        android:layout_marginEnd="174dp"
+        android:layout_marginBottom="155dp"
+        android:fontFamily="cursive"
+        android:text="Rotate"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#000752"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/textLeft2"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
