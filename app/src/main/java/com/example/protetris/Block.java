@@ -22,7 +22,7 @@ public class Block extends View {
     protected static final int GRAY_BLOCK = 8;
     protected static final int SHADOW_BLOCK = 9;
     protected static final int WHITE_BLOCK= 10;
-    protected static final int NUM_BLOCKS = 10;
+    protected static final int NUM_BLOCKS = 9;
 
     //Ratio of the tetris board to the size of the view
     protected static final double ratio = 0.625;

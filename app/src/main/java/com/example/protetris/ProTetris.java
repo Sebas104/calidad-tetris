@@ -2,33 +2,48 @@ package com.example.protetris;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class ProTetris extends AppCompatActivity {
 
     private MainBoard mainBoard;
-    private Button rotateButton;
-    private Button leftButton;
-    private Button rightButton;
-    private TextView points;
+    private static ImageView rotateButton;
+    private static ImageView leftButton;
+    private static ImageView rightButton;
+    private static TextView points;
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_tetris);
-        mainBoard = findViewById(R.id.protetris);
 
         //Get the ID of each Button to give it the functionality
-        rotateButton = (Button) findViewById(R.id.rotateButton);
-        leftButton = (Button) findViewById(R.id.leftButton);
-        rightButton = (Button) findViewById(R.id.rightButton);
-        points = (TextView) findViewById(R.id.textScore);
+        rotateButton = findViewById(R.id.rotateButton);
+        leftButton = findViewById(R.id.leftButton);
+        rightButton = findViewById(R.id.rightButton);
+        points =  findViewById(R.id.textScore);
+
+        //Start game
+        mainBoard = findViewById(R.id.protetris);
+        mainBoard.startTetris();
+    }
+
+    public static ImageView getLeftButton() {
+        return leftButton;
+    }
+
+    public static ImageView getRightButton() {
+        return rightButton;
+    }
+
+    public static ImageView getRotateButton() {
+        return rotateButton;
+    }
+
+    public static TextView getPoints() {
+        return points;
     }
 }

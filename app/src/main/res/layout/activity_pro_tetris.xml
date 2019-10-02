@@ -53,7 +53,7 @@
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/bangers"
         android:gravity="center"
-        android:text="100"
+        android:text=""
         android:textColor="#D8CBA3"
         android:textColorHint="#D8CBA3"
         android:textSize="17sp"

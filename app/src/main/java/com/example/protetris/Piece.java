@@ -7,6 +7,7 @@ public class Piece {
     //Constants
     public static final int S = 3; //Size piece
 
+
     //Variables
     public int[][] sBoard; //Board of shadow pieces.
     public int[][] nBoard; //Normal Board
@@ -26,11 +27,27 @@ public class Piece {
 
     }
 
+    public int getnPosY() {
+        return nPos.y;
+
+    }
+
+    public int getnPosX() {
+        return nPos.x;
+
+    }
+
     public Piece(int x, int y){
         nBoard = new int[S][S];
         sBoard = new int[S][S];
         initPiece((S));
         nPos = new Point(x,y);
+    }
+
+    public void initShadow() {
+        copyBoard(nBoard, sBoard, Piece.S);
+        sPos.set(nPos.x, nPos.y);
+        sSety();
     }
 
     public void initPiece(int pieceSize){
@@ -42,6 +59,7 @@ public class Piece {
         }
     }
 
+    //Get size of piece
     public int getS() {
         return S;
     }
@@ -53,9 +71,10 @@ public class Piece {
         return false;
     }
 
+    //Set y of shadow piece
     public void sSety() {
         for (sPos.y = this.nPos.y;
-             !touchY(this.sPos.y+1, this.sPos.x, sBoard, MainBoard.notPieceBoard, true);
+             !touchY(this.sPos.y+1, this.sPos.x, sBoard, MainBoard.notPieceBoard);
              this.sPos.y++);
     }
 
@@ -69,25 +88,16 @@ public class Piece {
         }
     }
 
-    public boolean touchY(int y1, int x1, int [][] pBoard, Board board, boolean isShadow) {
+    public boolean touchY(int y1, int x1, int [][] pBoard, Board board) {
        if (y1 < Board.NUM_COL) {
            for (int c = 0; c < this.getS(); c++) {
                for (int r = 0; r < this.getS(); r++) {
                    if (pBoard[c][r] != Block.EMPTY_BLOCK) {
-                       if (isShadow) {
-                           if ((x1 + c) >= 0 && (x1 + c) < Board.NUM_ROW) {
-                               if (y1 + r >= Board.NUM_COL ||
-                               board.getBoardValue(x1 + c, y1 + r) != Block.EMPTY_BLOCK) {
-                                   return true;
-                               }
-                           }
-                       }
-                       else {
-                           if ((x1 + c) >= 0 && (x1 + c) < Board.NUM_ROW) {
-                               if (y1 + r >= Board.NUM_COL ||
-                               board.getBoardValue(x1 + c, y1 + r) != Block.EMPTY_BLOCK) {
-                                   return true;
-                               }
+                       if ((x1 + c) >= 0 && (x1 + c) < Board.NUM_ROW) {
+                           if (y1 + r >= Board.NUM_COL ||
+                                   board.getBoardValue(x1 + c, y1 + r) != Block.EMPTY_BLOCK) {
+
+                               return true;
                            }
                        }
                    }
@@ -128,14 +138,14 @@ public class Piece {
             }
         }
 
-        if (!touchX(this.nPos.x, aux, board) && !touchY(this.nPos.y, this.nPos.x, aux, board, false)) {
+        if (!touchX(this.nPos.x, aux, board) && !touchY(this.nPos.y, this.nPos.x, aux, board)) {
            nBoard = aux;
            resetShadow(S);
            copyBoard(aux, sBoard, S);
            sSety();
            return true;
         }
-        else if (!touchX(this.nPos.x - 1, aux, board) && !touchY(this.nPos.y, this.nPos.x - 1, aux, board, false)) {
+        else if (!touchX(this.nPos.x - 1, aux, board) && !touchY(this.nPos.y, this.nPos.x - 1, aux, board)) {
             this.nPos.x--;
             this.sPos.x--;
             sBoard = aux;
@@ -144,7 +154,7 @@ public class Piece {
             sSety();
             return true;
         }
-        else if (!touchX(this.nPos.x + 1, aux, board) && !touchY(this.nPos.y, this.nPos.x + 1, aux, board, false)) {
+        else if (!touchX(this.nPos.x + 1, aux, board) && !touchY(this.nPos.y, this.nPos.x + 1, aux, board)) {
             this.sPos.x++;
             this.nPos.x++;
             sBoard = aux;
@@ -155,6 +165,7 @@ public class Piece {
         return false;
     }
 
+    //move the piece to the left
     public boolean goLeft(Board board) {
         if (!touchX(this.nPos.x-1, nBoard, board)) {
             this.sPos.x--;
@@ -165,7 +176,8 @@ public class Piece {
         return false;
     }
 
-    public boolean moveRight(Board board) {
+    //move the piece to the right
+    public boolean goRight(Board board) {
         if (!touchX(this.nPos.x+1, nBoard, board)) {
             this.sPos.x++;
             this.nPos.x++;
@@ -176,7 +188,7 @@ public class Piece {
     }
 
     public boolean goDown(Board board) {
-        if (!touchY(this.nPos.y+1, this.nPos.x, nBoard, board, false)) {
+        if (!touchY(this.nPos.y+1, this.nPos.x, nBoard, board)) {
             this.nPos.y++;
             return true;
         } else {
