@@ -71,7 +71,6 @@
         android:autoSizeTextType="uniform"
         android:background="@drawable/round_button"
         android:fontFamily="@font/lemon"
-        android:onClick="stopGame"
 
         android:text="Start"
         android:textColor="@android:color/white"

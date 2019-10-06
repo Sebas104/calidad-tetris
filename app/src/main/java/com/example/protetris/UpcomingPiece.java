@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import androidx.annotation.Nullable;
 
 import java.util.List;
 
@@ -32,14 +31,6 @@ public class UpcomingPiece extends View {
         this.board = board;
         pieces = board.getPieces();
         initPiecesView();
-    }
-
-    public UpcomingPiece(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public UpcomingPiece(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
     }
 
     public void initPiecesView() {

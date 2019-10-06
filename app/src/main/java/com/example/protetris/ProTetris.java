@@ -43,6 +43,19 @@ public class ProTetris extends AppCompatActivity {
         this.game.setLayoutParams(new RelativeLayout.LayoutParams(700, 1400));
         RelativeLayout gameBoard = findViewById(R.id.tetrisBoard);
         gameBoard.addView(this.game);
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (startButton.getText().equals("Start")) {
+                    startButton.setText("Pause");
+                    stop = false;
+                } else if (startButton.getText().equals("Pause")){
+                    startButton.setText("Start");
+                    stop = true;
+                }
+            }
+        });
     }
 
 
@@ -68,18 +81,6 @@ public class ProTetris extends AppCompatActivity {
 
     public void setStop(boolean stop) {
         this.stop = stop;
-    }
-
-
-    public void stopGame(View view) {
-        if (startButton.getText().equals("Start")) {
-            startButton.setText("Pause");
-            stop = false;
-        }
-        if (startButton.getText().equals("Pause")) {
-            startButton.setText("Start");
-            stop = true;
-        }
     }
 
     @Override

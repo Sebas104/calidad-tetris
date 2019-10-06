@@ -18,26 +18,37 @@ public class Piece extends Coordinates{
     protected static final int GREEN_BLOCK = 7; //Piece T
 
     protected static final int LENGTH = 3; //Tamaño de los array de las piezas, 4 por la pieza I
+    private static final int I_LENGTH = 4;
     protected int [][] pieceBoard; //Array de la pieza para el método rotar
-    protected Piece piece; //La propia pieza
     protected Coordinates coord = new Coordinates();
     private int tetromino; //El tipo de bloque
-
-    public Piece() {
-        this.pieceBoard = new int[LENGTH][LENGTH];
-        for (int col = 0; col < LENGTH; col++) {
-            for (int row = 0; row < LENGTH; row++) {
-                this.pieceBoard[col][row] = NO_BLOCK;
-            }
-        }
-    }
 
     //Al crear cada pieza se inicializan al principio del array tablero
     public Piece(int pieceType) {
 
+        if (pieceType == this.RED_BLOCK) { //La pieza I es un caso especial
+            this.pieceBoard = new int[I_LENGTH][I_LENGTH];
+            for (int col = 0; col < I_LENGTH; col++) {
+                for (int row = 0; row < I_LENGTH; row++) {
+                    this.pieceBoard[col][row] = NO_BLOCK;
+                }
+            }
+        } else {
+            this.pieceBoard = new int[LENGTH][LENGTH];
+            for (int col = 0; col < LENGTH; col++) {
+                for (int row = 0; row < LENGTH; row++) {
+                    this.pieceBoard[col][row] = NO_BLOCK;
+                }
+            }
+        }
+
         switch (pieceType) {
             case BLUE_BLOCK:
-                this.piece = new SPiece();
+                this.pieceBoard[1][0] = BLUE_BLOCK;
+                this.pieceBoard[0][1] = BLUE_BLOCK;
+                this.pieceBoard[1][1] = BLUE_BLOCK;
+                this.pieceBoard[0][2] = BLUE_BLOCK;
+
                 this.coord.setCoord1(1, 3);
                 this.coord.setCoord2(0, 4);
                 this.coord.setCoord3(1, 4);
@@ -46,7 +57,11 @@ public class Piece extends Coordinates{
                 break;
 
             case RED_BLOCK:
-                this.piece = new IPiece();
+                this.pieceBoard[2][0] = RED_BLOCK;
+                this.pieceBoard[2][1] = RED_BLOCK;
+                this.pieceBoard[2][2] = RED_BLOCK;
+                this.pieceBoard[2][3] = RED_BLOCK;
+
                 this.coord.setCoord1(0, 3);
                 this.coord.setCoord2(0, 4);
                 this.coord.setCoord3(0, 5);
@@ -55,7 +70,11 @@ public class Piece extends Coordinates{
                 break;
 
             case PURPLE_BLOCK:
-                this.piece = new JPiece();
+                this.pieceBoard[1][0] = PURPLE_BLOCK;
+                this.pieceBoard[2][0] = PURPLE_BLOCK;
+                this.pieceBoard[2][1] = PURPLE_BLOCK;
+                this.pieceBoard[2][2] = PURPLE_BLOCK;
+
                 this.coord.setCoord1(0, 3);
                 this.coord.setCoord2(1, 3);
                 this.coord.setCoord3(1, 4);
@@ -64,7 +83,6 @@ public class Piece extends Coordinates{
                 break;
 
             case BLUELIGHT_BLOCK:
-                this.piece = new OPiece();
                 this.coord.setCoord1(0, 4);
                 this.coord.setCoord2(1, 4);
                 this.coord.setCoord3(0, 5);
@@ -73,7 +91,11 @@ public class Piece extends Coordinates{
                 break;
 
             case YELLOW_BLOCK:
-                this.piece = new LPiece();
+                this.pieceBoard[2][0] = YELLOW_BLOCK;
+                this.pieceBoard[2][1] = YELLOW_BLOCK;
+                this.pieceBoard[2][2] = YELLOW_BLOCK;
+                this.pieceBoard[1][2] = YELLOW_BLOCK;
+
                 this.coord.setCoord1(1, 3);
                 this.coord.setCoord2(1, 4);
                 this.coord.setCoord3(0, 5);
@@ -82,7 +104,11 @@ public class Piece extends Coordinates{
                 break;
 
             case ORANGE_BLOCK:
-                this.piece = new ZPiece();
+                this.pieceBoard[1][0] = ORANGE_BLOCK;
+                this.pieceBoard[1][1] = ORANGE_BLOCK;
+                this.pieceBoard[2][1] = ORANGE_BLOCK;
+                this.pieceBoard[2][2] = ORANGE_BLOCK;
+
                 this.coord.setCoord1(0, 3);
                 this.coord.setCoord2(0, 4);
                 this.coord.setCoord3(1, 4);
@@ -91,7 +117,11 @@ public class Piece extends Coordinates{
                 break;
 
             case GREEN_BLOCK:
-                this.piece = new TPiece();
+                this.pieceBoard[2][0] = GREEN_BLOCK;
+                this.pieceBoard[1][1] = GREEN_BLOCK;
+                this.pieceBoard[2][1] = GREEN_BLOCK;
+                this.pieceBoard[2][2] = GREEN_BLOCK;
+
                 this.coord.setCoord1(1, 3);
                 this.coord.setCoord2(0, 4);
                 this.coord.setCoord3(1, 4);
@@ -117,7 +147,7 @@ public class Piece extends Coordinates{
 
     @Override
     public Point getCoord3() {
-        return this.coord.getCoord3();
+        return this.coord.coord3;
     }
 
     @Override
@@ -141,43 +171,74 @@ public class Piece extends Coordinates{
     public boolean rotatePiece(int [][] board, Coordinates newXY) {
 
         List<Point> newPoints = new LinkedList<>();
-        int aux [][] = new int[LENGTH][LENGTH];
 
-        for (int col = 0; col < LENGTH; col++) { //Se recorre primero las columnas
-            for (int row = 0; row < LENGTH; row++) {
-                aux[LENGTH - 1 - col][row] = this.piece.pieceBoard[row][col];
-                if (this.piece.pieceBoard[row][col] != NO_BLOCK) {
-                    //Hacemos si row = 2 y col = 0 se lo restamos a
-                    //las nuevas coordenadas que ha adquirido ese mismo bloque.
-                    Point point = new Point(((LENGTH - 1 - col) - row),(row - col));
-                    newPoints.add(point);
+        int aux [][] = new int[LENGTH][LENGTH];
+        int auxI [][] = new int[I_LENGTH][I_LENGTH];
+
+        if (this.tetromino == this.BLUELIGHT_BLOCK) { //Pieza O
+            return false;
+        }
+        else if (this.tetromino == this.RED_BLOCK) {
+            for (int col = 0; col < I_LENGTH; col++) { //Se recorre primero las columnas
+                for (int row = 0; row < I_LENGTH; row++) {
+                    auxI[I_LENGTH - 1 - col][row] = this.pieceBoard[row][col];
+                    if (this.pieceBoard[row][col] != NO_BLOCK) {
+                        //Hacemos si row = 2 y col = 0 se lo restamos a
+                        //las nuevas coordenadas que ha adquirido ese mismo bloque.
+                        Point point = new Point(((I_LENGTH - 1 - col) - row), (row - col));
+                        newPoints.add(point);
+                    }
+                }
+            }
+        } else {
+            for (int col = 0; col < LENGTH; col++) { //Se recorre primero las columnas
+                for (int row = 0; row < LENGTH; row++) {
+                    aux[LENGTH - 1 - col][row] = this.pieceBoard[row][col];
+                    if (this.pieceBoard[row][col] != NO_BLOCK) {
+                        //Hacemos si row = 2 y col = 0 se lo restamos a
+                        //las nuevas coordenadas que ha adquirido ese mismo bloque.
+                        Point point = new Point(((LENGTH - 1 - col) - row), (row - col));
+                        newPoints.add(point);
+                    }
                 }
             }
         }
 
-        Point p1 = newPoints.remove(0);
-        newXY.getCoord1().x = this.coord.getCoord1().x + p1.x;
-        newXY.getCoord1().y = this.coord.getCoord1().y + p1.y;
+            Point p1 = newPoints.remove(0);
+            newXY.getCoord1().x = this.coord.getCoord1().x + p1.x;
+            newXY.getCoord1().y = this.coord.getCoord1().y + p1.y;
 
-        Point p2 = newPoints.remove(0);
-        newXY.getCoord2().x = this.coord.getCoord2().x + p2.x;
-        newXY.getCoord2().y = this.coord.getCoord2().y + p2.y;
+            Point p2 = newPoints.remove(0);
+            newXY.getCoord2().x = this.coord.getCoord2().x + p2.x;
+            newXY.getCoord2().y = this.coord.getCoord2().y + p2.y;
 
 
-        Point p3 = newPoints.remove(0);
-        newXY.getCoord3().x = this.coord.getCoord3().x + p3.x;
-        newXY.getCoord3().y = this.coord.getCoord3().y + p3.y;
+            Point p3 = newPoints.remove(0);
+            newXY.getCoord3().x = this.coord.getCoord3().x + p3.x;
+            newXY.getCoord3().y = this.coord.getCoord3().y + p3.y;
 
-        Point p4 = newPoints.remove(0);
-        newXY.getCoord4().x = this.coord.getCoord4().x + p4.x;
-        newXY.getCoord4().y = this.coord.getCoord4().y + p4.y;
+            Point p4 = newPoints.remove(0);
+            newXY.getCoord4().x = this.coord.getCoord4().x + p4.x;
+            newXY.getCoord4().y = this.coord.getCoord4().y + p4.y;
 
-        if  (checkCollision(board, newXY)) {
-            return false;
-        }
+            if (checkCollision(board, newXY)) {
+                return false;
+            }
 
-        this.piece.pieceBoard = aux; //Guardamos la rotación de la pieza
-        return true;
+            if (this.tetromino == this.RED_BLOCK) { //Pieza I
+                for (int row = 0; row < this.I_LENGTH; row++) {
+                    for (int col = 0; col < this.I_LENGTH; col++) {
+                        this.pieceBoard[row][col] = auxI[row][col];
+                    }
+                }
+            } else {
+                for (int row = 0; row < this.LENGTH; row++) {
+                    for (int col = 0; col < this.LENGTH; col++) {
+                        this.pieceBoard[row][col] = aux[row][col];
+                    }
+                }
+            }
+            return true;
     }
 
 
@@ -197,10 +258,10 @@ public class Piece extends Coordinates{
         int count = 0;
 
         for (Point point: newPoints) {
-            if (this.coord.coord1.equals(point) || this.coord.equals(point) || this.coord.equals(point)) {
+            if (this.coord.coord1.equals(point) || this.coord.coord2.equals(point) || this.coord.coord3.equals(point) || this.coord.coord4.equals(point)) {
                 count++;
             }
-            else if (point.x < board.length && point.y > -1 &&
+            else if (point.x < board.length && point.x > -1 && point.y > -1 &&
                     board[0].length > point.y) {
                 if (board[point.x][point.y] == NO_BLOCK) {
                     count++;

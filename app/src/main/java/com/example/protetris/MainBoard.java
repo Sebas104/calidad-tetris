@@ -82,7 +82,7 @@ public class MainBoard {
     public int drawBlocks(int row, int col) {
         switch (board[row][col]) {
             case EMPTY:
-                return Color.parseColor("#30272A");
+                return Color.parseColor("#FFFFFF");//#30272A
             case S_PIECE:
                 return Color.parseColor("#0087FC");
             case I_PIECE:

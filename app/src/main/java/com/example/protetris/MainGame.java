@@ -24,7 +24,7 @@ public class MainGame extends View implements View.OnClickListener {
     private Timer timer;
     private List<Piece> pieces;
     private UpcomingPiece upcomingPiece;
-    private int timerPeriod = 250;
+    private int timerPeriod;
     private boolean stop;
 
     public MainGame(Context context, UpcomingPiece upcomingPiece, MainBoard mainBoard) {
@@ -32,6 +32,7 @@ public class MainGame extends View implements View.OnClickListener {
         this.timer = new Timer();
         this.proTetris = (ProTetris) context;
         this.upcomingPiece = upcomingPiece;
+        this.timerPeriod = 1000; //La pieza baja cada segundo
         score = new Score();
         this.mainBoard = mainBoard;
         this.stop = proTetris.getStop();
@@ -63,8 +64,7 @@ public class MainGame extends View implements View.OnClickListener {
                                 Piece actualPiece = mainBoard.getActualPiece();
                                 pieces.remove(actualPiece);
 
-                                Piece newPiece = new Piece((int) (Math.random() * 7) + 1);
-                                pieces.add(newPiece);
+                                pieces.add(new Piece((int) (Math.random() * 7) + 1));
 
                                 upcomingPiece.invalidate();
 
@@ -107,9 +107,11 @@ public class MainGame extends View implements View.OnClickListener {
                     break;
                 case R.id.leftButton:
                     mainBoard.moveToLeft(mainBoard.getActualPiece());
+                    invalidate();
                     break;
                 case R.id.rightButton:
                     mainBoard.moveToRight(mainBoard.getActualPiece());
+                    invalidate();
                     break;
             }
         }

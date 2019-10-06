@@ -6,6 +6,10 @@ public class Score {
 
     private int actualScore;
 
+    public void Score() {
+        this.actualScore = 0;
+    }
+
     //Clase creada para futuras implementaciones (Ej HighScore)
 
 
