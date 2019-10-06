@@ -82,7 +82,7 @@ public class MainBoard {
     public int drawBlocks(int row, int col) {
         switch (board[row][col]) {
             case EMPTY:
-                return Color.parseColor("#FFFFFF");//#30272A
+                return Color.parseColor("#30272A");
             case S_PIECE:
                 return Color.parseColor("#0087FC");
             case I_PIECE:
@@ -140,11 +140,11 @@ public class MainBoard {
 
 
     public void rotate(Piece actualPiece) {
-        Coordinates newXY = new Coordinates();
-        if ((actualPiece.rotatePiece(this.board, newXY))) {
+        Piece checkPiece = new Piece(actualPiece);
+        if ((actualPiece.rotatePiece(this.board, checkPiece.coord))) {
             removePiece(actualPiece, this.board);
-            actualPiece.updateAfterRotate(newXY);
-            addPiece(actualPiece, this.board);
+            addPiece(checkPiece, this.board);
+            actualPiece.updateAfterRotate(this.board, checkPiece.coord);
         }
     }
 

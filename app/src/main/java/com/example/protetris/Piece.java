@@ -20,11 +20,18 @@ public class Piece extends Coordinates{
     protected static final int LENGTH = 3; //Tamaño de los array de las piezas, 4 por la pieza I
     private static final int I_LENGTH = 4;
     protected int [][] pieceBoard; //Array de la pieza para el método rotar
-    protected Coordinates coord = new Coordinates();
+    protected Coordinates coord;
     private int tetromino; //El tipo de bloque
+
+    public Piece(Piece sourcePiece) {
+        this.coord = new Coordinates();
+        this.tetromino = sourcePiece.tetromino;
+    }
 
     //Al crear cada pieza se inicializan al principio del array tablero
     public Piece(int pieceType) {
+
+        this.coord = new Coordinates();
 
         if (pieceType == this.RED_BLOCK) { //La pieza I es un caso especial
             this.pieceBoard = new int[I_LENGTH][I_LENGTH];
@@ -241,13 +248,6 @@ public class Piece extends Coordinates{
             return true;
     }
 
-
-
-    /*
-    A la hora de comprobar si la pieza puede actualizar su posicion, con el tablero de comprobacion
-    sin la pieza y con las coordenadas anteriores almacendas y actualizadas sus coordenadas
-    podemos ver si no hay colision tanto con otras piezas o se salga del tablero.
-     */
     public boolean checkCollision(int [][] board, Coordinates newXY) {
         List<Point> newPoints = new ArrayList<>();
         newPoints.add(newXY.coord1);
@@ -288,10 +288,46 @@ public class Piece extends Coordinates{
         return newXY;
     }
 
-    public void updateAfterRotate(Coordinates newXY) {
-        this.coord.setCoord1(newXY.getCoord1().x, newXY.getCoord1().y);
-        this.coord.setCoord2(newXY.getCoord2().x, newXY.getCoord2().y);
-        this.coord.setCoord3(newXY.getCoord3().x, newXY.getCoord3().y);
-        this.coord.setCoord4(newXY.getCoord4().x, newXY.getCoord4().y);
+    /*
+    Para realizar este método comprobamos recorriendo primero por columnas para actualizar por esas
+    coordenadas primero, que sea del mismo tipo de pieza y que ademas con la ayuda de newXY que no sea una
+    pieza del mismo tipo pero que no sea la pieza que nos interesa guardar.
+     */
+
+    public void updateAfterRotate(int [][] board, Coordinates newXY) {
+
+        List<Integer> newPointsX = new LinkedList<>();
+        List<Integer> newPointsY = new LinkedList<>();
+
+        for (int col = 0; col < board[0].length; col++) {
+            for (int row = 0; row < board.length; row ++) {
+                if (this.tetromino == board[row][col]) {
+                    if (newXY.coord1.equals(row, col) || newXY.coord2.equals(row, col) || newXY.coord3.equals(row, col) || newXY.coord4.equals(row, col)) {
+                        newPointsX.add(row);
+                        newPointsY.add(col);
+                    }
+                }
+            }
+        }
+
+        int x1 = newPointsX.remove(0);
+        int y1 = newPointsY.remove(0);
+        this.coord.getCoord1().x = x1;
+        this.coord.getCoord1().y = y1;
+
+        int x2 = newPointsX.remove(0);
+        int y2 = newPointsY.remove(0);
+        this.coord.getCoord2().x = x2;
+        this.coord.getCoord2().y = y2;
+
+        int x3 = newPointsX.remove(0);
+        int y3 = newPointsY.remove(0);
+        this.coord.getCoord3().x = x3;
+        this.coord.getCoord3().y = y3;
+
+        int x4 = newPointsX.remove(0);
+        int y4 = newPointsY.remove(0);
+        this.coord.getCoord4().x = x4;
+        this.coord.getCoord4().y = y4;
     }
 }

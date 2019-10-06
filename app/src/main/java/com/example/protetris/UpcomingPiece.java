@@ -46,8 +46,8 @@ public class UpcomingPiece extends View {
 
     public void loadNextPiece(int k, Drawable piece) {
         //ARGB_8888: cada pixel es almacenado en 4 bytes.
-        Bitmap bitmap = Bitmap.createBitmap(130, 130, Bitmap.Config.ARGB_8888);
-        piece.setBounds(0,0,130,130);
+        Bitmap bitmap = Bitmap.createBitmap(140, 140, Bitmap.Config.ARGB_8888);
+        piece.setBounds(0,0,140,140);
         Canvas canvas = new Canvas(bitmap);
         piece.draw(canvas);
         nextPieceArray[k] = bitmap;

@@ -60,6 +60,7 @@ public class MainGame extends View implements View.OnClickListener {
                         if (!gameOver() && !proTetris.getStop()) {
                             if (!mainBoard.moveOneDown(mainBoard.getActualPiece())) {
                                 int rowsRemoved = mainBoard.removeCompleteLines();
+                                mainBoard.removeCompleteLines();
 
                                 Piece actualPiece = mainBoard.getActualPiece();
                                 pieces.remove(actualPiece);
@@ -68,11 +69,11 @@ public class MainGame extends View implements View.OnClickListener {
 
                                 upcomingPiece.invalidate();
 
-                                if (rowsRemoved > 0) {
+                                if (rowsRemoved > 0) { //Si se han borrado líneas, se aumenta el marcador +30 por cada una.
                                     score.setActualScore(score.getActualScore() + rowsRemoved*30);
                                     int points = score.getActualScore();
 
-                                    actualPoints.setText(points);
+                                    actualPoints.setText(Integer.toString(points));
                                 }
                             }
                             invalidate();
