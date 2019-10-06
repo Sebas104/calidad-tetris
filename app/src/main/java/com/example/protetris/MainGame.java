@@ -3,7 +3,9 @@ package com.example.protetris;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,7 +62,6 @@ public class MainGame extends View implements View.OnClickListener {
                         if (!gameOver() && !proTetris.getStop()) {
                             if (!mainBoard.moveOneDown(mainBoard.getActualPiece())) {
                                 int rowsRemoved = mainBoard.removeCompleteLines();
-                                mainBoard.removeCompleteLines();
 
                                 Piece actualPiece = mainBoard.getActualPiece();
                                 pieces.remove(actualPiece);
@@ -92,8 +93,13 @@ public class MainGame extends View implements View.OnClickListener {
         for (int row = 0; row < mainBoard.getBOARD_NUM_ROWS(); row++) {
             for (int col = 0; col < mainBoard.getBOARD_NUM_COLS(); col++) {
                 int blocks = mainBoard.drawBlocks(row, col);
+                paint.setStyle(Paint.Style.FILL);
                 paint.setColor(blocks);
-                canvas.drawRect(col*48, row*55, col*48 + 48, row*55 + 55, paint);
+                Rect rect = new Rect(col*48, row*55, col*48 + 48, row*55 + 55);
+                canvas.drawRect(rect, paint);
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setColor(Color.BLACK);
+                canvas.drawRect(rect, paint);
             }
         }
     }

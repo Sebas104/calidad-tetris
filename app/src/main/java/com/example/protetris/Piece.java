@@ -8,19 +8,19 @@ import java.util.List;
 
 public class Piece extends Coordinates{
 
-    protected static final int NO_BLOCK = 0;
-    protected static final int BLUE_BLOCK = 1; //Piece S
-    protected static final int RED_BLOCK = 2; //Piece I
-    protected static final int PURPLE_BLOCK = 3; //Piece J
-    protected static final int BLUELIGHT_BLOCK = 4; //Piece O
-    protected static final int YELLOW_BLOCK = 5; //Piece L
-    protected static final int ORANGE_BLOCK = 6; //Piece Z
-    protected static final int GREEN_BLOCK = 7; //Piece T
+    static final int NO_BLOCK = 0;
+    static final int BLUE_BLOCK = 1; //Piece S
+    static final int RED_BLOCK = 2; //Piece I
+    static final int PURPLE_BLOCK = 3; //Piece J
+    static final int BLUELIGHT_BLOCK = 4; //Piece O
+    static final int YELLOW_BLOCK = 5; //Piece L
+    static final int ORANGE_BLOCK = 6; //Piece Z
+    static final int GREEN_BLOCK = 7; //Piece T
 
-    protected static final int LENGTH = 3; //Tamaño de los array de las piezas, 4 por la pieza I
+    private static final int LENGTH = 3; //Tamaño de los array de las piezas, 4 por la pieza I
     private static final int I_LENGTH = 4;
-    protected int [][] pieceBoard; //Array de la pieza para el método rotar
-    protected Coordinates coord;
+    private int [][] pieceBoard; //Array de la pieza para el método rotar
+    Coordinates coord;
     private int tetromino; //El tipo de bloque
 
     public Piece(Piece sourcePiece) {
