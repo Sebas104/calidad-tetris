@@ -45,10 +45,10 @@ public class MainGame extends View implements View.OnClickListener {
         this.rotateButton = proTetris.getRotateButton();
         this.leftButton = proTetris.getLeftButton();
         this.rightButton = proTetris.getRightButton();
-
         this.rotateButton.setOnClickListener(this);
         this.leftButton.setOnClickListener(this);
         this.rightButton.setOnClickListener(this);
+
         startGame();
     }
 
@@ -59,25 +59,29 @@ public class MainGame extends View implements View.OnClickListener {
                 proTetris.runOnUiThread(new TimerTask() {
                     @Override
                     public void run() {
-                        if (!gameOver() && !proTetris.getStop()) {
-                            if (!mainBoard.moveOneDown(mainBoard.getActualPiece())) {
-                                int rowsRemoved = mainBoard.removeCompleteLines();
+                        if (!proTetris.getStop()) {
 
-                                Piece actualPiece = mainBoard.getActualPiece();
-                                pieces.remove(actualPiece);
+                            if (!gameOver()) {
 
-                                pieces.add(new Piece((int) (Math.random() * 7) + 1));
+                                if (!mainBoard.moveOneDown(mainBoard.getActualPiece())) {
+                                    int rowsRemoved = mainBoard.removeCompleteLines();
 
-                                upcomingPiece.invalidate();
+                                    Piece actualPiece = mainBoard.getActualPiece();
+                                    pieces.remove(actualPiece);
 
-                                if (rowsRemoved > 0) { //Si se han borrado líneas, se aumenta el marcador +30 por cada una.
-                                    score.setActualScore(score.getActualScore() + rowsRemoved*30);
-                                    int points = score.getActualScore();
+                                    pieces.add(new Piece((int) (Math.random() * 7) + 1));
 
-                                    actualPoints.setText(Integer.toString(points));
+                                    upcomingPiece.invalidate();
+
+                                    if (rowsRemoved > 0) { //Si se han borrado líneas, se aumenta el marcador +30 por cada una.
+                                        score.setActualScore(score.getActualScore() + rowsRemoved * 30);
+                                        int points = score.getActualScore();
+
+                                        actualPoints.setText(Integer.toString(points));
+                                    }
                                 }
+                                invalidate();
                             }
-                            invalidate();
                         }
                     }
                 });

@@ -32,7 +32,7 @@ public class ProTetris extends AppCompatActivity {
         this.rightButton = findViewById(R.id.rightButton);
         this.actualPoints =  findViewById(R.id.textScore);
         this.startButton = findViewById(R.id.start);
-        this.stop = true;
+        stop = true;
 
         this.upcomingPiece = new UpcomingPiece(this, mainBoard);
         this.upcomingPiece.setLayoutParams(new RelativeLayout.LayoutParams(150,150));
@@ -76,7 +76,7 @@ public class ProTetris extends AppCompatActivity {
     }
 
     public boolean getStop() {
-        return this.stop;
+        return stop;
     }
 
     public void setStop(boolean stop) {
@@ -86,8 +86,15 @@ public class ProTetris extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        this.stop = true;
+        stop = true;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        stop = true;
+    }
+
 
     @Override
     public void onDestroy() {
