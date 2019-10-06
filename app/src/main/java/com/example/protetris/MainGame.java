@@ -133,7 +133,7 @@ public class MainGame extends View implements View.OnClickListener {
             //Mostrar game over
             Intent intent = new Intent(this.getContext(), GameOver.class);
             getContext().startActivity(intent);
-
+            proTetris.finish();
             return true;
         }
         return false;

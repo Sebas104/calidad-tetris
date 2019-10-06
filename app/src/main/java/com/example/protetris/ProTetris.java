@@ -47,11 +47,11 @@ public class ProTetris extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (startButton.getText().equals("Start")) {
+                if (startButton.getText().equals("Start") || startButton.getText().equals("Resume")) {
                     startButton.setText("Pause");
                     stop = false;
                 } else if (startButton.getText().equals("Pause")){
-                    startButton.setText("Start");
+                    startButton.setText("Resume");
                     stop = true;
                 }
             }

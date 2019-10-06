@@ -72,7 +72,7 @@ public class MainBoard {
 
     public boolean checkGameOver(Piece actualPiece) {
         if (!moveOneDown(actualPiece) &&
-                actualPiece.getMinX(actualPiece.coord) < 0) {
+                actualPiece.getMinX(actualPiece.coord) < 2) {
             return true;
         }
         return false;
