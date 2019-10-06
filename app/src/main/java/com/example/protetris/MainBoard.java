@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MainBoard {
 
-    //Constants and variables
+    //Constantes y variables
     private static final int EMPTY = 0;
     private static final int S_PIECE = 1;
     private static final int I_PIECE = 2;

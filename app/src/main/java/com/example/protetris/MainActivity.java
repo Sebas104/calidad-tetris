@@ -10,18 +10,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Call splash screen
+        //Con setTheme invocamos lo que es el splash screen
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
     }
 
+    //Boton de Play
     public void startGame(View view) {
         Intent intent = new Intent(this,ProTetris.class);
         startActivity(intent);
     }
 
+    //Boton de Exit
     public void exitGame(View view) {
         finish();
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //Boton de Controls
     public void enterControls(View view) {
         Intent intent = new Intent(this, Controls.class);
         startActivity(intent);
