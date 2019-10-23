@@ -179,4 +179,16 @@ public class MainBoard {
         }
         return false;
     }
+
+    public void moveDown(Piece actualPiece) {
+        Piece newPosition = new Piece(actualPiece);
+        newPosition.coord = actualPiece.copyCoord(actualPiece.coord);
+        newPosition.moveCoord(1, 0);
+        while (!actualPiece.checkCollision(this.board, newPosition.coord)) {
+            removePiece(actualPiece, this.board);
+            addPiece(newPosition, this.board);
+            newPosition.coord.updateCoord(1, 0);
+            actualPiece.moveCoord(1, 0);
+        }
+    }
 }

@@ -21,13 +21,13 @@ public class MainGame extends View implements View.OnClickListener {
     private ImageView rotateButton;
     private ImageView leftButton;
     private ImageView rightButton;
+    private ImageView downButton;
     private TextView actualPoints;
     private Score score;
     private Timer timer;
     private List<Piece> pieces;
     private UpcomingPiece upcomingPiece;
     private int timerPeriod;
-    private boolean stop;
 
     public MainGame(Context context, UpcomingPiece upcomingPiece, MainBoard mainBoard) {
         super(context);
@@ -37,7 +37,6 @@ public class MainGame extends View implements View.OnClickListener {
         this.timerPeriod = 1000; //La pieza baja cada segundo
         score = new Score();
         this.mainBoard = mainBoard;
-        this.stop = proTetris.getStop();
         this.pieces = mainBoard.getPieces();
         this.actualPoints = proTetris.getPoints();
         this.actualPoints.append("0");
@@ -45,9 +44,11 @@ public class MainGame extends View implements View.OnClickListener {
         this.rotateButton = proTetris.getRotateButton();
         this.leftButton = proTetris.getLeftButton();
         this.rightButton = proTetris.getRightButton();
+        this.downButton = proTetris.getDownButton();
         this.rotateButton.setOnClickListener(this);
         this.leftButton.setOnClickListener(this);
         this.rightButton.setOnClickListener(this);
+        this.downButton.setOnClickListener(this);
 
         startGame();
     }
@@ -122,6 +123,10 @@ public class MainGame extends View implements View.OnClickListener {
                     break;
                 case R.id.rightButton:
                     mainBoard.moveToRight(mainBoard.getActualPiece());
+                    invalidate();
+                    break;
+                case R.id.downButton:
+                    mainBoard.moveDown(mainBoard.getActualPiece());
                     invalidate();
                     break;
             }

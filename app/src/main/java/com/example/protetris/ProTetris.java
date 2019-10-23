@@ -13,6 +13,7 @@ public class ProTetris extends AppCompatActivity {
     private ImageView rotateButton;
     private ImageView leftButton;
     private ImageView rightButton;
+    private ImageView downButton;
     private TextView actualPoints;
     private boolean stop;
     private Button startButton;
@@ -30,6 +31,7 @@ public class ProTetris extends AppCompatActivity {
         this.rotateButton = findViewById(R.id.rotateButton);
         this.leftButton = findViewById(R.id.leftButton);
         this.rightButton = findViewById(R.id.rightButton);
+        this.downButton = findViewById(R.id.downButton);
         this.actualPoints =  findViewById(R.id.textScore);
         this.startButton = findViewById(R.id.start);
         stop = true;
@@ -69,6 +71,10 @@ public class ProTetris extends AppCompatActivity {
 
     public ImageView getRotateButton() {
         return rotateButton;
+    }
+
+    public ImageView getDownButton() {
+        return downButton;
     }
 
     public TextView getPoints() {
