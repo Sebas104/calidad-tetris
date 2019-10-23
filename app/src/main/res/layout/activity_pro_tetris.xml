@@ -1,133 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    tools:context=".ProTetris"
-    android:background="@drawable/tetris_bg"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/tetris_bg"
+    tools:context=".ProTetris">
 
     <ImageView
-        android:layout_height="60dp"
+        android:id="@+id/leftButton"
         android:layout_width="60dp"
-        app:srcCompat="@drawable/left"
-        app:layout_constraintVertical_bias="0.101"
+        android:layout_height="60dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rightButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.92"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:clickable="true"
-        android:id="@+id/leftButton"/>
+        app:layout_constraintVertical_bias="0.101"
+        app:srcCompat="@drawable/left" />
 
     <ImageView
-        android:layout_height="60dp"
-        android:layout_width="60dp"
-        app:srcCompat="@drawable/right"
-        app:layout_constraintVertical_bias="0.527"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.92"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:clickable="true"
         android:id="@+id/rightButton"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <ImageView
-        android:layout_height="60dp"
         android:layout_width="60dp"
-        app:srcCompat="@drawable/down"
-        app:layout_constraintTop_toBottomOf="@+id/leftButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.92"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/downButton"
-        android:layout_marginTop="22dp"/>
-
-    <ImageView
         android:layout_height="60dp"
-        android:layout_width="60dp"
-        app:srcCompat="@drawable/rotate"
-        app:layout_constraintVertical_bias="0.908"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.92"
-        app:layout_constraintEnd_toEndOf="parent"
         android:clickable="true"
-        android:id="@+id/rotateButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/rightButton"/>
+        app:layout_constraintVertical_bias="0.527"
+        app:srcCompat="@drawable/right" />
+
+    <ImageView
+        android:id="@+id/downButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/leftButton"
+        app:srcCompat="@drawable/down" />
+
+    <ImageView
+        android:id="@+id/rotateButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/rightButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.908"
+        app:srcCompat="@drawable/rotate" />
+
+    <RelativeLayout
+        android:id="@+id/pieceView"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.22000003" />
 
     <TextView
-        android:layout_height="29dp"
-        android:layout_width="37dp"
-        app:layout_constraintVertical_bias="0.294"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.986"
-        app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/textScore"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/rotateButton"
-        android:textSize="17sp"
-        android:textColorHint="#D8CBA3"
-        android:textColor="#D8CBA3"
-        android:text=""
-        android:gravity="center"
+        android:layout_width="37dp"
+        android:layout_height="29dp"
+        android:autoSizeTextType="uniform"
         android:fontFamily="@font/bangers"
-        android:autoSizeTextType="uniform"/>
-
-    <RelativeLayout
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintTop_toBottomOf="@+id/textScore"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/pieceView"
-        android:layout_marginTop="90dp"
-        app:layout_constraintBottom_toTopOf="@+id/rotateButton"
         android:gravity="center"
-        android:layout_marginBottom="35dp"
-        android:layout_marginEnd="25dp">
-    </RelativeLayout>
+        android:text=""
+        android:textColor="#D8CBA3"
+        android:textColorHint="#D8CBA3"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@+id/rotateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.986"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.294" />
 
     <Button
-        android:background="@drawable/round_button"
-        android:layout_height="44dp"
-        android:layout_width="78dp"
-        app:layout_constraintVertical_bias="0.934"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.96"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/start"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="16sp"
-        android:textColor="@android:color/white"
-        android:text="Start" android:fontFamily="@font/lemon"
+        android:layout_width="78dp"
+        android:layout_height="44dp"
         android:autoSizeTextType="uniform"
-        android:textStyle="bold"/>
+        android:background="@drawable/round_button"
+        android:fontFamily="@font/lemon"
+        android:text="Start"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.934" />
 
     <RelativeLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        app:layout_constraintVertical_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/tetrisBoard"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="70dp"
-        android:layout_marginBottom="20dp"
         android:layout_marginEnd="110dp"
-        android:layout_marginStart="10dp">
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.51">
+
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.Group
-        android:layout_height="wrap_content"
+        android:id="@+id/group"
         android:layout_width="wrap_content"
-        android:id="@+id/group"/>
+        android:layout_height="wrap_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

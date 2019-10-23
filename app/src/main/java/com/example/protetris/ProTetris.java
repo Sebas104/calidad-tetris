@@ -37,12 +37,10 @@ public class ProTetris extends AppCompatActivity {
         stop = true;
 
         this.upcomingPiece = new UpcomingPiece(this, mainBoard);
-        this.upcomingPiece.setLayoutParams(new RelativeLayout.LayoutParams(150,150));
-        RelativeLayout relativeLayout = findViewById(R.id.pieceView);
-        relativeLayout.addView(upcomingPiece);
+        RelativeLayout nextPiece = findViewById(R.id.pieceView);
+        nextPiece.addView(upcomingPiece);
 
         this.game = new MainGame(this, this.upcomingPiece, this.mainBoard);
-        this.game.setLayoutParams(new RelativeLayout.LayoutParams(700, 1400));
         RelativeLayout gameBoard = findViewById(R.id.tetrisBoard);
         gameBoard.addView(this.game);
 

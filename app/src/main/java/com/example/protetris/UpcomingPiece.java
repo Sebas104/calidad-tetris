@@ -46,8 +46,8 @@ public class UpcomingPiece extends View {
 
     public void loadNextPiece(int k, Drawable piece) {
         //ARGB_8888: cada pixel es almacenado en 4 bytes.
-        Bitmap bitmap = Bitmap.createBitmap(140, 140, Bitmap.Config.ARGB_8888);
-        piece.setBounds(0,0,140,140);
+        Bitmap bitmap = Bitmap.createBitmap(150, 150, Bitmap.Config.ARGB_8888);
+        piece.setBounds(0,0,150,150);
         Canvas canvas = new Canvas(bitmap);
         piece.draw(canvas);
         nextPieceArray[k] = bitmap;
@@ -62,25 +62,25 @@ public class UpcomingPiece extends View {
 
             switch (piece.getTetromino()) {
                 case 1:
-                    canvas.drawBitmap(nextPieceArray[Piece.BLUE_BLOCK], 20, 20, draw);
+                    canvas.drawBitmap(nextPieceArray[Piece.BLUE_BLOCK], 25, 0, draw);
                     break;
                 case 2:
-                    canvas.drawBitmap(nextPieceArray[Piece.RED_BLOCK], 20, 20, draw);
+                    canvas.drawBitmap(nextPieceArray[Piece.RED_BLOCK], 25, 0, draw);
                     break;
                 case 3:
-                    canvas.drawBitmap(nextPieceArray[Piece.PURPLE_BLOCK], 20, 20, draw);
+                    canvas.drawBitmap(nextPieceArray[Piece.PURPLE_BLOCK], 25, 0, draw);
                     break;
                 case 4:
-                    canvas.drawBitmap(nextPieceArray[Piece.BLUELIGHT_BLOCK], 20, 20, draw);
+                    canvas.drawBitmap(nextPieceArray[Piece.BLUELIGHT_BLOCK], 25, 0, draw);
                     break;
                 case 5:
-                    canvas.drawBitmap(nextPieceArray[Piece.YELLOW_BLOCK], 20, 20, draw);
+                    canvas.drawBitmap(nextPieceArray[Piece.YELLOW_BLOCK], 25, 0, draw);
                     break;
                 case 6:
-                    canvas.drawBitmap(nextPieceArray[Piece.ORANGE_BLOCK], 20, 20, draw);
+                    canvas.drawBitmap(nextPieceArray[Piece.ORANGE_BLOCK], 25, 0, draw);
                     break;
                 case 7:
-                    canvas.drawBitmap(nextPieceArray[Piece.GREEN_BLOCK], 20, 20, draw);
+                    canvas.drawBitmap(nextPieceArray[Piece.GREEN_BLOCK], 25, 0, draw);
                     break;
             }
         }

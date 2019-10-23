@@ -2,7 +2,6 @@ package com.example.protetris;
 
 
 import android.graphics.Color;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,6 +24,8 @@ public class MainBoard {
     private final int FIRST = 0; //Para coger la primera pieza del LinkedList de pieces
 
     private List<Piece> pieces = new LinkedList<>();
+
+    private int actualRows = BOARD_NUM_ROWS;
 
     private int board[][]; //Tablero del juego
 
@@ -50,6 +51,10 @@ public class MainBoard {
         return this.BOARD_NUM_COLS;
     }
 
+    public int getActualRows() {
+        return this.actualRows;
+    }
+
     public List<Piece> getPieces() {
         return pieces;
     }
@@ -63,7 +68,7 @@ public class MainBoard {
     }
 
     public void resetBoard(int [][] board) {
-        for (int row = 0; row < BOARD_NUM_ROWS; row++) {
+        for (int row = 0; row < actualRows; row++) {
             for (int col = 0; col < BOARD_NUM_COLS; col++) {
                 board[row][col] = 0; //Inicializa el tablero
             }
@@ -71,7 +76,9 @@ public class MainBoard {
     }
 
     public boolean checkGameOver(Piece actualPiece) {
-        if (!moveOneDown(actualPiece) &&
+        Coordinates newXY = actualPiece.copyCoord(actualPiece.coord);
+        newXY.updateCoord(1, 0);
+        if (actualPiece.checkCollision(this.board,newXY) &&
                 actualPiece.getMinX(actualPiece.coord) < 2) {
             return true;
         }
@@ -82,7 +89,7 @@ public class MainBoard {
     public int drawBlocks(int row, int col) {
         switch (board[row][col]) {
             case EMPTY:
-                return Color.parseColor("#30272A");
+                return Color.parseColor("#0030272A");
             case S_PIECE:
                 return Color.parseColor("#0087FC");
             case I_PIECE:
@@ -99,13 +106,13 @@ public class MainBoard {
                 return Color.parseColor("#03DF04");
 
         }
-        return Color.parseColor("#30272A");
+        return Color.parseColor("#0030272A");
     }
 
     public int removeCompleteLines() {
         int linesToRemove = 0;
 
-        for (int row = 0; row < BOARD_NUM_ROWS; row++) {
+        for (int row = 0; row < actualRows; row++) {
             int rowComplete = 0;
             for (int col = 0; col < BOARD_NUM_COLS; col++) {
                 if (this.board[row][col] > 0) {
@@ -190,5 +197,54 @@ public class MainBoard {
             newPosition.coord.updateCoord(1, 0);
             actualPiece.moveCoord(1, 0);
         }
+    }
+
+    public void reduceBoard() {
+
+        Piece actualPiece = this.getActualPiece();
+
+        Coordinates newXY = actualPiece.copyCoord(actualPiece.coord);
+        newXY.updateCoord(2, 0);
+
+        //Pieza en la fila 0 del tablero
+        if (actualPiece.getCoord1().x == 0 || actualPiece.getCoord2().x == 0 || actualPiece.getCoord3().x == 0 || actualPiece.getCoord4().x == 0) {
+            if (!actualPiece.checkCollision(this.board, newXY)) {
+                actualPiece.moveCoord(1,0);
+            }
+        }
+
+        //Pieza en la fila 1 del tablero
+        if (actualPiece.getCoord1().x == 1 || actualPiece.getCoord2().x == 1 || actualPiece.getCoord3().x == 1 || actualPiece.getCoord4().x == 1) {
+            if (!actualPiece.checkCollision(this.board, newXY)) {
+                actualPiece.moveCoord(1,0);
+            }
+        }
+
+        //Reducimos las filas del tablero en 2
+        this.actualRows = this.actualRows - 2;
+
+        //Proceso para actualizar el tablero con dos filas menos
+        int [][] newBoard = new int[actualRows][BOARD_NUM_COLS];
+
+        for (int row = 2; row < this.board.length; row++) {
+            System.arraycopy(this.board[row], 0, newBoard[row - 2], 0,this.board[row].length);
+        }
+
+        this.board = newBoard;
+
+        //Una vez tenemos el tablero actualizado, comprobamos el caso en que las piezas están al principio del tablero, entonces lo movemos hasta que no haya colision
+        actualPiece.moveCoord(-2, 0);
+
+        if (actualPiece.checkCollision(this.board,actualPiece.coord)) {
+            actualPiece.moveCoord(1,0);
+            while (actualPiece.checkCollision(this.board, actualPiece.coord)) {
+                actualPiece.moveCoord(1, 0);
+            }
+            this.addPiece(actualPiece,this.board);
+            return;
+        }
+        this.moveOneDown(actualPiece);
+        this.moveOneDown(actualPiece);
+
     }
 }

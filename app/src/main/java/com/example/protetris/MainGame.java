@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class MainGame extends View implements View.OnClickListener {
     private TextView actualPoints;
     private Score score;
     private Timer timer;
+    private int cont;
     private List<Piece> pieces;
     private UpcomingPiece upcomingPiece;
     private int timerPeriod;
@@ -35,7 +37,8 @@ public class MainGame extends View implements View.OnClickListener {
         this.proTetris = (ProTetris) context;
         this.upcomingPiece = upcomingPiece;
         this.timerPeriod = 1000; //La pieza baja cada segundo
-        score = new Score();
+        this.cont = 0;
+        this.score = new Score();
         this.mainBoard = mainBoard;
         this.pieces = mainBoard.getPieces();
         this.actualPoints = proTetris.getPoints();
@@ -81,7 +84,11 @@ public class MainGame extends View implements View.OnClickListener {
                                         actualPoints.setText(Integer.toString(points));
                                     }
                                 }
+                                if ((cont % 50 == 0) && cont != 0) {
+                                    mainBoard.reduceBoard();
+                                }
                                 invalidate();
+                                cont++;
                             }
                         }
                     }
@@ -95,12 +102,15 @@ public class MainGame extends View implements View.OnClickListener {
         super.onDraw(canvas);
         Paint paint = new Paint();
 
-        for (int row = 0; row < mainBoard.getBOARD_NUM_ROWS(); row++) {
+        int ancho = (int) (this.getResources().getDisplayMetrics().widthPixels * 0.068);
+        int alto = (int) (this.getResources().getDisplayMetrics().heightPixels * 0.04375);
+
+        for (int row = 0; row < mainBoard.getActualRows(); row++) {
             for (int col = 0; col < mainBoard.getBOARD_NUM_COLS(); col++) {
                 int blocks = mainBoard.drawBlocks(row, col);
                 paint.setStyle(Paint.Style.FILL);
                 paint.setColor(blocks);
-                Rect rect = new Rect(col*48, row*55, col*48 + 48, row*55 + 55);
+                Rect rect = new Rect(col*ancho, row*alto, col*ancho + ancho, row*alto+ alto);
                 canvas.drawRect(rect, paint);
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setColor(Color.BLACK);
@@ -136,6 +146,7 @@ public class MainGame extends View implements View.OnClickListener {
     public boolean gameOver() {
         if (this.mainBoard.checkGameOver(this.mainBoard.getActualPiece())) {
             this.timer.cancel();
+            this.cont = 0;
             this.mainBoard.resetBoard(this.mainBoard.getBoard());
             proTetris.setStop(true);
 
