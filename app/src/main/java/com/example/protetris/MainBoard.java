@@ -86,25 +86,183 @@ public class MainBoard {
     }
 
     //Para dibujar los bloques en el tablero
-    public int drawBlocks(int row, int col) {
-        switch (board[row][col]) {
-            case EMPTY:
-                return Color.parseColor("#0030272A");
-            case S_PIECE:
-                return Color.parseColor("#0087FC");
-            case I_PIECE:
-                return Color.parseColor("#FD2929");
-            case J_PIECE:
-                return Color.parseColor("#9C00E2");
-            case O_PIECE:
-                return Color.parseColor("#00D1FE");
-            case L_PIECE:
-                return Color.parseColor("#FDD401");
-            case Z_PIECE:
-                return Color.parseColor("#FD6801");
-            case T_PIECE:
-                return Color.parseColor("#03DF04");
+    public int drawBlocks(int row, int col,int num) {
+        switch (num){
+            case 0: {
+                switch (board[row][col]) {
+                    case EMPTY:
+                        return Color.parseColor("#0030272A");
+                    case S_PIECE:
+                        return Color.parseColor("#0087FC");
+                    case I_PIECE:
+                        return Color.parseColor("#FD2929");
+                    case J_PIECE:
+                        return Color.parseColor("#9C00E2");
+                    case O_PIECE:
+                        return Color.parseColor("#00D1FE");
+                    case L_PIECE:
+                        return Color.parseColor("#FDD401");
+                    case Z_PIECE:
+                        return Color.parseColor("#FD6801");
+                    case T_PIECE:
+                        return Color.parseColor("#03DF04");
+                }
+                break;
+            }
+            case 1: {
+                switch (board[row][col]) {
+                    case EMPTY:
+                        return Color.parseColor("#0030272A");
+                    case S_PIECE:
+                        return Color.parseColor("#0087FC");
+                    case I_PIECE:
+                        return Color.parseColor("#0087FC");
+                    case J_PIECE:
+                        return Color.parseColor("#0087FC");
+                    case O_PIECE:
+                        return Color.parseColor("#0087FC");
+                    case L_PIECE:
+                        return Color.parseColor("#0087FC");
+                    case Z_PIECE:
+                        return Color.parseColor("#0087FC");
+                    case T_PIECE:
+                        return Color.parseColor("#0087FC");
 
+                }
+                break;
+            }
+            case 2: {
+                switch (board[row][col]) {
+                    case EMPTY:
+                        return Color.parseColor("#0030272A");
+                    case S_PIECE:
+                        return Color.parseColor("#FD2929");
+                    case I_PIECE:
+                        return Color.parseColor("#FD2929");
+                    case J_PIECE:
+                        return Color.parseColor("#FD2929");
+                    case O_PIECE:
+                        return Color.parseColor("#FD2929");
+                    case L_PIECE:
+                        return Color.parseColor("#FD2929");
+                    case Z_PIECE:
+                        return Color.parseColor("#FD2929");
+                    case T_PIECE:
+                        return Color.parseColor("#FD2929");
+
+                }
+                break;
+            }
+            case 3: {
+                switch (board[row][col]) {
+                    case EMPTY:
+                        return Color.parseColor("#0030272A");
+                    case S_PIECE:
+                        return Color.parseColor("#00D1FE");
+                    case I_PIECE:
+                        return Color.parseColor("#00D1FE");
+                    case J_PIECE:
+                        return Color.parseColor("#00D1FE");
+                    case O_PIECE:
+                        return Color.parseColor("#00D1FE");
+                    case L_PIECE:
+                        return Color.parseColor("#00D1FE");
+                    case Z_PIECE:
+                        return Color.parseColor("#00D1FE");
+                    case T_PIECE:
+                        return Color.parseColor("#00D1FE");
+
+                }
+                break;
+            }
+            case 4: {
+                switch (board[row][col]) {
+                    case EMPTY:
+                        return Color.parseColor("#0030272A");
+                    case S_PIECE:
+                        return Color.parseColor("#9C00E2");
+                    case I_PIECE:
+                        return Color.parseColor("#9C00E2");
+                    case J_PIECE:
+                        return Color.parseColor("#9C00E2");
+                    case O_PIECE:
+                        return Color.parseColor("#9C00E2");
+                    case L_PIECE:
+                        return Color.parseColor("#9C00E2");
+                    case Z_PIECE:
+                        return Color.parseColor("#9C00E2");
+                    case T_PIECE:
+                        return Color.parseColor("#9C00E2");
+
+                }
+                break;
+            }
+            case 5: {
+                switch (board[row][col]) {
+                    case EMPTY:
+                        return Color.parseColor("#0030272A");
+                    case S_PIECE:
+                        return Color.parseColor("#FDD401");
+                    case I_PIECE:
+                        return Color.parseColor("#FDD401");
+                    case J_PIECE:
+                        return Color.parseColor("#FDD401");
+                    case O_PIECE:
+                        return Color.parseColor("#FDD401");
+                    case L_PIECE:
+                        return Color.parseColor("#FDD401");
+                    case Z_PIECE:
+                        return Color.parseColor("#FDD401");
+                    case T_PIECE:
+                        return Color.parseColor("#FDD401");
+
+                }
+                break;
+            }
+            case 6: {
+                switch (board[row][col]) {
+                    case EMPTY:
+                        return Color.parseColor("#0030272A");
+                    case S_PIECE:
+                        return Color.parseColor("#FD6801");
+                    case I_PIECE:
+                        return Color.parseColor("#FD6801");
+                    case J_PIECE:
+                        return Color.parseColor("#FD6801");
+                    case O_PIECE:
+                        return Color.parseColor("#FD6801");
+                    case L_PIECE:
+                        return Color.parseColor("#FD6801");
+                    case Z_PIECE:
+                        return Color.parseColor("#FD6801");
+                    case T_PIECE:
+                        return Color.parseColor("#FD6801");
+
+                }
+                break;
+            }
+            case 7: {
+                switch (board[row][col]) {
+                    case EMPTY:
+                        return Color.parseColor("#0030272A");
+                    case S_PIECE:
+                        return Color.parseColor("#03DF04");
+                    case I_PIECE:
+                        return Color.parseColor("#03DF04");
+                    case J_PIECE:
+                        return Color.parseColor("#03DF04");
+                    case O_PIECE:
+                        return Color.parseColor("#03DF04");
+                    case L_PIECE:
+                        return Color.parseColor("#03DF04");
+                    case Z_PIECE:
+                        return Color.parseColor("#03DF04");
+                    case T_PIECE:
+                        return Color.parseColor("#03DF04");
+
+                }
+                break;
+            }
         }
         return Color.parseColor("#0030272A");
     }
