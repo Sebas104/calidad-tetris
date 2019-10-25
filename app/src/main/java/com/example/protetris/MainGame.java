@@ -171,13 +171,14 @@ public class MainGame extends View implements View.OnClickListener {
 
     public boolean gameOver() {
         if (this.mainBoard.checkGameOver(this.mainBoard.getActualPiece())) {
+            Intent intent = new Intent(this.getContext(), GameOver.class);
+            intent.putExtra("Score", score.getActualScore());
             this.timer.cancel();
             this.cont = 0;
             this.mainBoard.resetBoard(this.mainBoard.getBoard());
             proTetris.setStop(true);
 
             //Mostrar game over
-            Intent intent = new Intent(this.getContext(), GameOver.class);
             getContext().startActivity(intent);
             proTetris.finish();
             return true;
