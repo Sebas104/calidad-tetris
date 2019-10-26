@@ -9,7 +9,6 @@ import android.graphics.Rect;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,9 +28,8 @@ public class MainGame extends View implements View.OnClickListener {
     private List<Piece> pieces;
     private UpcomingPiece upcomingPiece;
     private int timerPeriod;
-    private boolean cond=false;
-    int num;
-    
+    private boolean cond = false;
+    private int num;
 
     public MainGame(Context context, UpcomingPiece upcomingPiece, MainBoard mainBoard) {
         super(context);
@@ -64,39 +62,52 @@ public class MainGame extends View implements View.OnClickListener {
     }
 
     public void startGame() {
-
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 proTetris.runOnUiThread(new TimerTask() {
                     @Override
                     public void run() {
-
                         if (!proTetris.getStop()) {
 
                             if (!gameOver()) {
 
                                 if (!mainBoard.moveOneDown(mainBoard.getActualPiece())) {
-                                    int rowsRemoved = mainBoard.removeCompleteLines();
 
+                                    try {
+                                        Thread.sleep(500);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
 
-                                    Piece actualPiece = mainBoard.getActualPiece();
-                                    pieces.remove(actualPiece);
+                                    if (!mainBoard.moveOneDown(mainBoard.getActualPiece())) {
 
-                                    pieces.add(new Piece((int) (Math.random() * 7) + 1));
+                                        int rowsRemoved = mainBoard.removeCompleteLines();
 
-                                    upcomingPiece.invalidate();
+                                        if (rowsRemoved > 0) { //Si se han borrado líneas, se aumenta el marcador +30 por cada una.
+                                            cond = true;
+                                            score.setActualScore(score.getActualScore() + rowsRemoved * 30);
+                                            int points = score.getActualScore();
 
-                                    if (rowsRemoved > 0) { //Si se han borrado líneas, se aumenta el marcador +30 por cada una y se cambia el color
-                                        cond=true;
-                                        score.setActualScore(score.getActualScore() + rowsRemoved * 30);
-                                        int points = score.getActualScore();
+                                            actualPoints.setText(Integer.toString(points));
+                                        }
 
-                                        actualPoints.setText(Integer.toString(points));
+                                        Piece actualPiece = mainBoard.getActualPiece();
+                                        pieces.remove(actualPiece);
+
+                                        pieces.add(new Piece((int) (Math.random() * 7) + 1));
+                                        mainBoard.addPiece(mainBoard.getActualPiece(), mainBoard.getBoard());
+
+                                        upcomingPiece.invalidate();
                                     }
                                 }
                                 if ((cont % 50 == 0) && cont != 0) {
                                     mainBoard.reduceBoard();
+                                }
+
+                                if ((cont % 30 == 0) && cont != 0) {
+                                    Piece randomPiece = new Piece((int) (Math.random() * 7) + 1);
+                                    randomPiece(randomPiece);
                                 }
                                 invalidate();
                                 cont++;
@@ -107,6 +118,58 @@ public class MainGame extends View implements View.OnClickListener {
             }
         }, 0, timerPeriod);
     }
+
+    public void randomPiece(final Piece randomPiece) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                if (mainBoard.getActualPiece().getCoord1().x == 0 || mainBoard.getActualPiece().getCoord2().x == 0 ||
+                        mainBoard.getActualPiece().getCoord3().x == 0 || mainBoard.getActualPiece().getCoord4().x == 0) {
+
+                    mainBoard.removePiece(mainBoard.getActualPiece(), mainBoard.getBoard());
+                    mainBoard.getActualPiece().moveCoord(0,2);
+                    randomPiece.moveCoord(0,-2);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                } else if (mainBoard.getActualPiece().getCoord1().x == 1 || mainBoard.getActualPiece().getCoord2().x == 1 ||
+                        mainBoard.getActualPiece().getCoord3().x == 1 || mainBoard.getActualPiece().getCoord4().x == 1) {
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                while (true) {
+                    if (!proTetris.getStop()) {
+                        if (mainBoard.moveOneDown(randomPiece)) {
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            postInvalidate();
+                        } else {
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if (randomPiece.checkCollision(mainBoard.getBoard(), randomPiece.coord)) {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }).start();
+    }
+
 
     @Override
     public void onDraw(Canvas canvas) {
@@ -171,14 +234,14 @@ public class MainGame extends View implements View.OnClickListener {
 
     public boolean gameOver() {
         if (this.mainBoard.checkGameOver(this.mainBoard.getActualPiece())) {
+            //Mostrar game over
             Intent intent = new Intent(this.getContext(), GameOver.class);
             intent.putExtra("Score", score.getActualScore());
+            //Reiniciar partida
             this.timer.cancel();
             this.cont = 0;
             this.mainBoard.resetBoard(this.mainBoard.getBoard());
             proTetris.setStop(true);
-
-            //Mostrar game over
             getContext().startActivity(intent);
             proTetris.finish();
             return true;

@@ -43,10 +43,6 @@ public class MainBoard {
         return this.board;
     }
 
-    public int getBOARD_NUM_ROWS() {
-        return this.BOARD_NUM_ROWS;
-    }
-
     public int getBOARD_NUM_COLS() {
         return this.BOARD_NUM_COLS;
     }
@@ -110,158 +106,46 @@ public class MainBoard {
                 break;
             }
             case 1: {
-                switch (board[row][col]) {
-                    case EMPTY:
-                        return Color.parseColor("#0030272A");
-                    case S_PIECE:
-                        return Color.parseColor("#0087FC");
-                    case I_PIECE:
-                        return Color.parseColor("#0087FC");
-                    case J_PIECE:
-                        return Color.parseColor("#0087FC");
-                    case O_PIECE:
-                        return Color.parseColor("#0087FC");
-                    case L_PIECE:
-                        return Color.parseColor("#0087FC");
-                    case Z_PIECE:
-                        return Color.parseColor("#0087FC");
-                    case T_PIECE:
-                        return Color.parseColor("#0087FC");
-
+                if (board[row][col] == EMPTY) {
+                    return Color.parseColor("#0030272A");
                 }
-                break;
+                return Color.parseColor("#0087FC");
             }
             case 2: {
-                switch (board[row][col]) {
-                    case EMPTY:
-                        return Color.parseColor("#0030272A");
-                    case S_PIECE:
-                        return Color.parseColor("#FD2929");
-                    case I_PIECE:
-                        return Color.parseColor("#FD2929");
-                    case J_PIECE:
-                        return Color.parseColor("#FD2929");
-                    case O_PIECE:
-                        return Color.parseColor("#FD2929");
-                    case L_PIECE:
-                        return Color.parseColor("#FD2929");
-                    case Z_PIECE:
-                        return Color.parseColor("#FD2929");
-                    case T_PIECE:
-                        return Color.parseColor("#FD2929");
-
+                if (board[row][col] == EMPTY) {
+                    return Color.parseColor("#0030272A");
                 }
-                break;
+                return Color.parseColor("#FD2929");
             }
             case 3: {
-                switch (board[row][col]) {
-                    case EMPTY:
-                        return Color.parseColor("#0030272A");
-                    case S_PIECE:
-                        return Color.parseColor("#00D1FE");
-                    case I_PIECE:
-                        return Color.parseColor("#00D1FE");
-                    case J_PIECE:
-                        return Color.parseColor("#00D1FE");
-                    case O_PIECE:
-                        return Color.parseColor("#00D1FE");
-                    case L_PIECE:
-                        return Color.parseColor("#00D1FE");
-                    case Z_PIECE:
-                        return Color.parseColor("#00D1FE");
-                    case T_PIECE:
-                        return Color.parseColor("#00D1FE");
-
+                if (board[row][col] == EMPTY) {
+                    return Color.parseColor("#0030272A");
                 }
-                break;
+                return Color.parseColor("#00D1FE");
             }
             case 4: {
-                switch (board[row][col]) {
-                    case EMPTY:
-                        return Color.parseColor("#0030272A");
-                    case S_PIECE:
-                        return Color.parseColor("#9C00E2");
-                    case I_PIECE:
-                        return Color.parseColor("#9C00E2");
-                    case J_PIECE:
-                        return Color.parseColor("#9C00E2");
-                    case O_PIECE:
-                        return Color.parseColor("#9C00E2");
-                    case L_PIECE:
-                        return Color.parseColor("#9C00E2");
-                    case Z_PIECE:
-                        return Color.parseColor("#9C00E2");
-                    case T_PIECE:
-                        return Color.parseColor("#9C00E2");
-
+                if (board[row][col] == EMPTY) {
+                    return Color.parseColor("#0030272A");
                 }
-                break;
+                return Color.parseColor("#9C00E2");
             }
             case 5: {
-                switch (board[row][col]) {
-                    case EMPTY:
-                        return Color.parseColor("#0030272A");
-                    case S_PIECE:
-                        return Color.parseColor("#FDD401");
-                    case I_PIECE:
-                        return Color.parseColor("#FDD401");
-                    case J_PIECE:
-                        return Color.parseColor("#FDD401");
-                    case O_PIECE:
-                        return Color.parseColor("#FDD401");
-                    case L_PIECE:
-                        return Color.parseColor("#FDD401");
-                    case Z_PIECE:
-                        return Color.parseColor("#FDD401");
-                    case T_PIECE:
-                        return Color.parseColor("#FDD401");
-
+                if (board[row][col] == EMPTY) {
+                    return Color.parseColor("#0030272A");
                 }
-                break;
+                return Color.parseColor("#FDD401");
             }
             case 6: {
-                switch (board[row][col]) {
-                    case EMPTY:
-                        return Color.parseColor("#0030272A");
-                    case S_PIECE:
-                        return Color.parseColor("#FD6801");
-                    case I_PIECE:
-                        return Color.parseColor("#FD6801");
-                    case J_PIECE:
-                        return Color.parseColor("#FD6801");
-                    case O_PIECE:
-                        return Color.parseColor("#FD6801");
-                    case L_PIECE:
-                        return Color.parseColor("#FD6801");
-                    case Z_PIECE:
-                        return Color.parseColor("#FD6801");
-                    case T_PIECE:
-                        return Color.parseColor("#FD6801");
-
+                if (board[row][col] == EMPTY) {
+                    return Color.parseColor("#0030272A");
                 }
-                break;
+                return Color.parseColor("#FD6801");
             }
             case 7: {
-                switch (board[row][col]) {
-                    case EMPTY:
-                        return Color.parseColor("#0030272A");
-                    case S_PIECE:
-                        return Color.parseColor("#03DF04");
-                    case I_PIECE:
-                        return Color.parseColor("#03DF04");
-                    case J_PIECE:
-                        return Color.parseColor("#03DF04");
-                    case O_PIECE:
-                        return Color.parseColor("#03DF04");
-                    case L_PIECE:
-                        return Color.parseColor("#03DF04");
-                    case Z_PIECE:
-                        return Color.parseColor("#03DF04");
-                    case T_PIECE:
-                        return Color.parseColor("#03DF04");
-
+                if (board[row][col] == EMPTY) {
+                    return Color.parseColor("#0030272A");
                 }
-                break;
+                return Color.parseColor("#03DF04");
             }
         }
         return Color.parseColor("#0030272A");
@@ -360,6 +244,9 @@ public class MainBoard {
     public void reduceBoard() {
 
         Piece actualPiece = this.getActualPiece();
+        boolean firstRows = false;
+
+        this.removePiece(actualPiece, this.board);
 
         Coordinates newXY = actualPiece.copyCoord(actualPiece.coord);
         newXY.updateCoord(2, 0);
@@ -375,6 +262,7 @@ public class MainBoard {
         if (actualPiece.getCoord1().x == 1 || actualPiece.getCoord2().x == 1 || actualPiece.getCoord3().x == 1 || actualPiece.getCoord4().x == 1) {
             if (!actualPiece.checkCollision(this.board, newXY)) {
                 actualPiece.moveCoord(1,0);
+                firstRows = true;
             }
         }
 
@@ -389,18 +277,17 @@ public class MainBoard {
         }
 
         this.board = newBoard;
-
-        //Una vez tenemos el tablero actualizado, comprobamos el caso en que las piezas están al principio del tablero, entonces lo movemos hasta que no haya colision
+        /*
+        Una vez tenemos el tablero actualizado, comprobamos el caso en que las piezas están al principio del tablero, como
+        las piezas han sido desplazadas dos filas abajo antes de quitar las dos filas ya no lo tenemos que mover.
+         */
         actualPiece.moveCoord(-2, 0);
 
-        if (actualPiece.checkCollision(this.board,actualPiece.coord)) {
-            actualPiece.moveCoord(1,0);
-            while (actualPiece.checkCollision(this.board, actualPiece.coord)) {
-                actualPiece.moveCoord(1, 0);
-            }
-            this.addPiece(actualPiece,this.board);
+        if (firstRows) {
+            this.addPiece(actualPiece, this.board);
             return;
         }
+
         this.moveOneDown(actualPiece);
         this.moveOneDown(actualPiece);
 
