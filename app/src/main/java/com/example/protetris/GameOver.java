@@ -1,22 +1,15 @@
 package com.example.protetris;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.PriorityQueue;
-import java.util.Set;
-import java.util.SortedSet;
 
 class Elements {
     int Score;
@@ -31,6 +24,7 @@ class Elements {
 
 public class GameOver extends AppCompatActivity {
     private Button Button1;
+    private Button Button2;
     private TextView Txv1;
     private TextView Txv2;
     private TextView Txv3;
@@ -41,6 +35,7 @@ public class GameOver extends AppCompatActivity {
     private int loadInt;
     private int Score;
     private boolean Sent=false;
+    private boolean Reset = true;
     public static final String SHARED_PREFS = "Shprefs";
     public static final String FIRSTAUX = "Nombre";
     public static final String SECONDAUX = "Puntuacion";
@@ -69,15 +64,15 @@ public class GameOver extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
-        RelativeLayout gameOverScreen = findViewById(R.id.startAgain);
         Score = getIntent().getIntExtra("Score", Score);
-        Txv1 = (TextView) findViewById(R.id.textView2);
-        Txv2 = (TextView) findViewById(R.id.textView3);
-        Txv3 = (TextView) findViewById(R.id.textView4);
-        Txv4 = (TextView) findViewById(R.id.textView5);
-        Txv5 = (TextView) findViewById(R.id.textView6);
-        Edtx = (EditText) findViewById(R.id.Edit1);
-        Button1 = (Button) findViewById(R.id.button2);
+        Txv1 = findViewById(R.id.textView2);
+        Txv2 = findViewById(R.id.textView3);
+        Txv3 = findViewById(R.id.textView4);
+        Txv4 = findViewById(R.id.textView5);
+        Txv5 = findViewById(R.id.textView6);
+        Edtx = findViewById(R.id.Edit1);
+        Button1 = findViewById(R.id.button2);
+        Button2 = findViewById(R.id.button3);
         InitScores();
         Button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +87,18 @@ public class GameOver extends AppCompatActivity {
                 SortScores();
             }
         });
+        Button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Reset) {
+                    Reset = false;
+                    resetScores();
+                } else {
+                    Toast.makeText(getBaseContext(),"Highscore already reset", Toast.LENGTH_SHORT).show();
 
+                }
+            }
+        });
     }
 
     private void save(String data, int data2, String key1, String key2) {
@@ -110,6 +116,8 @@ public class GameOver extends AppCompatActivity {
         save("...", 0, FIRST3, SECOND3);
         save("...", 0, FIRST4, SECOND4);
         save("...", 0, FIRST5, SECOND5);
+        loadScores();
+        Toast.makeText(getBaseContext(),"Changes saved", Toast.LENGTH_SHORT).show();
     }
 
     private void InitScores() {
@@ -123,7 +131,7 @@ public class GameOver extends AppCompatActivity {
     }
 
     private void SortScores() {
-        if (Sent==false) {
+        if (!Sent) {
             Sent = true;
             Pqueue.add(new Elements(Score, Edtx.getText().toString()));
             Elements aux = new Elements(0, "...");
