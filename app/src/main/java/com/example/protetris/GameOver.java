@@ -34,7 +34,7 @@ public class GameOver extends AppCompatActivity {
     private String loadSt;
     private int loadInt;
     private int Score;
-    private boolean Sent=false;
+    private boolean Sent= false;
     private boolean Reset = true;
     public static final String SHARED_PREFS = "Shprefs";
     public static final String FIRSTAUX = "Nombre";
@@ -95,7 +95,6 @@ public class GameOver extends AppCompatActivity {
                     resetScores();
                 } else {
                     Toast.makeText(getBaseContext(),"Highscore already reset", Toast.LENGTH_SHORT).show();
-
                 }
             }
         });
