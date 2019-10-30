@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,9 +23,11 @@ public class MainGame extends View implements View.OnClickListener {
     private ImageView rightButton;
     private ImageView downButton;
     private TextView actualPoints;
-    private Score score;
+    private int score;
     private Timer timer;
+    Piece randomPiece;
     private int cont;
+    private boolean pickRandomPiece;
     private List<Piece> pieces;
     private UpcomingPiece upcomingPiece;
     private int timerPeriod;
@@ -38,7 +41,8 @@ public class MainGame extends View implements View.OnClickListener {
         this.upcomingPiece = upcomingPiece;
         this.timerPeriod = 1000; //La pieza baja cada segundo
         this.cont = 0;
-        this.score = new Score();
+        this.pickRandomPiece = false;
+        this.score = 0;
         this.mainBoard = mainBoard;
         this.pieces = mainBoard.getPieces();
         this.actualPoints = proTetris.getPoints();
@@ -70,47 +74,51 @@ public class MainGame extends View implements View.OnClickListener {
                     public void run() {
                         if (!proTetris.getStop()) {
 
-                            if (!gameOver()) {
-
-                                if (!mainBoard.moveOneDown(mainBoard.getActualPiece())) {
-
-                                    try {
-                                        Thread.sleep(500);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
+                            try {
+                                if (!gameOver()) {
 
                                     if (!mainBoard.moveOneDown(mainBoard.getActualPiece())) {
 
-                                        int rowsRemoved = mainBoard.removeCompleteLines();
-
-                                        if (rowsRemoved > 0) { //Si se han borrado líneas, se aumenta el marcador +30 por cada una.
-                                            cond = true;
-                                            score.setActualScore(score.getActualScore() + rowsRemoved * 30);
-                                            int points = score.getActualScore();
-
-                                            actualPoints.setText(Integer.toString(points));
+                                        try {
+                                            Thread.sleep(500);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
                                         }
 
-                                        Piece actualPiece = mainBoard.getActualPiece();
-                                        pieces.remove(actualPiece);
+                                        if (!mainBoard.moveOneDown(mainBoard.getActualPiece())) {
 
-                                        pieces.add(new Piece((int) (Math.random() * 7) + 1));
-                                        mainBoard.addPiece(mainBoard.getActualPiece(), mainBoard.getBoard());
+                                            int rowsRemoved = mainBoard.removeCompleteLines(randomPiece);
 
-                                        upcomingPiece.invalidate();
+                                            if (rowsRemoved > 0) { //Si se han borrado líneas, se aumenta el marcador +30 por cada una.
+                                                cond = true;
+
+                                                score += rowsRemoved * 30;
+                                                actualPoints.setText(Integer.toString(score));
+                                            }
+
+                                            Piece actualPiece = mainBoard.getActualPiece();
+                                            pieces.remove(actualPiece);
+
+                                            pieces.add(new Piece((int) (Math.random() * 7) + 1));
+                                            mainBoard.addPiece(mainBoard.getActualPiece(), mainBoard.getBoard());
+
+                                            upcomingPiece.invalidate();
+                                        }
                                     }
-                                }
-                                if ((cont % 50 == 0) && cont != 0) {
-                                    mainBoard.reduceBoard();
-                                }
 
-                                if ((cont % 30 == 0) && cont != 0) {
-                                    Piece randomPiece = new Piece((int) (Math.random() * 7) + 1);
-                                    randomPiece(randomPiece);
+                                    if ((cont % 50 == 0) && cont != 0) {
+                                        mainBoard.reduceBoard(randomPiece);
+                                    }
+
+                                    if ((cont % 30 == 0) && cont != 0) {
+                                        randomPiece = new Piece((int) (Math.random() * 7) + 1);
+                                        randomPiece(randomPiece);
+                                    }
+                                    invalidate();
+                                    cont++;
                                 }
-                                invalidate();
-                                cont++;
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
                         }
                     }
@@ -160,7 +168,11 @@ public class MainGame extends View implements View.OnClickListener {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            if (randomPiece.checkCollision(mainBoard.getBoard(), randomPiece.coord)) {
+                            Coordinates newXY = randomPiece.copyCoord(randomPiece.coord);
+                            newXY.updateCoord(1,0);
+                            if (randomPiece.checkCollision(mainBoard.getBoard(),newXY)) {
+                                pickRandomPiece = false;
+                                setRandomPieceNull();
                                 break;
                             }
                         }
@@ -170,6 +182,9 @@ public class MainGame extends View implements View.OnClickListener {
         }).start();
     }
 
+    private void setRandomPieceNull() {
+        this.randomPiece = null;
+    }
 
     @Override
     public void onDraw(Canvas canvas) {
@@ -213,30 +228,46 @@ public class MainGame extends View implements View.OnClickListener {
         if (!proTetris.getStop()) {
             switch (view.getId()) {
                 case R.id.rotateButton:
-                    mainBoard.rotate(mainBoard.getActualPiece());
+                    if (pickRandomPiece) {
+                        mainBoard.rotate(randomPiece);
+                    } else {
+                        mainBoard.rotate(mainBoard.getActualPiece());
+                    }
                     invalidate();
                     break;
                 case R.id.leftButton:
-                    mainBoard.moveToLeft(mainBoard.getActualPiece());
+                    if (pickRandomPiece) {
+                        mainBoard.moveToLeft(randomPiece);
+                    } else {
+                        mainBoard.moveToLeft(mainBoard.getActualPiece());
+                    }
                     invalidate();
                     break;
                 case R.id.rightButton:
-                    mainBoard.moveToRight(mainBoard.getActualPiece());
+                    if (pickRandomPiece) {
+                        mainBoard.moveToRight(randomPiece);
+                    } else {
+                        mainBoard.moveToRight(mainBoard.getActualPiece());
+                    }
                     invalidate();
                     break;
                 case R.id.downButton:
-                    mainBoard.moveDown(mainBoard.getActualPiece());
+                    if (pickRandomPiece) {
+                        mainBoard.moveDown(randomPiece);
+                    } else {
+                        mainBoard.moveDown(mainBoard.getActualPiece());
+                    }
                     invalidate();
                     break;
             }
         }
     }
 
-    public boolean gameOver() {
+    public boolean gameOver() throws InterruptedException {
         if (this.mainBoard.checkGameOver(this.mainBoard.getActualPiece())) {
             //Mostrar game over
             Intent intent = new Intent(this.getContext(), GameOver.class);
-            intent.putExtra("Score", score.getActualScore());
+            intent.putExtra("Score", this.score);
             //Reiniciar partida
             this.timer.cancel();
             this.cont = 0;
@@ -247,5 +278,23 @@ public class MainGame extends View implements View.OnClickListener {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (!proTetris.getStop()) {
+            try {
+                if (!gameOver()) {
+                    if (MotionEvent.ACTION_DOWN == event.getAction() && !pickRandomPiece && (randomPiece != null)) {
+                        pickRandomPiece = true;
+                    } else if (MotionEvent.ACTION_DOWN == event.getAction() && pickRandomPiece) {
+                        pickRandomPiece = false;
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
     }
 }

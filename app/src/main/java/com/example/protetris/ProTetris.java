@@ -34,7 +34,7 @@ public class ProTetris extends AppCompatActivity {
         this.downButton = findViewById(R.id.downButton);
         this.actualPoints =  findViewById(R.id.textScore);
         this.startButton = findViewById(R.id.start);
-        stop = true;
+        this.stop = true;
 
         this.upcomingPiece = new UpcomingPiece(this, mainBoard);
         RelativeLayout nextPiece = findViewById(R.id.pieceView);

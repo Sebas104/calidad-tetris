@@ -71,12 +71,14 @@ public class MainBoard {
         }
     }
 
-    public boolean checkGameOver(Piece actualPiece) {
+    public boolean checkGameOver(Piece actualPiece) throws InterruptedException {
         Coordinates newXY = actualPiece.copyCoord(actualPiece.coord);
         newXY.updateCoord(1, 0);
-        if (actualPiece.checkCollision(this.board,newXY) &&
-                actualPiece.getMinX(actualPiece.coord) < 2) {
-            return true;
+        if (actualPiece.checkCollision(this.board,newXY) && actualPiece.getMinX(actualPiece.coord) < 2) {
+            Thread.sleep(500);
+            if (actualPiece.checkCollision(this.board,newXY)) {
+                return true;
+            }
         }
         return false;
     }
@@ -151,7 +153,7 @@ public class MainBoard {
         return Color.parseColor("#0030272A");
     }
 
-    public int removeCompleteLines() {
+    public int removeCompleteLines(Piece randomPiece) {
         int linesToRemove = 0;
 
         for (int row = 0; row < actualRows; row++) {
@@ -166,6 +168,10 @@ public class MainBoard {
                     for (int col1 = 0; col1 < BOARD_NUM_COLS; col1++) {
                         this.board[row1][col1] = this.board[row1 - 1][col1];
                     }
+                }
+                //Tenemos que actualizar las coordenadas de la pieza aleatoria en caso de que esté en el tablero
+                if (randomPiece != null) {
+                    randomPiece.moveCoord(1, 0);
                 }
                 linesToRemove++;
             }
@@ -241,10 +247,11 @@ public class MainBoard {
         }
     }
 
-    public void reduceBoard() {
+    public void reduceBoard(Piece randomPiece) {
 
         Piece actualPiece = this.getActualPiece();
         boolean firstRows = false;
+        boolean firstRowsRandom = false;
 
         this.removePiece(actualPiece, this.board);
 
@@ -266,6 +273,30 @@ public class MainBoard {
             }
         }
 
+        //Hacemos lo mismo para la pieza random en caso de que se encuentre en el tablero
+        if (randomPiece != null) {
+
+            this.removePiece(randomPiece, this.board);
+
+            Coordinates randomXY = randomPiece.copyCoord(randomPiece.coord);
+            randomXY.updateCoord(2, 0);
+
+            //Pieza en la fila 0 del tablero
+            if (randomPiece.getCoord1().x == 0 || randomPiece.getCoord2().x == 0 || randomPiece.getCoord3().x == 0 || randomPiece.getCoord4().x == 0) {
+                if (!randomPiece.checkCollision(this.board, randomXY)) {
+                    randomPiece.moveCoord(1,0);
+                }
+            }
+
+            //Pieza en la fila 1 del tablero
+            if (randomPiece.getCoord1().x == 1 || randomPiece.getCoord2().x == 1 || randomPiece.getCoord3().x == 1 || randomPiece.getCoord4().x == 1) {
+                if (!actualPiece.checkCollision(this.board, randomXY)) {
+                    randomPiece.moveCoord(1,0);
+                    firstRowsRandom = true;
+                }
+            }
+        }
+
         //Reducimos las filas del tablero en 2
         this.actualRows = this.actualRows - 2;
 
@@ -278,7 +309,7 @@ public class MainBoard {
 
         this.board = newBoard;
         /*
-        Una vez tenemos el tablero actualizado, comprobamos el caso en que las piezas están al principio del tablero, como
+        Una vez tenemos el tablero actualizado, si teniamos la(s) pieza(s) al principio del tablero, como
         las piezas han sido desplazadas dos filas abajo antes de quitar las dos filas ya no lo tenemos que mover.
          */
         actualPiece.moveCoord(-2, 0);
@@ -290,6 +321,19 @@ public class MainBoard {
 
         this.moveOneDown(actualPiece);
         this.moveOneDown(actualPiece);
+
+        //Hacemos lo mismo para el caso de la pieza aleatoria
+        if (randomPiece != null) {
+            randomPiece.moveCoord(-2,0);
+
+            if (firstRowsRandom) {
+                this.addPiece(randomPiece, this.board);
+                return;
+            }
+
+            this.moveOneDown(randomPiece);
+            this.moveOneDown(randomPiece);
+        }
 
     }
 }
