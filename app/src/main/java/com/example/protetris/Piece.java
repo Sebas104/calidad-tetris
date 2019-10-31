@@ -17,9 +17,9 @@ public class Piece extends Coordinates{
     static final int ORANGE_BLOCK = 6; //Piece Z
     static final int GREEN_BLOCK = 7; //Piece T
 
-    private static final int LENGTH = 3; //Tamaño de los array de las piezas, 4 por la pieza I
-    private static final int I_LENGTH = 4;
-    private int [][] pieceBoard; //Array de la pieza para el método rotar
+    static final int LENGTH = 3; //Tamaño de los array de las piezas, 4 por la pieza I
+    static final int I_LENGTH = 4;
+    int [][] pieceBoard; //Array de la pieza para el método rotar
     Coordinates coord;
     private int tetromino; //El tipo de bloque
 
@@ -51,10 +51,10 @@ public class Piece extends Coordinates{
 
         switch (pieceType) {
             case BLUE_BLOCK:
-                this.pieceBoard[1][0] = BLUE_BLOCK;
+                this.pieceBoard[0][2] = BLUE_BLOCK;
                 this.pieceBoard[0][1] = BLUE_BLOCK;
                 this.pieceBoard[1][1] = BLUE_BLOCK;
-                this.pieceBoard[0][2] = BLUE_BLOCK;
+                this.pieceBoard[1][0] = BLUE_BLOCK;
 
                 this.coord.setCoord1(1, 3);
                 this.coord.setCoord2(0, 4);
@@ -90,6 +90,10 @@ public class Piece extends Coordinates{
                 break;
 
             case BLUELIGHT_BLOCK:
+                this.pieceBoard[0][0] = BLUELIGHT_BLOCK;
+                this.pieceBoard[1][0] = BLUELIGHT_BLOCK;
+                this.pieceBoard[0][1] = BLUELIGHT_BLOCK;
+                this.pieceBoard[1][1] = BLUELIGHT_BLOCK;
                 this.coord.setCoord1(0, 4);
                 this.coord.setCoord2(1, 4);
                 this.coord.setCoord3(0, 5);
@@ -111,10 +115,10 @@ public class Piece extends Coordinates{
                 break;
 
             case ORANGE_BLOCK:
-                this.pieceBoard[1][0] = ORANGE_BLOCK;
+                this.pieceBoard[0][0] = ORANGE_BLOCK;
+                this.pieceBoard[0][1] = ORANGE_BLOCK;
                 this.pieceBoard[1][1] = ORANGE_BLOCK;
-                this.pieceBoard[2][1] = ORANGE_BLOCK;
-                this.pieceBoard[2][2] = ORANGE_BLOCK;
+                this.pieceBoard[1][2] = ORANGE_BLOCK;
 
                 this.coord.setCoord1(0, 3);
                 this.coord.setCoord2(0, 4);
@@ -124,10 +128,10 @@ public class Piece extends Coordinates{
                 break;
 
             case GREEN_BLOCK:
-                this.pieceBoard[2][0] = GREEN_BLOCK;
+                this.pieceBoard[0][1] = GREEN_BLOCK;
                 this.pieceBoard[1][1] = GREEN_BLOCK;
-                this.pieceBoard[2][1] = GREEN_BLOCK;
-                this.pieceBoard[2][2] = GREEN_BLOCK;
+                this.pieceBoard[1][0] = GREEN_BLOCK;
+                this.pieceBoard[1][2] = GREEN_BLOCK;
 
                 this.coord.setCoord1(1, 3);
                 this.coord.setCoord2(0, 4);
@@ -137,6 +141,7 @@ public class Piece extends Coordinates{
                 break;
         }
     }
+
 
     public void moveCoord(int newRow, int newCol) {
         this.coord.updateCoord(newRow, newCol);

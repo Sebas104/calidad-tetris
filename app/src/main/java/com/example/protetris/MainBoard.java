@@ -173,6 +173,9 @@ public class MainBoard {
                 if (randomPiece != null) {
                     randomPiece.moveCoord(1, 0);
                 }
+                if (!this.moveOneDown(this.getActualPiece())) {
+                    this.getActualPiece().moveCoord(1,0);
+                }
                 linesToRemove++;
             }
         }

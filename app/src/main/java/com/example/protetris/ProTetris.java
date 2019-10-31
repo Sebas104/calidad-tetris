@@ -20,7 +20,7 @@ public class ProTetris extends AppCompatActivity {
     private MainBoard mainBoard;
     private MainGame game;
     private UpcomingPiece upcomingPiece;
-
+    private int colornum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +35,14 @@ public class ProTetris extends AppCompatActivity {
         this.actualPoints =  findViewById(R.id.textScore);
         this.startButton = findViewById(R.id.start);
         this.stop = true;
+        Bundle datos = this.getIntent().getExtras();
+        this.colornum= datos.getInt("COLORKEY");
 
-        this.upcomingPiece = new UpcomingPiece(this, mainBoard);
+        this.upcomingPiece = new UpcomingPiece(this, mainBoard,this.colornum);
         RelativeLayout nextPiece = findViewById(R.id.pieceView);
         nextPiece.addView(upcomingPiece);
 
-        this.game = new MainGame(this, this.upcomingPiece, this.mainBoard);
+        this.game = new MainGame(this, this.upcomingPiece, this.mainBoard,this.colornum);
         RelativeLayout gameBoard = findViewById(R.id.tetrisBoard);
         gameBoard.addView(this.game);
 

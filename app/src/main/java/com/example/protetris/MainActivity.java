@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Boton de Play
     public void startGame(View view) {
-        Intent intent = new Intent(this,ProTetris.class);
+        Intent intent = new Intent(this,MainColor.class);
         startActivity(intent);
     }
 

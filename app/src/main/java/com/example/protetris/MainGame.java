@@ -32,9 +32,9 @@ public class MainGame extends View implements View.OnClickListener {
     private UpcomingPiece upcomingPiece;
     private int timerPeriod;
     private boolean cond = false;
-    private int num;
+    private int numColor;
 
-    public MainGame(Context context, UpcomingPiece upcomingPiece, MainBoard mainBoard) {
+    public MainGame(Context context, UpcomingPiece upcomingPiece, MainBoard mainBoard,int numColor) {
         super(context);
         this.timer = new Timer();
         this.proTetris = (ProTetris) context;
@@ -56,15 +56,9 @@ public class MainGame extends View implements View.OnClickListener {
         this.leftButton.setOnClickListener(this);
         this.rightButton.setOnClickListener(this);
         this.downButton.setOnClickListener(this);
-
+        this.numColor=numColor;
         startGame();
     }
-
-    public MainGame(Context context, int num) {
-        super(context);
-        this.num = num;
-    }
-
     public void startGame() {
         timer.schedule(new TimerTask() {
             @Override
@@ -178,6 +172,14 @@ public class MainGame extends View implements View.OnClickListener {
                         }
                     }
                 }
+                int rowsRemoved = mainBoard.removeCompleteLines(randomPiece);
+
+                if (rowsRemoved > 0) { //Si se han borrado líneas, se aumenta el marcador +30 por cada una.
+                    cond = true;
+
+                    score += rowsRemoved * 30;
+                    actualPoints.setText(Integer.toString(score));
+                }
             }
         }).start();
     }
@@ -193,10 +195,10 @@ public class MainGame extends View implements View.OnClickListener {
         int ancho = (int) (this.getResources().getDisplayMetrics().widthPixels * 0.068);
         int alto = (int) (this.getResources().getDisplayMetrics().heightPixels * 0.04375);
         if (cond) {
-            num = (int) (Math.random() * 7 + 1);
+            numColor = (int) (Math.random() * 7 + 1);
             for (int row = 0; row < mainBoard.getActualRows(); row++) {
                 for (int col = 0; col < mainBoard.getBOARD_NUM_COLS(); col++) {
-                    int blocks = mainBoard.drawBlocks(row, col, num);
+                    int blocks = mainBoard.drawBlocks(row, col, numColor);
                     loadBlocks(blocks, paint, col, row, alto, ancho, canvas);
                 }
             }
@@ -205,7 +207,7 @@ public class MainGame extends View implements View.OnClickListener {
         } else {
             for (int row = 0; row < mainBoard.getActualRows(); row++) {
                 for (int col = 0; col < mainBoard.getBOARD_NUM_COLS(); col++) {
-                    int blocks = mainBoard.drawBlocks(row, col, num);
+                    int blocks = mainBoard.drawBlocks(row, col, numColor);
                     loadBlocks(blocks, paint, col, row, alto, ancho, canvas);
                 }
             }
@@ -213,7 +215,8 @@ public class MainGame extends View implements View.OnClickListener {
     }
 
 
-    private void loadBlocks(int blocks, Paint paint, int col, int row, int alto, int ancho, Canvas canvas) {
+
+    public static void loadBlocks(int blocks, Paint paint, int col, int row, int alto, int ancho, Canvas canvas) {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(blocks);
         Rect rect = new Rect(col * ancho, row * alto, col * ancho + ancho, row * alto + alto);
@@ -222,6 +225,7 @@ public class MainGame extends View implements View.OnClickListener {
         paint.setColor(Color.BLACK);
         canvas.drawRect(rect, paint);
     }
+
 
     @Override
     public void onClick(View view) {
