@@ -196,6 +196,8 @@ public class MainGame extends View implements View.OnClickListener {
         int alto = (int) (this.getResources().getDisplayMetrics().heightPixels * 0.04375);
         if (cond) {
             numColor = (int) (Math.random() * 7 + 1);
+            upcomingPiece.setColor(numColor);
+            upcomingPiece.invalidate();
             for (int row = 0; row < mainBoard.getActualRows(); row++) {
                 for (int col = 0; col < mainBoard.getBOARD_NUM_COLS(); col++) {
                     int blocks = mainBoard.drawBlocks(row, col, numColor);

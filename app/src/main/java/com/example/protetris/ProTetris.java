@@ -38,8 +38,8 @@ public class ProTetris extends AppCompatActivity {
         Bundle datos = this.getIntent().getExtras();
         this.colornum= datos.getInt("COLORKEY");
 
-        this.upcomingPiece = new UpcomingPiece(this, mainBoard,this.colornum);
         RelativeLayout nextPiece = findViewById(R.id.pieceView);
+        this.upcomingPiece = new UpcomingPiece(this, mainBoard,this.colornum, nextPiece);
         nextPiece.addView(upcomingPiece);
 
         this.game = new MainGame(this, this.upcomingPiece, this.mainBoard,this.colornum);
