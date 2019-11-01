@@ -90,10 +90,10 @@ public class Piece extends Coordinates{
                 break;
 
             case BLUELIGHT_BLOCK:
-                this.pieceBoard[0][0] = BLUELIGHT_BLOCK;
-                this.pieceBoard[1][0] = BLUELIGHT_BLOCK;
                 this.pieceBoard[0][1] = BLUELIGHT_BLOCK;
+                this.pieceBoard[0][2] = BLUELIGHT_BLOCK;
                 this.pieceBoard[1][1] = BLUELIGHT_BLOCK;
+                this.pieceBoard[1][2] = BLUELIGHT_BLOCK;
                 this.coord.setCoord1(0, 4);
                 this.coord.setCoord2(1, 4);
                 this.coord.setCoord3(0, 5);

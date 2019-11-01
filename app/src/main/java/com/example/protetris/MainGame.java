@@ -178,10 +178,10 @@ public class MainGame extends View implements View.OnClickListener {
                     cond = true;
 
                     score += rowsRemoved * 30;
-                    actualPoints.setText(Integer.toString(score));
                 }
             }
         }).start();
+        actualPoints.setText(Integer.toString(score));
     }
 
     private void setRandomPieceNull() {
