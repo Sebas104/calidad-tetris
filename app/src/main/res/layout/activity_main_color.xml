@@ -9,10 +9,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginEnd="56dp"
+        android:layout_width="257dp"
+        android:layout_height="146dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,7 +19,7 @@
     <ImageView
         android:id="@+id/blue"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
@@ -30,7 +28,7 @@
     <ImageView
         android:id="@+id/red"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
@@ -39,7 +37,7 @@
     <ImageView
         android:id="@+id/orange"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +47,7 @@
     <ImageView
         android:id="@+id/blue2"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="60dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +57,7 @@
     <ImageView
         android:id="@+id/yellow"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +67,7 @@
     <ImageView
         android:id="@+id/green"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="60dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +77,7 @@
     <ImageView
         android:id="@+id/purple"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="45dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +87,7 @@
     <ImageView
         android:id="@+id/multicolor"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="60dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,9 +96,9 @@
 
     <Button
         android:id="@+id/blue2_button"
-        android:layout_width="94dp"
+        android:layout_width="110dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="55dp"
+        android:layout_marginEnd="46dp"
         android:background="@drawable/round_button"
         android:fontFamily="@font/lemon"
         android:text="Blue"
@@ -154,9 +152,9 @@
 
     <Button
         android:id="@+id/red_button"
-        android:layout_width="94dp"
+        android:layout_width="110dp"
         android:layout_height="33dp"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="32dp"
         android:background="@drawable/round_button"
         android:clickable="true"
         android:fontFamily="@font/lemon"
@@ -169,9 +167,9 @@
 
     <Button
         android:id="@+id/green_button"
-        android:layout_width="94dp"
+        android:layout_width="110dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="46dp"
         android:background="@drawable/round_button"
         android:fontFamily="@font/lemon"
         android:text="Green"

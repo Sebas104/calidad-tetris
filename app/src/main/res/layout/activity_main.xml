@@ -18,6 +18,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_menu" />
 
+    <ImageView
+        android:id="@+id/Twitter"
+        android:layout_width="266dp"
+        android:layout_height="106dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.974"
+        app:srcCompat="@drawable/twitter" />
+
     <Button
         android:id="@+id/controlsButton"
         android:layout_width="150dp"

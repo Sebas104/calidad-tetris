@@ -2,7 +2,9 @@ package com.example.protetris;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class Controls extends AppCompatActivity {
 
@@ -10,5 +12,9 @@ public class Controls extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_controls);
+    }
+    public void startGame(View view) {
+        Intent intent = new Intent(this,MainColor.class);
+        startActivity(intent);
     }
 }
