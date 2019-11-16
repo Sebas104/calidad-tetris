@@ -23,6 +23,7 @@ public class MainGame extends View implements View.OnClickListener {
     private ImageView rightButton;
     private ImageView downButton;
     private TextView actualPoints;
+    private TextView actualCombo;
     private int score;
     private Timer timer;
     Piece randomPiece;
@@ -33,6 +34,7 @@ public class MainGame extends View implements View.OnClickListener {
     private int timerPeriod;
     private boolean cond = false;
     private int numColor;
+    private int combo;
 
     public MainGame(Context context, UpcomingPiece upcomingPiece, MainBoard mainBoard,int numColor) {
         super(context);
@@ -43,10 +45,14 @@ public class MainGame extends View implements View.OnClickListener {
         this.cont = 0;
         this.pickRandomPiece = false;
         this.score = 0;
+        this.combo=1;
+
         this.mainBoard = mainBoard;
         this.pieces = mainBoard.getPieces();
         this.actualPoints = proTetris.getPoints();
+        this.actualCombo=proTetris.getActualCombo();
         this.actualPoints.append("0");
+        this.actualCombo.append("X1");
 
         this.rotateButton = proTetris.getRotateButton();
         this.leftButton = proTetris.getLeftButton();
@@ -85,9 +91,10 @@ public class MainGame extends View implements View.OnClickListener {
 
                                             if (rowsRemoved > 0) { //Si se han borrado líneas, se aumenta el marcador +30 por cada una.
                                                 cond = true;
-
-                                                score += rowsRemoved * 30;
+                                                score += rowsRemoved * (30*combo);
+                                                combo=rowsRemoved;
                                                 actualPoints.setText(Integer.toString(score));
+                                                actualCombo.setText("X"+combo);
                                             }
 
                                             Piece actualPiece = mainBoard.getActualPiece();
@@ -177,11 +184,13 @@ public class MainGame extends View implements View.OnClickListener {
                 if (rowsRemoved > 0) { //Si se han borrado líneas, se aumenta el marcador +30 por cada una.
                     cond = true;
 
-                    score += rowsRemoved * 30;
+                    score += rowsRemoved * (30*combo);
+                    combo=rowsRemoved;
                 }
             }
         }).start();
         actualPoints.setText(Integer.toString(score));
+        actualCombo.setText("X"+combo);
     }
 
     private void setRandomPieceNull() {

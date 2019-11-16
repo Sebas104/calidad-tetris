@@ -8,6 +8,24 @@
     android:background="@drawable/tetris_bg"
     tools:context=".ProTetris">
 
+    <TextView
+        android:id="@+id/textCombo"
+        android:layout_width="37dp"
+        android:layout_height="29dp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/lemon"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#D8CBA3"
+        android:textColorHint="#D8CBA3"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/rotateButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.887"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.962" />
+
     <ImageView
         android:id="@+id/leftButton"
         android:layout_width="60dp"
@@ -119,7 +137,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.51">
-
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.Group
