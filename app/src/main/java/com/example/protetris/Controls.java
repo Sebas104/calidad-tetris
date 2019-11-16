@@ -16,5 +16,6 @@ public class Controls extends AppCompatActivity {
     public void startGame(View view) {
         Intent intent = new Intent(this,MainColor.class);
         startActivity(intent);
+        this.finish();
     }
 }

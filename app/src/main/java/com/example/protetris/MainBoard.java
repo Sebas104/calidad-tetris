@@ -173,9 +173,10 @@ public class MainBoard {
                 if (randomPiece != null) {
                     randomPiece.moveCoord(1, 0);
                 }
-                if (!this.moveOneDown(this.getActualPiece())) {
-                    this.getActualPiece().moveCoord(1,0);
-                }
+
+                //En caso de que se haga fila con la pieza random, actualizar la posicion de la pieza actual
+                this.getActualPiece().moveCoord(1,0);
+
                 linesToRemove++;
             }
         }
