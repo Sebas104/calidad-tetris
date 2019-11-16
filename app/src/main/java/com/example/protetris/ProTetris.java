@@ -38,7 +38,8 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_tetris);
-        this.media=MediaPlayer.create(this,sounds[0]);
+        sound=(int) Math.floor(Math.random()*sounds.length);
+        this.media=MediaPlayer.create(this,sounds[sound]);
         this.media.setOnCompletionListener(this);
         this.mainBoard = new MainBoard();
 
@@ -73,8 +74,6 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
                     startButton.setText("Resume");
                     media.stop();
                     stop = true;
-                    sound--;
-
                 }
             }
         });
@@ -133,9 +132,10 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        this.sound++;
-        if(this.sound == this.sounds.length){
-            this.sound = 0;//empieza de nuevo
+        int auxsound=sound;//para recuperar la cancion al pausar el juego
+        sound= (int) Math.floor(Math.random()*sounds.length);
+        while(auxsound==sound){
+            sound=(int) Math.floor(Math.random()*sounds.length);//caso que se repita cancion
         }
         AssetFileDescriptor asset=this.getResources().openRawResourceFd(sounds[sound]);
         try{
@@ -144,11 +144,8 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
             media.prepare();
             media.start();
             asset.close();
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
