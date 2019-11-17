@@ -45,7 +45,7 @@ public class MainGame extends View implements View.OnClickListener {
         this.cont = 0;
         this.pickRandomPiece = false;
         this.score = 0;
-        this.combo=1;
+        this.combo = 1;
 
         this.mainBoard = mainBoard;
         this.pieces = mainBoard.getPieces();
@@ -73,28 +73,24 @@ public class MainGame extends View implements View.OnClickListener {
                     @Override
                     public void run() {
                         if (!proTetris.getStop()) {
-
                             try {
                                 if (!gameOver()) {
-
                                     if (!mainBoard.moveOneDown(mainBoard.getActualPiece())) {
-
                                         try {
                                             Thread.sleep(500);
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
-
                                         if (!mainBoard.moveOneDown(mainBoard.getActualPiece())) {
 
                                             int rowsRemoved = mainBoard.removeCompleteLines(randomPiece);
 
                                             if (rowsRemoved > 0) { //Si se han borrado líneas, se aumenta el marcador +30 por cada una.
                                                 cond = true;
-                                                score += rowsRemoved * (30*combo);
-                                                combo=rowsRemoved;
+                                                score += rowsRemoved * (30 * combo);
+                                                combo = rowsRemoved;
                                                 actualPoints.setText(Integer.toString(score));
-                                                actualCombo.setText("X"+combo);
+                                                actualCombo.setText("X" + combo);
                                             }
 
                                             Piece actualPiece = mainBoard.getActualPiece();

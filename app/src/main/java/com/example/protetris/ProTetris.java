@@ -31,15 +31,15 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
     private MainGame game;
     private UpcomingPiece upcomingPiece;
     private MediaPlayer media;
-    private int [] sounds ={R.raw.billie,R.raw.breakfree,R.raw.fuego,R.raw.gonnalive,R.raw.high,R.raw.guns,R.raw.eury,R.raw.carro};
+    private int [] sounds = {R.raw.billie,R.raw.breakfree,R.raw.fuego,R.raw.gonnalive,R.raw.high,R.raw.guns,R.raw.eury,R.raw.carro};
     private int sound;
     private int colornum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pro_tetris);
-        sound=(int) Math.floor(Math.random()*sounds.length);
-        this.media=MediaPlayer.create(this,sounds[sound]);
+        sound = (int) Math.floor(Math.random() * sounds.length);
+        this.media = MediaPlayer.create(this,sounds[sound]);
         this.media.setOnCompletionListener(this);
         this.mainBoard = new MainBoard();
 
@@ -52,7 +52,7 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
         this.startButton = findViewById(R.id.start);
         this.stop = true;
         Bundle datos = this.getIntent().getExtras();
-        this.colornum= datos.getInt("COLORKEY");
+        this.colornum = datos.getInt("COLORKEY");
 
         RelativeLayout nextPiece = findViewById(R.id.pieceView);
         this.upcomingPiece = new UpcomingPiece(this, mainBoard,this.colornum, nextPiece);
@@ -69,7 +69,6 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
                     startButton.setText("Pause");
                     media.start();
                     stop = false;
-
                 } else if (startButton.getText().equals("Pause")){
                     startButton.setText("Resume");
                     media.stop();
@@ -132,12 +131,12 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        int auxsound=sound;//para recuperar la cancion al pausar el juego
-        sound= (int) Math.floor(Math.random()*sounds.length);
-        while(auxsound==sound){
-            sound=(int) Math.floor(Math.random()*sounds.length);//caso que se repita cancion
+        int auxsound = sound;//para recuperar la cancion al pausar el juego
+        sound = (int) Math.floor(Math.random() * sounds.length);
+        while(auxsound == sound){
+            sound = (int) Math.floor(Math.random()*sounds.length);//caso que se repita cancion
         }
-        AssetFileDescriptor asset=this.getResources().openRawResourceFd(sounds[sound]);
+        AssetFileDescriptor asset = this.getResources().openRawResourceFd(sounds[sound]);
         try{
             media.reset();
             media.setDataSource(asset.getFileDescriptor(), asset.getStartOffset(), asset.getDeclaredLength());

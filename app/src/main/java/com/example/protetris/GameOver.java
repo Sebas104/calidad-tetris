@@ -182,9 +182,14 @@ public class GameOver extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        btnSend.setVisibility(View.INVISIBLE);
-        btnReset.setVisibility(View.INVISIBLE);
-        findViewById(R.id.newGame).setVisibility(View.VISIBLE);
+
+        if (points < 250) {
+            super.onBackPressed();
+        } else {
+            btnSend.setVisibility(View.INVISIBLE);
+            btnReset.setVisibility(View.INVISIBLE);
+            findViewById(R.id.newGame).setVisibility(View.VISIBLE);
+        }
 
         btnNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
