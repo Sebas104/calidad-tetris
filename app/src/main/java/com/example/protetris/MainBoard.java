@@ -190,7 +190,7 @@ public class MainBoard {
         for (int row = 0; row < actualRows; row++) {
             int rowComplete = 0;
             for (int col = 0; col < BOARD_NUM_COLS; col++) {
-                if (this.board[row][col] > 0) {
+                if (this.board[row][col] > EMPTY && this.board[row][col] != SHADOW) {
                     rowComplete++;
                 }
             }
