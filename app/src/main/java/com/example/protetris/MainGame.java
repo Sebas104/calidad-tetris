@@ -75,13 +75,13 @@ public class MainGame extends View implements View.OnClickListener {
                         if (!proTetris.getStop()) {
                             try {
                                 if (!gameOver()) {
-                                    if (!mainBoard.moveOneDown(mainBoard.getActualPiece())) {
+                                    if (!mainBoard.moveOneDown(mainBoard.getActualPiece(), true)) {
                                         try {
                                             Thread.sleep(500);
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
-                                        if (!mainBoard.moveOneDown(mainBoard.getActualPiece())) {
+                                        if (!mainBoard.moveOneDown(mainBoard.getActualPiece(), true)) {
 
                                             int rowsRemoved = mainBoard.removeCompleteLines(randomPiece);
 
@@ -152,7 +152,7 @@ public class MainGame extends View implements View.OnClickListener {
 
                 while (true) {
                     if (!proTetris.getStop()) {
-                        if (mainBoard.moveOneDown(randomPiece)) {
+                        if (mainBoard.moveOneDown(randomPiece, false)) {
                             try {
                                 Thread.sleep(500);
                             } catch (InterruptedException e) {
@@ -240,33 +240,33 @@ public class MainGame extends View implements View.OnClickListener {
             switch (view.getId()) {
                 case R.id.rotateButton:
                     if (pickRandomPiece) {
-                        mainBoard.rotate(randomPiece);
+                        mainBoard.rotate(randomPiece, false);
                     } else {
-                        mainBoard.rotate(mainBoard.getActualPiece());
+                        mainBoard.rotate(mainBoard.getActualPiece(), true);
                     }
                     invalidate();
                     break;
                 case R.id.leftButton:
                     if (pickRandomPiece) {
-                        mainBoard.moveToLeft(randomPiece);
+                        mainBoard.moveToLeft(randomPiece, false);
                     } else {
-                        mainBoard.moveToLeft(mainBoard.getActualPiece());
+                        mainBoard.moveToLeft(mainBoard.getActualPiece(), true);
                     }
                     invalidate();
                     break;
                 case R.id.rightButton:
                     if (pickRandomPiece) {
-                        mainBoard.moveToRight(randomPiece);
+                        mainBoard.moveToRight(randomPiece, false);
                     } else {
-                        mainBoard.moveToRight(mainBoard.getActualPiece());
+                        mainBoard.moveToRight(mainBoard.getActualPiece(), true);
                     }
                     invalidate();
                     break;
                 case R.id.downButton:
                     if (pickRandomPiece) {
-                        mainBoard.moveDown(randomPiece);
+                        mainBoard.fastFall(randomPiece, false);
                     } else {
-                        mainBoard.moveDown(mainBoard.getActualPiece());
+                        mainBoard.fastFall(mainBoard.getActualPiece(), true);
                     }
                     invalidate();
                     break;

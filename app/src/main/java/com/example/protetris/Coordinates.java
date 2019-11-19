@@ -30,6 +30,14 @@ public class Coordinates {
         this.coord4.y = this.coord4.y + newY;
     }
 
+    public boolean equals(Coordinates coord) {
+        if (this.coord1.equals(coord.coord1) && this.coord2.equals(coord.coord2)
+            && this.coord3.equals(coord.coord3) && this.coord4.equals(coord.coord4)) {
+            return true;
+        }
+        return false;
+    }
+
     public void setCoord1(int x, int y) {
         this.coord1.x = x;
         this.coord1.y = y;

@@ -16,12 +16,14 @@ public class Piece extends Coordinates{
     static final int YELLOW_BLOCK = 5; //Piece L
     static final int ORANGE_BLOCK = 6; //Piece Z
     static final int GREEN_BLOCK = 7; //Piece T
+    static final int SHADOW_BLOCK = 8;
 
     static final int LENGTH = 3; //Tamaño de los array de las piezas, 4 por la pieza I
     static final int I_LENGTH = 4;
     int [][] pieceBoard; //Array de la pieza para el método rotar
     Coordinates coord;
     private int tetromino; //El tipo de bloque
+
 
     public Piece(Piece sourcePiece) {
         this.coord = new Coordinates();
@@ -33,7 +35,9 @@ public class Piece extends Coordinates{
 
         this.coord = new Coordinates();
 
-        if (pieceType == this.RED_BLOCK) { //La pieza I es un caso especial
+        if (pieceType == this.SHADOW_BLOCK) {
+            //No hacemos nada en este caso
+        } else if (pieceType == this.RED_BLOCK) { //La pieza I es un caso especial
             this.pieceBoard = new int[I_LENGTH][I_LENGTH];
             for (int col = 0; col < I_LENGTH; col++) {
                 for (int row = 0; row < I_LENGTH; row++) {
@@ -94,6 +98,7 @@ public class Piece extends Coordinates{
                 this.pieceBoard[0][1] = BLUELIGHT_BLOCK;
                 this.pieceBoard[1][0] = BLUELIGHT_BLOCK;
                 this.pieceBoard[1][1] = BLUELIGHT_BLOCK;
+
                 this.coord.setCoord1(0, 4);
                 this.coord.setCoord2(1, 4);
                 this.coord.setCoord3(0, 5);
@@ -138,6 +143,10 @@ public class Piece extends Coordinates{
                 this.coord.setCoord3(1, 4);
                 this.coord.setCoord4(1, 5);
                 this.tetromino = GREEN_BLOCK;
+                break;
+
+            case SHADOW_BLOCK:
+                this.tetromino = SHADOW_BLOCK;
                 break;
         }
     }
@@ -263,12 +272,13 @@ public class Piece extends Coordinates{
         int count = 0;
 
         for (Point point: newPoints) {
-            if (this.coord.coord1.equals(point) || this.coord.coord2.equals(point) || this.coord.coord3.equals(point) || this.coord.coord4.equals(point)) {
+            if (this.coord.coord1.equals(point) || this.coord.coord2.equals(point) || this.coord.coord3.equals(point)
+                    || this.coord.coord4.equals(point)) {
                 count++;
             }
             else if (point.x < board.length && point.x > -1 && point.y > -1 &&
                     board[0].length > point.y) {
-                if (board[point.x][point.y] == NO_BLOCK) {
+                if (board[point.x][point.y] == NO_BLOCK || board[point.x][point.y] == SHADOW_BLOCK) {
                     count++;
                 }
             }
@@ -283,6 +293,7 @@ public class Piece extends Coordinates{
     }
 
     public Coordinates copyCoord(Coordinates coords) {
+
         Coordinates newXY = new Coordinates();
 
         newXY.coord1 = new Point(coords.coord1.x, coords.coord1.y);
@@ -295,8 +306,8 @@ public class Piece extends Coordinates{
 
     /*
     Para realizar este método comprobamos recorriendo primero por columnas para actualizar por esas
-    coordenadas primero, que sea del mismo tipo de pieza y que ademas con la ayuda de newXY que no sea una
-    pieza del mismo tipo pero que no sea la pieza que nos interesa guardar.
+    coordenadas primero, queremos evitar coger las coordenadas de una pieza que sea del mismo tipo
+    que la pieza que nos interesa rotar, solo la pieza que hemos rotado.
      */
 
     public void updateAfterRotate(int [][] board, Coordinates newXY) {

@@ -2,6 +2,7 @@ package com.example.protetris;
 
 
 import android.graphics.Color;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class MainBoard {
     private static final int L_PIECE = 5;
     private static final int Z_PIECE = 6;
     private static final int T_PIECE = 7;
+    private static final int SHADOW = 8;
 
     private final int BOARD_NUM_ROWS = 20;
     private final int BOARD_NUM_COLS = 10;
@@ -23,6 +25,8 @@ public class MainBoard {
     private final int NUM_TYPE = 7; //Numero de diferentes piezas
     private final int FIRST = 0; //Para coger la primera pieza del LinkedList de pieces
 
+    private Piece shadowActualPiece;
+    private Piece shadowRandomPiece;
     private List<Piece> pieces = new LinkedList<>();
 
     private int actualRows = BOARD_NUM_ROWS;
@@ -30,9 +34,12 @@ public class MainBoard {
     private int board[][]; //Tablero del juego
 
     public MainBoard() {
+        //Inicialización tablero
         board = new int[BOARD_NUM_ROWS][BOARD_NUM_COLS];
         this.resetBoard(this.board);
-
+        //Inicialización piezas
+        shadowActualPiece = new Piece(SHADOW);
+        shadowRandomPiece = new Piece(SHADOW);
         int pieceRandom1 = (int) (Math.random() * NUM_TYPE) + 1;
         int pieceRandom2 = (int) (Math.random() * NUM_TYPE) + 1;
         pieces.add(new Piece(pieceRandom1));
@@ -53,6 +60,14 @@ public class MainBoard {
 
     public List<Piece> getPieces() {
         return pieces;
+    }
+
+    public Piece getShadowActualPiece() {
+        return shadowActualPiece;
+    }
+
+    public Piece getShadowRandomPiece() {
+        return shadowRandomPiece;
     }
 
     public Piece getActualPiece() {
@@ -104,48 +119,64 @@ public class MainBoard {
                         return Color.parseColor("#FD6801");
                     case T_PIECE:
                         return Color.parseColor("#03DF04");
+                    case SHADOW:
+                        return Color.parseColor("#26F2F2F2");
                 }
                 break;
             }
             case 1: {
                 if (board[row][col] == EMPTY) {
                     return Color.parseColor("#0030272A");
+                } else if (board[row][col] == SHADOW) {
+                    return Color.parseColor("#26F2F2F2");
                 }
                 return Color.parseColor("#0087FC");
             }
             case 2: {
                 if (board[row][col] == EMPTY) {
                     return Color.parseColor("#0030272A");
+                } else if (board[row][col] == SHADOW) {
+                    return Color.parseColor("#26F2F2F2");
                 }
                 return Color.parseColor("#FD2929");
             }
             case 3: {
                 if (board[row][col] == EMPTY) {
                     return Color.parseColor("#0030272A");
+                } else if (board[row][col] == SHADOW) {
+                    return Color.parseColor("#26F2F2F2");
                 }
                 return Color.parseColor("#00D1FE");
             }
             case 4: {
                 if (board[row][col] == EMPTY) {
                     return Color.parseColor("#0030272A");
+                } else if (board[row][col] == SHADOW) {
+                    return Color.parseColor("#26F2F2F2");
                 }
                 return Color.parseColor("#9C00E2");
             }
             case 5: {
                 if (board[row][col] == EMPTY) {
                     return Color.parseColor("#0030272A");
+                } else if (board[row][col] == SHADOW) {
+                    return Color.parseColor("#26F2F2F2");
                 }
                 return Color.parseColor("#FDD401");
             }
             case 6: {
                 if (board[row][col] == EMPTY) {
                     return Color.parseColor("#0030272A");
+                } else if (board[row][col] == SHADOW) {
+                    return Color.parseColor("#26F2F2F2");
                 }
                 return Color.parseColor("#FD6801");
             }
             case 7: {
                 if (board[row][col] == EMPTY) {
                     return Color.parseColor("#0030272A");
+                } else if (board[row][col] == SHADOW) {
+                    return Color.parseColor("#26F2F2F2");
                 }
                 return Color.parseColor("#03DF04");
             }
@@ -198,56 +229,92 @@ public class MainBoard {
     }
 
 
-    public void rotate(Piece actualPiece) {
+    public void rotate(Piece actualPiece, boolean isActualPiece) {
         Piece checkPiece = new Piece(actualPiece);
         if ((actualPiece.rotatePiece(this.board, checkPiece.coord))) {
             removePiece(actualPiece, this.board);
+            shadowPiece(checkPiece, isActualPiece);
             addPiece(checkPiece, this.board);
             actualPiece.updateAfterRotate(this.board, checkPiece.coord);
         }
     }
 
-    public void moveToLeft(Piece actualPiece) {
+    public void moveToLeft(Piece actualPiece, boolean isActualPiece) {
         Coordinates newXY = actualPiece.copyCoord(actualPiece.coord);
         newXY.updateCoord(0, -1);
         if (!actualPiece.checkCollision(this.board, newXY)) {
             removePiece(actualPiece, this.board);
             actualPiece.moveCoord(0, -1);
+            shadowPiece(actualPiece, isActualPiece);
             addPiece(actualPiece, this.board);
         }
     }
 
-    public void moveToRight(Piece actualPiece) {
+    public void moveToRight(Piece actualPiece, boolean isActualPiece) {
         Coordinates newXY = actualPiece.copyCoord(actualPiece.coord);
         newXY.updateCoord(0, 1);
         if (!actualPiece.checkCollision(this.board, newXY)) {
             removePiece(actualPiece, this.board);
             actualPiece.moveCoord(0, 1);
+            shadowPiece(actualPiece, isActualPiece);
             addPiece(actualPiece, this.board);
         }
     }
 
-    public boolean moveOneDown(Piece actualPiece) {
+    public boolean moveOneDown(Piece actualPiece, boolean isActualPiece) {
         Coordinates newXY = actualPiece.copyCoord(actualPiece.coord);
         newXY.updateCoord(1, 0);
         if (!actualPiece.checkCollision(this.board, newXY)) {
             removePiece(actualPiece, this.board);
             actualPiece.moveCoord(1, 0);
+            shadowPiece(actualPiece, isActualPiece);
             addPiece(actualPiece, this.board);
             return true;
         }
         return false;
     }
 
-    public void moveDown(Piece actualPiece) {
-        Piece newPosition = new Piece(actualPiece);
-        newPosition.coord = actualPiece.copyCoord(actualPiece.coord);
+    public void moveDown(Piece shadowPiece) {
+        Piece newPosition = new Piece(shadowPiece);
+        newPosition.coord = shadowPiece.copyCoord(shadowPiece.coord);
         newPosition.moveCoord(1, 0);
-        while (!actualPiece.checkCollision(this.board, newPosition.coord)) {
-            removePiece(actualPiece, this.board);
+        while (!shadowPiece.checkCollision(this.board, newPosition.coord)) {
+            removePiece(shadowPiece, this.board);
             addPiece(newPosition, this.board);
             newPosition.coord.updateCoord(1, 0);
-            actualPiece.moveCoord(1, 0);
+            shadowPiece.moveCoord(1, 0);
+        }
+    }
+
+    public void fastFall(Piece piece, boolean isActualPiece) {
+        removePiece(piece, this.board);
+        if (isActualPiece) {
+            piece.coord = piece.copyCoord(getShadowActualPiece().coord);
+            getShadowActualPiece().coord = new Coordinates();
+        } else {
+            piece.coord = piece.copyCoord(getShadowRandomPiece().coord);
+            getShadowRandomPiece().coord = new Coordinates();
+        }
+        addPiece(piece, this.board);
+    }
+
+    public void shadowPiece(Piece actualPiece, boolean isActualPiece) {
+        if (isActualPiece) {
+            removePiece(shadowActualPiece, this.board);
+            shadowActualPiece.coord = actualPiece.copyCoord(actualPiece.coord);
+            moveDown(shadowActualPiece);
+            addPiece(shadowActualPiece, this.board);
+            if (shadowActualPiece.coord.equals(actualPiece.coord)) {
+                shadowActualPiece.coord = new Coordinates();
+            }
+        } else {
+            removePiece(shadowRandomPiece, this.board);
+            shadowRandomPiece.coord = actualPiece.copyCoord(actualPiece.coord);
+            moveDown(shadowRandomPiece);
+            addPiece(shadowRandomPiece, this.board);
+            if (shadowRandomPiece.coord.equals(actualPiece.coord)) {
+                shadowRandomPiece.coord = new Coordinates();
+            }
         }
     }
 
@@ -256,6 +323,9 @@ public class MainBoard {
         Piece actualPiece = this.getActualPiece();
         boolean firstRows = false;
         boolean firstRowsRandom = false;
+
+        shadowActualPiece.updateCoord(-2,0);
+        shadowRandomPiece.updateCoord(-2,0);
 
         this.removePiece(actualPiece, this.board);
 
@@ -323,8 +393,8 @@ public class MainBoard {
             return;
         }
 
-        this.moveOneDown(actualPiece);
-        this.moveOneDown(actualPiece);
+        this.moveOneDown(actualPiece, true);
+        this.moveOneDown(actualPiece, true);
 
         //Hacemos lo mismo para el caso de la pieza aleatoria
         if (randomPiece != null) {
@@ -335,8 +405,8 @@ public class MainBoard {
                 return;
             }
 
-            this.moveOneDown(randomPiece);
-            this.moveOneDown(randomPiece);
+            this.moveOneDown(randomPiece, false);
+            this.moveOneDown(randomPiece, false);
         }
 
     }
