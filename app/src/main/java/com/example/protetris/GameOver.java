@@ -1,25 +1,31 @@
 package com.example.protetris;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.PriorityQueue;
 
 class Elements {
@@ -35,22 +41,23 @@ class Elements {
 
 public class GameOver extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 0;
+    private Uri photoUri;
+    private Bitmap photoBitmap;
+    private TextView namePhoto;
+    private ImageView photo;
+    private TextView scorePhoto;
     private Button btnSend;
     private Button btnReset;
     private Button btnNewGame;
     private Button btnColor;
     private Button btnMenu;
     private Button btnExit;
+    private Button btnClose;
     private TextView txv1;
     private TextView txv2;
     private TextView txv3;
     private TextView txv4;
     private TextView txv5;
-    private ImageSwitcher sw1;
-    private ImageSwitcher sw2;
-    private ImageSwitcher sw3;
-    private ImageSwitcher sw4;
-    private ImageSwitcher sw5;
     private EditText edtx;
     private int points;
     private int color;
@@ -59,23 +66,16 @@ public class GameOver extends AppCompatActivity {
     public static final String SHARED_PREFS = "Shprefs";
     public static final String FIRSTAUX = "Nombre";
     public static final String SECONDAUX = "Puntuacion";
-    public static final String THIRDAUX = "Img";
     public static final String FIRST = "Nombre0";
     public static final String SECOND = "Puntuacion0";
-    public static final String THIRD = "Img0";
     public static final String FIRST2 = "Nombre1";
     public static final String SECOND2 = "Puntuacion1";
-    public static final String THIRD2 = "Img1";
     public static final String FIRST3 = "Nombre2";
     public static final String SECOND3 = "Puntuacion2";
-    public static final String THIRD3 = "Img2";
     public static final String FIRST4 = "Nombre3";
     public static final String SECOND4 = "Puntuacion3";
-    public static final String THIRD4 = "Img3";
     public static final String FIRST5 = "Nombre4";
     public static final String SECOND5 = "Puntuacion4";
-    public static final String THIRD5 = "Img4";
-    private Uri pictureUri;
 
     PriorityQueue<Elements> pqueue = new PriorityQueue<Elements>(6, new Comparator<Elements>() {
         @Override
@@ -108,6 +108,7 @@ public class GameOver extends AppCompatActivity {
         btnColor = findViewById(R.id.button5);
         btnMenu = findViewById(R.id.button6);
         btnExit = findViewById(R.id.button7);
+        btnClose = findViewById(R.id.buttonClose);
         InitScores();
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,15 +129,23 @@ public class GameOver extends AppCompatActivity {
                 }
             }
         });
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.newPhoto).setVisibility(View.GONE);
+                btnSend.setVisibility(View.VISIBLE);
+                btnReset.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case REQUEST_IMAGE_CAPTURE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    openCamera();
+                    takePhoto();
                 } else {
                     Toast.makeText(getBaseContext(),"Permission Denied", Toast.LENGTH_SHORT).show();
                 }
@@ -152,6 +161,7 @@ public class GameOver extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_IMAGE_CAPTURE);
             }
+
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
             }
@@ -161,9 +171,67 @@ public class GameOver extends AppCompatActivity {
     }
 
     public void openCamera() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+        Intent photoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (photoIntent.resolveActivity(getPackageManager()) != null) {
+
+            File photoFile = null;
+
+            try {
+                photoFile = createImageFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (photoFile != null) {
+
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.TITLE, "Foto ProTetris");
+                values.put(MediaStore.Images.Media.DESCRIPTION, "Tomada: " + System.currentTimeMillis());
+                photoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+                photoIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(photoIntent, REQUEST_IMAGE_CAPTURE);
+
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,
+                ".jpg",
+                storageDir
+        );
+
+        return image;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
+            namePhoto = findViewById(R.id.textView7);
+            photo = findViewById(R.id.imageView2);
+            scorePhoto = findViewById(R.id.textView8);
+
+            try {
+                photoBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), photoUri);
+                photo.setImageBitmap(photoBitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            findViewById(R.id.newPhoto).setVisibility(View.VISIBLE);
+            namePhoto.setText(edtx.getText().toString());
+            scorePhoto.setText("Puntuación: " + points);
+            btnSend.setVisibility(View.INVISIBLE);
+            btnReset.setVisibility(View.INVISIBLE);
+
         }
     }
 
@@ -249,6 +317,7 @@ public class GameOver extends AppCompatActivity {
         } else {
             btnSend.setVisibility(View.INVISIBLE);
             btnReset.setVisibility(View.INVISIBLE);
+            findViewById(R.id.newPhoto).setVisibility(View.GONE);
             findViewById(R.id.newGame).setVisibility(View.VISIBLE);
         }
 
