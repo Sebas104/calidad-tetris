@@ -31,7 +31,7 @@ public class ProTetris extends AppCompatActivity implements MediaPlayer.OnComple
     private MainGame game;
     private UpcomingPiece upcomingPiece;
     private MediaPlayer media;
-    private int [] sounds = {R.raw.billie,R.raw.breakfree,R.raw.fuego,R.raw.gonnalive,R.raw.high,R.raw.guns,R.raw.eury,R.raw.carro};
+    private int [] sounds = {R.raw.billie,R.raw.breakfree,R.raw.gonnalive,R.raw.high,R.raw.guns,R.raw.eury,R.raw.carro};
     private int sound;
     private int colornum;
     @Override

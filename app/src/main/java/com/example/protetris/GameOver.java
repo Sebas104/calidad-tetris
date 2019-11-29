@@ -77,15 +77,12 @@ public class GameOver extends AppCompatActivity {
     public static final String FIRST5 = "Nombre4";
     public static final String SECOND5 = "Puntuacion4";
 
-    PriorityQueue<Elements> pqueue = new PriorityQueue<Elements>(6, new Comparator<Elements>() {
+    PriorityQueue<Elements> pqueue = new PriorityQueue<>(6, new Comparator<Elements>() {
         @Override
         public int compare(Elements o1, Elements o2) {
-            return o2.score -o1.score;
+            return o2.score - o1.score;
         }
     });
-
-    public GameOver() {
-    }
 
 
     @Override
@@ -113,8 +110,10 @@ public class GameOver extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!sent) {
+                    takePhoto();
+                }
                 SortScores();
-                takePhoto();
                 edtx.setEnabled(false);
             }
         });
@@ -156,7 +155,7 @@ public class GameOver extends AppCompatActivity {
 
     private void takePhoto() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            || ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_IMAGE_CAPTURE);

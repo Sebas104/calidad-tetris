@@ -97,6 +97,7 @@ public class MainGame extends View implements View.OnClickListener {
                                             pieces.remove(actualPiece);
 
                                             pieces.add(new Piece((int) (Math.random() * 7) + 1));
+                                            mainBoard.shadowPiece(mainBoard.getActualPiece(),true);
                                             mainBoard.addPiece(mainBoard.getActualPiece(), mainBoard.getBoard());
 
                                             upcomingPiece.invalidate();

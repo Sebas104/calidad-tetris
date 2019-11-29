@@ -287,15 +287,17 @@ public class MainBoard {
     }
 
     public void fastFall(Piece piece, boolean isActualPiece) {
-        removePiece(piece, this.board);
-        if (isActualPiece) {
-            piece.coord = piece.copyCoord(getShadowActualPiece().coord);
-            getShadowActualPiece().coord = new Coordinates();
-        } else {
-            piece.coord = piece.copyCoord(getShadowRandomPiece().coord);
-            getShadowRandomPiece().coord = new Coordinates();
+        if (!getShadowActualPiece().coord.equals(new Coordinates()) || !getShadowActualPiece().equals(new Coordinates())) {
+            removePiece(piece, this.board);
+            if (isActualPiece) {
+                piece.coord = piece.copyCoord(getShadowActualPiece().coord);
+                getShadowActualPiece().coord = new Coordinates();
+            } else {
+                piece.coord = piece.copyCoord(getShadowRandomPiece().coord);
+                getShadowRandomPiece().coord = new Coordinates();
+            }
+            addPiece(piece, this.board);
         }
-        addPiece(piece, this.board);
     }
 
     public void shadowPiece(Piece actualPiece, boolean isActualPiece) {
@@ -323,9 +325,6 @@ public class MainBoard {
         Piece actualPiece = this.getActualPiece();
         boolean firstRows = false;
         boolean firstRowsRandom = false;
-
-        shadowActualPiece.updateCoord(-2,0);
-        shadowRandomPiece.updateCoord(-2,0);
 
         this.removePiece(actualPiece, this.board);
 
@@ -370,6 +369,9 @@ public class MainBoard {
                 }
             }
         }
+
+        shadowActualPiece.coord = new Coordinates();
+        shadowRandomPiece.coord = new Coordinates();
 
         //Reducimos las filas del tablero en 2
         this.actualRows = this.actualRows - 2;
