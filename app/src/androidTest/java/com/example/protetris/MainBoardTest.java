@@ -101,7 +101,17 @@ public class MainBoardTest {
     }
 
     @Test
-    public void removeCompleteLines() {
+    public void removeCompleteLinesZero() {
+
+        MainBoard mainBoard = new MainBoard();
+
+        int pieceRandom1 = (int) (Math.random() * NUM_TYPE) + 1;
+        Piece piece = new Piece(pieceRandom1);
+
+        int result = mainBoard.removeCompleteLines(piece);
+
+        assertEquals(0, result);
+
     }
 
     @Test
