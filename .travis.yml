@@ -11,6 +11,7 @@ android:
 
 before_script:
   - sdkmanager --list
+  - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
 script:
   - ./gradlew sonarqube -Dsonar.projectKey=CalidadSoftawreG6_calidad-tetris -Dsonar.organization=calidadsoftwareg6 -Dsonar.host.url=https://sonarcloud.io
