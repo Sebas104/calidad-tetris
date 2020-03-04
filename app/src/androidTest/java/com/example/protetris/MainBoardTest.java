@@ -48,6 +48,17 @@ public class MainBoardTest {
         return tablero;
     }
 
+    public int [][] rellenarTableroDosLineas(){
+        int [][] tablero = new int [BOARD_NUM_ROWS][BOARD_NUM_COLS];
+
+        for(int i = BOARD_NUM_ROWS - 2; i < BOARD_NUM_ROWS; i++){
+            for(int j = 0; j < BOARD_NUM_COLS; j++){
+                tablero[i][j] = 7;
+            }
+        }
+        return tablero;
+    }
+
     @Test
     public void resetBoard() {
     }
@@ -115,11 +126,48 @@ public class MainBoardTest {
     }
 
     @Test
+    public void removeCompleteLinesTwo() {
+
+        int [][] auxBoard = new int [BOARD_NUM_ROWS][BOARD_NUM_COLS];
+
+        auxBoard = rellenarTableroDosLineas();
+
+        MainBoard mainBoard = new MainBoard();
+
+        mainBoard.setBoard(auxBoard);
+
+        int pieceRandom1 = (int) (Math.random() * NUM_TYPE) + 1;
+        Piece piece = new Piece(pieceRandom1);
+
+        int result = mainBoard.removeCompleteLines(piece);
+
+        assertEquals(2, result);
+
+    }
+
+    @Test
     public void removePiece() {
     }
 
     @Test
     public void addPiece() {
+
+        MainBoard mainBoard = new MainBoard();
+
+        Piece piece = new Piece(2);
+
+        int [][] auxBoard = new int [BOARD_NUM_ROWS][BOARD_NUM_COLS];
+        int [][] resultBoard = new int [BOARD_NUM_ROWS][BOARD_NUM_COLS];
+
+        auxBoard[0][3] = 2;
+        auxBoard[0][4] = 2;
+        auxBoard[0][5] = 2;
+        auxBoard[0][6] = 2;
+
+        mainBoard.addPiece(piece, resultBoard);
+
+        assertArrayEquals(resultBoard, auxBoard);
+
     }
 
     @Test
