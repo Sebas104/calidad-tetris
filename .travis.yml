@@ -2,12 +2,19 @@ sudo: false
 language: android
 jdk: oraclejdk8
 
-
+env:
+  global:
+    - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
 android:
   components:
     -build-tools-26.1.0
 
-
+before_script:
+  - sdkmanager --list
+  - android-wait-for-emulator
+script:
+  - ./gradlew sonarqube -Dsonar.projectKey=CalidadSoftawreG6_calidad-tetris -Dsonar.organization=calidadsoftwareg6 -Dsonar.host.url=https://sonarcloud.io
+  - ./gradlew clean
 before_install:
   - mkdir "$ANDROID_HOME/licenses" || true
   - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
