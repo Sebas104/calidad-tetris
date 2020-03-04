@@ -46,6 +46,10 @@ public class MainBoard {
         pieces.add(new Piece(pieceRandom2));
     }
 
+    public void setBoard(int [][] board){
+        this.board = board;
+    }
+
     public int [][] getBoard() {
         return this.board;
     }
