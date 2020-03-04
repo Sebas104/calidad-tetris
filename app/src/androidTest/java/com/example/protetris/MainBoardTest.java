@@ -166,7 +166,7 @@ public class MainBoardTest {
 
         mainBoard.addPiece(piece, resultBoard);
 
-        assertArrayEquals(resultBoard, auxBoard);
+        assertArrayEquals(auxBoard, resultBoard);
 
     }
 
@@ -175,7 +175,31 @@ public class MainBoardTest {
     }
 
     @Test
-    public void moveToLeft() {
+    public void moveToLeftPosition() {
+
+        MainBoard mainBoard = new MainBoard();
+
+        Piece piece = new Piece(2);
+
+        mainBoard.addPiece(piece, mainBoard.getBoard());
+
+        int [][] auxBoard = new int [BOARD_NUM_ROWS][BOARD_NUM_COLS];
+        auxBoard[0][2] = 2;
+        auxBoard[0][3] = 2;
+        auxBoard[0][4] = 2;
+        auxBoard[0][5] = 2;
+
+        auxBoard[19][2] = 8;
+        auxBoard[19][3] = 8;
+        auxBoard[19][4] = 8;
+        auxBoard[19][5] = 8;
+
+        mainBoard.moveToLeft(piece, true);
+
+        int [][] resultBoard = mainBoard.getBoard();
+
+        assertArrayEquals(auxBoard, resultBoard);
+
     }
 
     @Test
@@ -184,6 +208,30 @@ public class MainBoardTest {
 
     @Test
     public void moveOneDown() {
+
+        MainBoard mainBoard = new MainBoard();
+
+        Piece piece = new Piece(2);
+
+        mainBoard.addPiece(piece, mainBoard.getBoard());
+
+        int [][] auxBoard = new int [BOARD_NUM_ROWS][BOARD_NUM_COLS];
+        auxBoard[1][3] = 2;
+        auxBoard[1][4] = 2;
+        auxBoard[1][5] = 2;
+        auxBoard[1][6] = 2;
+
+        auxBoard[19][3] = 8;
+        auxBoard[19][4] = 8;
+        auxBoard[19][5] = 8;
+        auxBoard[19][6] = 8;
+
+        mainBoard.moveOneDown(piece, true);
+
+        int [][] resultBoard = mainBoard.getBoard();
+
+        assertArrayEquals(auxBoard, resultBoard);
+
     }
 
     @Test
@@ -192,6 +240,27 @@ public class MainBoardTest {
 
     @Test
     public void fastFall() {
+
+        MainBoard mainBoard = new MainBoard();
+
+        Piece piece = new Piece(2);
+
+        mainBoard.addPiece(piece, mainBoard.getBoard());
+
+        int [][] auxBoard = new int [BOARD_NUM_ROWS][BOARD_NUM_COLS];
+        auxBoard[19][3] = 2;
+        auxBoard[19][4] = 2;
+        auxBoard[19][5] = 2;
+        auxBoard[19][6] = 2;
+
+        mainBoard.moveOneDown(piece, true);
+
+        mainBoard.fastFall(piece, true);
+
+        int [][] resultBoard = mainBoard.getBoard();
+
+        assertArrayEquals(auxBoard, resultBoard);
+
     }
 
     @Test
@@ -200,5 +269,22 @@ public class MainBoardTest {
 
     @Test
     public void reduceBoard() {
+
+        MainBoard mainBoard = new MainBoard();
+
+        Piece piece = new Piece(2);
+
+        mainBoard.addPiece(piece, mainBoard.getBoard());
+
+        mainBoard.reduceBoard(piece);
+
+        int [][] resultBoard = mainBoard.getBoard();
+
+        int expectedLength = BOARD_NUM_ROWS - 2;
+
+        int boardLength = resultBoard.length;
+
+        assertEquals(expectedLength, boardLength);
+
     }
 }
