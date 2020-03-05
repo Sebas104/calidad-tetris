@@ -1,5 +1,7 @@
 package com.example.protetris;
 
+import android.graphics.Color;
+
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -37,6 +39,21 @@ public class MainBoardTest {
         this.board = board;
     }
 
+    public MainBoard mainBoard;
+
+
+
+
+    public void initialicer(int value){
+
+        this.mainBoard = new MainBoard();
+
+        this.mainBoard.board = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
+
+        this.mainBoard.board[0][0] = value;
+    }
+
+
     public int [][] rellenarTablero(){
         int [][] tablero = new int [BOARD_NUM_ROWS][BOARD_NUM_COLS];
 
@@ -60,9 +77,33 @@ public class MainBoardTest {
     }
 
     @Test
-    public void resetBoard() {
+    public void resetBoardTest1() {
+        this.mainBoard = new MainBoard();
+
+        int[][] resultBoard = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
+
+        mainBoard.resetBoard(this.mainBoard.board);
+
+
+        assertArrayEquals(this.mainBoard.board,resultBoard);
     }
 
+    @Test
+    public void resetBoardTest2(){
+        this.mainBoard = new MainBoard();
+
+        int[][] resultBoard = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
+
+        for (int row = 0; row < this.BOARD_NUM_ROWS; row++) {
+            for (int col = 0; col < BOARD_NUM_COLS; col++) {
+                this.mainBoard.board[row][col] = 1;
+            }
+        }
+
+        mainBoard.resetBoard(this.mainBoard.board);
+
+        assertArrayEquals(this.mainBoard.board,resultBoard);
+    }
     @Test
     public void checkGameOverFalse() {
 
@@ -107,8 +148,106 @@ public class MainBoardTest {
         }
     }
 
+    /*
+        Solo testearemos el case 0 debido a la complejidad ciclomatica del metodo
+     */
+
     @Test
-    public void drawBlocks() {
+    public void drawBlocksTest0() {
+
+        this.initialicer(this.SHADOW);
+
+        int resultSpected = Color.parseColor("#26F2F2F2");
+
+        int result = this.mainBoard.drawBlocks(0,0,0);
+
+        assertEquals(result,resultSpected);
+
+    }
+
+    @Test
+    public void drawBlocksTest1(){
+
+        this.initialicer(this.S_PIECE);
+
+        int resultSpected = Color.parseColor("#0087FC");
+
+        int result = this.mainBoard.drawBlocks(0,0,1);
+
+        assertEquals(resultSpected,result);
+
+    }
+
+    @Test
+    public void drawBlocksTest2(){
+
+        this.initialicer(this.S_PIECE);
+
+        int resultSpected = Color.parseColor("#FD2929");
+
+        int result = this.mainBoard.drawBlocks(0,0,2);
+
+        assertEquals(resultSpected,result);
+    }
+
+    @Test
+    public void drawBlocksTest3(){
+
+        this.initialicer(this.S_PIECE);
+
+        int resultSpected = Color.parseColor("#00D1FE");
+
+        int result = this.mainBoard.drawBlocks(0,0,3);
+
+        assertEquals(resultSpected,result);
+    }
+
+    @Test
+    public void drawBlocksTest4(){
+
+        this.initialicer(this.S_PIECE);
+
+        int resultSpected = Color.parseColor("#9C00E2");
+
+        int result = this.mainBoard.drawBlocks(0,0,4);
+
+        assertEquals(resultSpected,result);
+    }
+
+    @Test
+    public void drawBlocksTest5(){
+
+        this.initialicer(this.S_PIECE);
+
+        int resultSpected = Color.parseColor("#FDD401");
+
+        int result = this.mainBoard.drawBlocks(0,0,5);
+
+        assertEquals(resultSpected,result);
+    }
+
+    @Test
+    public void drawBlocksTest6(){
+
+        this.initialicer(this.S_PIECE);
+
+        int resultSpected = Color.parseColor("#FD6801");
+
+        int result = this.mainBoard.drawBlocks(0,0,6);
+
+        assertEquals(resultSpected,result);
+    }
+
+    @Test
+    public void drawBlocksTest7(){
+
+        this.initialicer(this.S_PIECE);
+
+        int resultSpected = Color.parseColor("#03DF04");
+
+        int result = this.mainBoard.drawBlocks(0,0,7);
+
+        assertEquals(resultSpected,result);
     }
 
     @Test
@@ -147,6 +286,18 @@ public class MainBoardTest {
 
     @Test
     public void removePiece() {
+
+        this.mainBoard = new MainBoard();
+
+        Piece piece = new Piece(this.S_PIECE);
+
+        this.mainBoard.addPiece(piece,this.mainBoard.board);
+
+        this.mainBoard.removePiece(piece,this.mainBoard.board);
+
+        int[][] result = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
+
+        assertArrayEquals(result,this.mainBoard.board);
     }
 
     @Test
@@ -172,6 +323,32 @@ public class MainBoardTest {
 
     @Test
     public void rotate() {
+
+        this.mainBoard = new MainBoard();
+
+        Piece piece = new Piece(this.I_PIECE);
+        this.mainBoard.addPiece(piece,this.mainBoard.board);
+
+        this.mainBoard.moveOneDown(piece,true);
+        this.mainBoard.moveOneDown(piece,true);
+        //this.mainBoard.moveOneDown(piece,true);
+        //this.mainBoard.moveOneDown(piece,true);
+
+        this.mainBoard.rotate(piece,true);
+
+        int[][] board = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
+
+        board[0][5] = 2;
+        board[1][5] = 2;
+        board[2][5] = 2;
+        board[3][5] = 2;
+
+        board[16][5] = 8;
+        board[17][5] = 8;
+        board[18][5] = 8;
+        board[19][5] = 8;
+
+        assertArrayEquals(board,this.mainBoard.board);
     }
 
     @Test
@@ -204,6 +381,26 @@ public class MainBoardTest {
 
     @Test
     public void moveToRight() {
+
+        this.mainBoard = new MainBoard();
+
+        Piece piece = new Piece(this.I_PIECE);
+        this.mainBoard.addPiece(piece, this.mainBoard.board);
+        this.mainBoard.moveToRight(piece,true);
+
+        int[][] board = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
+
+        board[0][4] = 2;
+        board[0][5] = 2;
+        board[0][6] = 2;
+        board[0][7] = 2;
+
+        board[19][4] = 8;
+        board[19][5] = 8;
+        board[19][6] = 8;
+        board[19][7] = 8;
+
+        assertArrayEquals(board,this.mainBoard.board);
     }
 
     @Test
@@ -236,6 +433,21 @@ public class MainBoardTest {
 
     @Test
     public void moveDown() {
+
+        this.mainBoard = new MainBoard();
+
+        Piece piece = new Piece(this.I_PIECE);
+        this.mainBoard.addPiece(piece, this.mainBoard.board);
+        this.mainBoard.moveDown(piece);
+
+        int[][] board = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
+
+        board[19][3] = 2;
+        board[19][4] = 2;
+        board[19][5] = 2;
+        board[19][6] = 2;
+
+        assertArrayEquals(board, this.mainBoard.board);
     }
 
     @Test
@@ -264,7 +476,38 @@ public class MainBoardTest {
     }
 
     @Test
-    public void shadowPiece() {
+    public void shadowPiece1() {
+
+        this.mainBoard = new MainBoard();
+
+        Piece piece = new Piece(this.I_PIECE);
+        this.mainBoard.addPiece(piece,this.mainBoard.board);
+
+        this.mainBoard.shadowPiece(piece,true);
+
+        int[][] board = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
+
+        board[19][3] = 8;
+        board[19][4] = 8;
+        board[19][5] = 8;
+        board[19][6] = 8;
+    }
+
+    @Test
+    public void shadowPiece2(){
+        this.mainBoard = new MainBoard();
+
+        Piece piece = new Piece(this.I_PIECE);
+        this.mainBoard.addPiece(piece,this.mainBoard.board);
+
+        this.mainBoard.shadowPiece(piece,true);
+
+        int[][] board = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
+
+        board[19][3] = 8;
+        board[19][4] = 8;
+        board[19][5] = 8;
+        board[19][6] = 8;
     }
 
     @Test

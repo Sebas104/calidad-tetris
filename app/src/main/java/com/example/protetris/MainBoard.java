@@ -31,7 +31,7 @@ public class MainBoard {
 
     private int actualRows = BOARD_NUM_ROWS;
 
-    private int board[][]; //Tablero del juego
+    public int board[][]; //Tablero del juego
 
     public MainBoard() {
         //Inicialización tablero
