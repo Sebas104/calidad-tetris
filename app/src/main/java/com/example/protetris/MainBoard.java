@@ -106,87 +106,70 @@ public class MainBoard {
     public int drawBlocks(int row, int col,int num) {
         switch (num){
             case 0: {
-                switch (board[row][col]) {
-                    case EMPTY:
-                        return Color.parseColor("#0030272A");
-                    case S_PIECE:
-                        return Color.parseColor("#0087FC");
-                    case I_PIECE:
-                        return Color.parseColor("#FD2929");
-                    case J_PIECE:
-                        return Color.parseColor("#9C00E2");
-                    case O_PIECE:
-                        return Color.parseColor("#00D1FE");
-                    case L_PIECE:
-                        return Color.parseColor("#FDD401");
-                    case Z_PIECE:
-                        return Color.parseColor("#FD6801");
-                    case T_PIECE:
-                        return Color.parseColor("#03DF04");
-                    case SHADOW:
-                        return Color.parseColor("#26F2F2F2");
-                }
+                drawBlocksBaseCase(row, col);
                 break;
             }
             case 1: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#0087FC");
+                return drawBlocksNormalCase(row,col,"#0087FC");
             }
             case 2: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#FD2929");
+                return drawBlocksNormalCase(row,col,"#FD2929");
             }
             case 3: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#00D1FE");
+                return drawBlocksNormalCase(row,col,"#00D1FE");
             }
             case 4: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#9C00E2");
+                return drawBlocksNormalCase(row,col,"#9C00E2");
             }
             case 5: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#FDD401");
+                return drawBlocksNormalCase(row,col,"#FDD401");
             }
             case 6: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#FD6801");
+                return drawBlocksNormalCase(row,col,"#FD6801");
             }
             case 7: {
-                if (board[row][col] == EMPTY) {
-                    return Color.parseColor("#0030272A");
-                } else if (board[row][col] == SHADOW) {
-                    return Color.parseColor("#26F2F2F2");
-                }
-                return Color.parseColor("#03DF04");
+                return drawBlocksNormalCase(row,col,"#03DF04");
             }
         }
         return Color.parseColor("#0030272A");
     }
+
+    private int drawBlocksBaseCase(int row,int col){
+        switch (board[row][col]) {
+            case EMPTY:
+                return Color.parseColor("#0030272A");
+            case S_PIECE:
+                return Color.parseColor("#0087FC");
+            case I_PIECE:
+                return Color.parseColor("#FD2929");
+            case J_PIECE:
+                return Color.parseColor("#9C00E2");
+            case O_PIECE:
+                return Color.parseColor("#00D1FE");
+            case L_PIECE:
+                return Color.parseColor("#FDD401");
+            case Z_PIECE:
+                return Color.parseColor("#FD6801");
+            case T_PIECE:
+                return Color.parseColor("#03DF04");
+            case SHADOW:
+                return Color.parseColor("#26F2F2F2");
+        }
+        return Color.parseColor("#FFF");
+    }
+
+    private int drawBlocksNormalCase(int row,int col,String color){
+        if (board[row][col] == EMPTY) {
+            return Color.parseColor("#0030272A");
+        } else if (board[row][col] == SHADOW) {
+            return Color.parseColor("#26F2F2F2");
+        }
+        return Color.parseColor(color);
+    }
+
+
+
+
 
     public int removeCompleteLines(Piece randomPiece) {
         int linesToRemove = 0;
@@ -336,18 +319,14 @@ public class MainBoard {
         newXY.updateCoord(2, 0);
 
         //Pieza en la fila 0 del tablero
-        if (actualPiece.getCoord1().x == 0 || actualPiece.getCoord2().x == 0 || actualPiece.getCoord3().x == 0 || actualPiece.getCoord4().x == 0) {
-            if (!actualPiece.checkCollision(this.board, newXY)) {
-                actualPiece.moveCoord(1,0);
-            }
+        if (actualPiece.getCoord1().x == 0 || actualPiece.getCoord2().x == 0 || actualPiece.getCoord3().x == 0 || actualPiece.getCoord4().x == 0 && !actualPiece.checkCollision(this.board, newXY)) {
+            actualPiece.moveCoord(1,0);
         }
 
         //Pieza en la fila 1 del tablero
-        if (actualPiece.getCoord1().x == 1 || actualPiece.getCoord2().x == 1 || actualPiece.getCoord3().x == 1 || actualPiece.getCoord4().x == 1) {
-            if (!actualPiece.checkCollision(this.board, newXY)) {
-                actualPiece.moveCoord(1,0);
-                firstRows = true;
-            }
+        if (actualPiece.getCoord1().x == 1 || actualPiece.getCoord2().x == 1 || actualPiece.getCoord3().x == 1 || actualPiece.getCoord4().x == 1 && !actualPiece.checkCollision(this.board, newXY)) {
+            actualPiece.moveCoord(1,0);
+            firstRows = true;
         }
 
         //Hacemos lo mismo para la pieza random en caso de que se encuentre en el tablero
@@ -359,18 +338,15 @@ public class MainBoard {
             randomXY.updateCoord(2, 0);
 
             //Pieza en la fila 0 del tablero
-            if (randomPiece.getCoord1().x == 0 || randomPiece.getCoord2().x == 0 || randomPiece.getCoord3().x == 0 || randomPiece.getCoord4().x == 0) {
-                if (!randomPiece.checkCollision(this.board, randomXY)) {
-                    randomPiece.moveCoord(1,0);
-                }
+            if (randomPiece.getCoord1().x == 0 || randomPiece.getCoord2().x == 0 || randomPiece.getCoord3().x == 0 || randomPiece.getCoord4().x == 0 && !randomPiece.checkCollision(this.board, randomXY)) {
+
+                randomPiece.moveCoord(1,0);
             }
 
             //Pieza en la fila 1 del tablero
-            if (randomPiece.getCoord1().x == 1 || randomPiece.getCoord2().x == 1 || randomPiece.getCoord3().x == 1 || randomPiece.getCoord4().x == 1) {
-                if (!actualPiece.checkCollision(this.board, randomXY)) {
-                    randomPiece.moveCoord(1,0);
-                    firstRowsRandom = true;
-                }
+            if (randomPiece.getCoord1().x == 1 || randomPiece.getCoord2().x == 1 || randomPiece.getCoord3().x == 1 || randomPiece.getCoord4().x == 1 && !actualPiece.checkCollision(this.board, randomXY)) {
+                randomPiece.moveCoord(1,0);
+                firstRowsRandom = true;
             }
         }
 
