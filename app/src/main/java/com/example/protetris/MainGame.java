@@ -279,6 +279,7 @@ public class MainGame extends View implements View.OnClickListener {
         if (this.mainBoard.checkGameOver(this.mainBoard.getActualPiece())) {
             //Mostrar game over
             Intent intent = new Intent(this.getContext(), GameOver.class);
+            intent.putExtra("played",Boolean.TRUE);
             intent.putExtra("score", this.score);
             intent.putExtra("COLORKEY", numColor);
             //Reiniciar partida

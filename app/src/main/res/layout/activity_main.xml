@@ -66,14 +66,14 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
-        android:id="@+id/exitButton"
+        android:id="@+id/rankingButton"
         android:layout_width="150dp"
         android:layout_height="55dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/round_button"
         android:fontFamily="@font/lemon"
-        android:onClick="exitGame"
-        android:text="EXIT"
+        android:onClick="ranking"
+        android:text="RANKING"
         android:textColor="@android:color/white"
 
         android:textSize="22sp"
@@ -81,5 +81,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/controlsButton" />
+
+
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/round_button"
+        android:fontFamily="@font/lemon"
+        android:onClick="exitGame"
+
+        android:text="EXIT"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rankingButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
