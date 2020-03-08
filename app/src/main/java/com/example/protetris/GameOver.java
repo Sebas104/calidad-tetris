@@ -91,15 +91,32 @@ public class GameOver extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
-        points = getIntent().getIntExtra("score", points);
-        color = getIntent().getIntExtra("COLORKEY",color);
+
+        boolean played = getIntent().getBooleanExtra("played",false);
+
+        if(!played) {
+            points = getIntent().getIntExtra("score", points);
+            color = getIntent().getIntExtra("COLORKEY", color);
+        }
+
+
         txv1 = findViewById(R.id.textView2);
         txv2 = findViewById(R.id.textView3);
         txv3 = findViewById(R.id.textView4);
         txv4 = findViewById(R.id.textView5);
         txv5 = findViewById(R.id.textView6);
+
         edtx = findViewById(R.id.Edit1);
         btnSend = findViewById(R.id.button2);
+
+        if(!played) {
+            points = getIntent().getIntExtra("score", points);
+            color = getIntent().getIntExtra("COLORKEY", color);
+
+            this.edtx.setEnabled(Boolean.FALSE);
+            this.btnSend.setEnabled(Boolean.FALSE);
+        }
+
         btnReset = findViewById(R.id.button3);
         btnNewGame = findViewById(R.id.button4);
         btnColor = findViewById(R.id.button5);
