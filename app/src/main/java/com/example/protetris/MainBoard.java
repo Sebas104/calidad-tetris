@@ -3,7 +3,6 @@ package com.example.protetris;
 
 import android.graphics.Color;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -27,6 +26,8 @@ public class MainBoard {
     private static final int NUMTYPE = 7; //Numero de diferentes piezas
     private static final int FIRST = 0; //Para coger la primera pieza del LinkedList de pieces
 
+    private static final String finalColorString = "#0030272A";
+
     private Piece shadowActualPiece;
     private Piece shadowRandomPiece;
     private List<Piece> pieces = new LinkedList<>();
@@ -45,8 +46,8 @@ public class MainBoard {
 
         Random r = new Random();
 
-        int pieceRandom1 = r.nextInt(7)+1;//Va del 1 al 7
-        int pieceRandom2 = r.nextInt(7)+1;//Va del 1 al 7
+        int pieceRandom1 = r.nextInt(NUMTYPE)+1;//Va del 1 al 7
+        int pieceRandom2 = r.nextInt(NUMTYPE)+1;//Va del 1 al 7
 
         pieces.add(new Piece(pieceRandom1));
         pieces.add(new Piece(pieceRandom2));
@@ -147,7 +148,7 @@ public class MainBoard {
                 break;
             }
             default:{
-                result = Color.parseColor("#0030272A");
+                result = Color.parseColor(this.finalColorString);
                 break;
             }
         }
@@ -158,7 +159,7 @@ public class MainBoard {
     private int drawBlocksBaseCase(int row,int col){
         switch (board[row][col]) {
             case EMPTY:
-                return Color.parseColor("#0030272A");
+                return Color.parseColor(this.finalColorString);
             case S_PIECE:
                 return Color.parseColor("#0087FC");
             case I_PIECE:
@@ -183,7 +184,7 @@ public class MainBoard {
 
     private int drawBlocksNormalCase(int row,int col,String color){
         if (board[row][col] == EMPTY) {
-            return Color.parseColor("#0030272A");
+            return Color.parseColor(this.finalColorString);
         } else if (board[row][col] == SHADOW) {
             return Color.parseColor("#26F2F2F2");
         }
