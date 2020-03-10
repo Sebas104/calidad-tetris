@@ -20,6 +20,8 @@ public class MainBoard {
     private static final int T_PIECE = 7;
     private static final int SHADOW = 8;
 
+    private ColorPieceMap colorMap = new ColorPieceMap();
+
     private static final int BOARDNUMROWS = 20;
     private static final int BOARDNUMCOLS = 10;
 
@@ -112,8 +114,14 @@ public class MainBoard {
     //Para dibujar los bloques en el tablero
     public int drawBlocks(int row, int col,int num) {
 
-        int result;
+        //int result;
 
+        if (num == 0){
+            return colorMap.pieceToColor(board[row][col]);
+        }else{
+            return drawBlocksNormalCase(row,col,colorMap.pieceToString(num));
+        }
+        /*
         switch (num){
             case 0: {
                 result = drawBlocksBaseCase(row, col);
@@ -153,10 +161,10 @@ public class MainBoard {
             }
         }
 
-        return result;
+        return result;*/
     }
 
-    private int drawBlocksBaseCase(int row,int col){
+    /*private int drawBlocksBaseCase(int row,int col){
         switch (board[row][col]) {
             case EMPTY:
                 return Color.parseColor(this.FINALCOLORSTRING);
@@ -180,7 +188,7 @@ public class MainBoard {
                 return Color.parseColor("#FFF");
             }
         }
-    }
+    }*/
 
     private int drawBlocksNormalCase(int row,int col,String color){
         if (board[row][col] == EMPTY) {
