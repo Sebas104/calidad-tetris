@@ -41,7 +41,7 @@ class Elements {
 
 public class GameOver extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 0;
-    private final static String colorKey = "COLORKEY";
+    private static final String COLOR_KEY = "COLORKEY";
     private Uri photoUri;
     private Bitmap photoBitmap;
     private TextView namePhoto;
@@ -97,7 +97,7 @@ public class GameOver extends AppCompatActivity {
 
         if(!played) {
             points = getIntent().getIntExtra("score", points);
-            color = getIntent().getIntExtra(colorKey, color);
+            color = getIntent().getIntExtra(COLOR_KEY, color);
         }
 
 
@@ -112,7 +112,7 @@ public class GameOver extends AppCompatActivity {
 
         if(!played) {
             points = getIntent().getIntExtra("score", points);
-            color = getIntent().getIntExtra(colorKey, color);
+            color = getIntent().getIntExtra(COLOR_KEY, color);
 
             this.edtx.setEnabled(Boolean.FALSE);
             this.btnSend.setEnabled(Boolean.FALSE);
@@ -342,7 +342,7 @@ public class GameOver extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GameOver.this,ProTetris.class);
-                intent.putExtra(colorKey,color);
+                intent.putExtra(COLOR_KEY,color);
                 startActivity(intent);
                 GameOver.this.finish();
             }
