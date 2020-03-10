@@ -500,6 +500,8 @@ public class MainBoardTest {
         board[19][4] = 8;
         board[19][5] = 8;
         board[19][6] = 8;
+
+        assertArrayEquals(board,this.mainBoard.getBoard());
     }
 
     @Test
@@ -517,6 +519,8 @@ public class MainBoardTest {
         board[19][4] = 8;
         board[19][5] = 8;
         board[19][6] = 8;
+
+        assertArrayEquals(board,this.mainBoard.getBoard());
     }
 
     @Test
