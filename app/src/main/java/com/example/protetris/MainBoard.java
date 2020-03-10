@@ -26,7 +26,7 @@ public class MainBoard {
     private static final int NUMTYPE = 7; //Numero de diferentes piezas
     private static final int FIRST = 0; //Para coger la primera pieza del LinkedList de pieces
 
-    private static final String finalColorString = "#0030272A";
+    private static final String FINALCOLORSTRING = "#0030272A";
 
     private Piece shadowActualPiece;
     private Piece shadowRandomPiece;
@@ -148,7 +148,7 @@ public class MainBoard {
                 break;
             }
             default:{
-                result = Color.parseColor(this.finalColorString);
+                result = Color.parseColor(this.FINALCOLORSTRING);
                 break;
             }
         }
@@ -159,7 +159,7 @@ public class MainBoard {
     private int drawBlocksBaseCase(int row,int col){
         switch (board[row][col]) {
             case EMPTY:
-                return Color.parseColor(this.finalColorString);
+                return Color.parseColor(this.FINALCOLORSTRING);
             case S_PIECE:
                 return Color.parseColor("#0087FC");
             case I_PIECE:
@@ -184,7 +184,7 @@ public class MainBoard {
 
     private int drawBlocksNormalCase(int row,int col,String color){
         if (board[row][col] == EMPTY) {
-            return Color.parseColor(this.finalColorString);
+            return Color.parseColor(this.FINALCOLORSTRING);
         } else if (board[row][col] == SHADOW) {
             return Color.parseColor("#26F2F2F2");
         }
