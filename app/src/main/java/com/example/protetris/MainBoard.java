@@ -106,8 +106,7 @@ public class MainBoard {
     public int drawBlocks(int row, int col,int num) {
         switch (num){
             case 0: {
-                drawBlocksBaseCase(row, col);
-                break;
+                return drawBlocksBaseCase(row, col);
             }
             case 1: {
                 return drawBlocksNormalCase(row,col,"#0087FC");
