@@ -18,10 +18,10 @@ plugins {
 
 sonarqube {
     properties {
-        property "sonar.projectKey", "CalidadSoftwareG6_calidad-tetris"
+        property "sonar.projectKey", "ReleaseBranch"
         property "sonar.organization", "calidadsoftwareg6"
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.login", "f87126cc2281106e1e110c19a99e1d5c9c70c03b"
+        property "sonar.login", "e5176c6786ce7a81541b9a1b7f06f3a9b7823fee"
     }
 }
 
