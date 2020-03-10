@@ -37,4 +37,16 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Controls.class);
         startActivity(intent);
     }
+
+    public void ranking() {
+        Intent intent = new Intent(this, GameOver.class);
+
+        intent.putExtra("played",Boolean.FALSE);
+        intent.putExtra("score", 0);
+        intent.putExtra("COLORKEY", 0);
+
+        startActivity(intent);
+
+
+    }
 }
