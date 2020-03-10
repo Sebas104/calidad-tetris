@@ -3,8 +3,10 @@ package com.example.protetris;
 
 import android.graphics.Color;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class MainBoard {
 
@@ -19,29 +21,33 @@ public class MainBoard {
     private static final int T_PIECE = 7;
     private static final int SHADOW = 8;
 
-    private final int BOARD_NUM_ROWS = 20;
-    private final int BOARD_NUM_COLS = 10;
+    private static final int BOARDNUMROWS = 20;
+    private static final int BOARDNUMCOLS = 10;
 
-    private final int NUM_TYPE = 7; //Numero de diferentes piezas
-    private final int FIRST = 0; //Para coger la primera pieza del LinkedList de pieces
+    private static final int NUMTYPE = 7; //Numero de diferentes piezas
+    private static final int FIRST = 0; //Para coger la primera pieza del LinkedList de pieces
 
     private Piece shadowActualPiece;
     private Piece shadowRandomPiece;
     private List<Piece> pieces = new LinkedList<>();
 
-    private int actualRows = BOARD_NUM_ROWS;
+    private int actualRows = BOARDNUMROWS;
 
-    public int board[][]; //Tablero del juego
+    private int[][] board; //Tablero del juego
 
     public MainBoard() {
         //Inicialización tablero
-        board = new int[BOARD_NUM_ROWS][BOARD_NUM_COLS];
+        board = new int[BOARDNUMROWS][BOARDNUMCOLS];
         this.resetBoard(this.board);
         //Inicialización piezas
         shadowActualPiece = new Piece(SHADOW);
         shadowRandomPiece = new Piece(SHADOW);
-        int pieceRandom1 = (int) (Math.random() * NUM_TYPE) + 1;
-        int pieceRandom2 = (int) (Math.random() * NUM_TYPE) + 1;
+
+        Random r = new Random();
+
+        int pieceRandom1 = r.nextInt(7)+1;//Va del 1 al 7
+        int pieceRandom2 = r.nextInt(7)+1;//Va del 1 al 7
+
         pieces.add(new Piece(pieceRandom1));
         pieces.add(new Piece(pieceRandom2));
     }
@@ -54,8 +60,8 @@ public class MainBoard {
         return this.board;
     }
 
-    public int getBOARD_NUM_COLS() {
-        return this.BOARD_NUM_COLS;
+    public int getBOARDNUMCOLS() {
+        return this.BOARDNUMCOLS;
     }
 
     public int getActualRows() {
@@ -84,7 +90,7 @@ public class MainBoard {
 
     public void resetBoard(int [][] board) {
         for (int row = 0; row < actualRows; row++) {
-            for (int col = 0; col < BOARD_NUM_COLS; col++) {
+            for (int col = 0; col < BOARDNUMCOLS; col++) {
                 board[row][col] = 0; //Inicializa el tablero
             }
         }
@@ -104,34 +110,49 @@ public class MainBoard {
 
     //Para dibujar los bloques en el tablero
     public int drawBlocks(int row, int col,int num) {
+
+        int result;
+
         switch (num){
             case 0: {
-                drawBlocksBaseCase(row, col);
+                result = drawBlocksBaseCase(row, col);
                 break;
             }
             case 1: {
-                return drawBlocksNormalCase(row,col,"#0087FC");
+                result = drawBlocksNormalCase(row,col,"#0087FC");
+                break;
             }
             case 2: {
-                return drawBlocksNormalCase(row,col,"#FD2929");
+                result = drawBlocksNormalCase(row,col,"#FD2929");
+                break;
             }
             case 3: {
-                return drawBlocksNormalCase(row,col,"#00D1FE");
+                result = drawBlocksNormalCase(row,col,"#00D1FE");
+                break;
             }
             case 4: {
-                return drawBlocksNormalCase(row,col,"#9C00E2");
+                result = drawBlocksNormalCase(row,col,"#9C00E2");
+                break;
             }
             case 5: {
-                return drawBlocksNormalCase(row,col,"#FDD401");
+                result = drawBlocksNormalCase(row,col,"#FDD401");
+                break;
             }
             case 6: {
-                return drawBlocksNormalCase(row,col,"#FD6801");
+                result = drawBlocksNormalCase(row,col,"#FD6801");
+                break;
             }
             case 7: {
-                return drawBlocksNormalCase(row,col,"#03DF04");
+                result = drawBlocksNormalCase(row,col,"#03DF04");
+                break;
+            }
+            default:{
+                result = Color.parseColor("#0030272A");
+                break;
             }
         }
-        return Color.parseColor("#0030272A");
+
+        return result;
     }
 
     private int drawBlocksBaseCase(int row,int col){
@@ -154,8 +175,10 @@ public class MainBoard {
                 return Color.parseColor("#03DF04");
             case SHADOW:
                 return Color.parseColor("#26F2F2F2");
+            default:{
+                return Color.parseColor("#FFF");
+            }
         }
-        return Color.parseColor("#FFF");
     }
 
     private int drawBlocksNormalCase(int row,int col,String color){
@@ -176,14 +199,14 @@ public class MainBoard {
 
         for (int row = 0; row < actualRows; row++) {
             int rowComplete = 0;
-            for (int col = 0; col < BOARD_NUM_COLS; col++) {
+            for (int col = 0; col < BOARDNUMCOLS; col++) {
                 if (this.board[row][col] > EMPTY && this.board[row][col] != SHADOW) {
                     rowComplete++;
                 }
             }
-            if (rowComplete == BOARD_NUM_COLS) {
+            if (rowComplete == BOARDNUMCOLS) {
                 for (int row1 = row; row1 > 0; row1--) {
-                    for (int col1 = 0; col1 < BOARD_NUM_COLS; col1++) {
+                    for (int col1 = 0; col1 < BOARDNUMCOLS; col1++) {
                         this.board[row1][col1] = this.board[row1 - 1][col1];
                     }
                 }
@@ -357,7 +380,7 @@ public class MainBoard {
         this.actualRows = this.actualRows - 2;
 
         //Proceso para actualizar el tablero con dos filas menos
-        int [][] newBoard = new int[actualRows][BOARD_NUM_COLS];
+        int [][] newBoard = new int[actualRows][BOARDNUMCOLS];
 
         for (int row = 2; row < this.board.length; row++) {
             System.arraycopy(this.board[row], 0, newBoard[row - 2], 0,this.board[row].length);

@@ -21,11 +21,11 @@ public class MainBoardTest {
     private static final int T_PIECE = 7;
     private static final int SHADOW = 8;
 
-    private final int BOARD_NUM_ROWS = 20;
-    private final int BOARD_NUM_COLS = 10;
+    private static final int BOARD_NUM_ROWS = 20;
+    private static final int BOARD_NUM_COLS = 10;
 
-    private final int NUM_TYPE = 7; //Numero de diferentes piezas
-    private final int FIRST = 0; //Para coger la primera pieza del LinkedList de pieces
+    private static final int NUM_TYPE = 7; //Numero de diferentes piezas
+    private static final int FIRST = 0; //Para coger la primera pieza del LinkedList de pieces
 
     private Piece shadowActualPiece;
     private Piece shadowRandomPiece;
@@ -48,9 +48,15 @@ public class MainBoardTest {
 
         this.mainBoard = new MainBoard();
 
-        this.mainBoard.board = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
+        this.mainBoard.setBoard(new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS]);
 
-        this.mainBoard.board[0][0] = value;
+        int[][] aux;
+
+        aux = this.mainBoard.getBoard();
+
+        aux[0][0] = value;
+
+        this.mainBoard.setBoard(aux);
     }
 
 
@@ -82,10 +88,9 @@ public class MainBoardTest {
 
         int[][] resultBoard = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
 
-        mainBoard.resetBoard(this.mainBoard.board);
+        mainBoard.resetBoard(this.mainBoard.getBoard());
 
-
-        assertArrayEquals(this.mainBoard.board,resultBoard);
+        assertArrayEquals(this.mainBoard.getBoard(),resultBoard);
     }
 
     @Test
@@ -94,15 +99,19 @@ public class MainBoardTest {
 
         int[][] resultBoard = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
 
+        int[][] aux = this.mainBoard.getBoard();
+
         for (int row = 0; row < this.BOARD_NUM_ROWS; row++) {
             for (int col = 0; col < BOARD_NUM_COLS; col++) {
-                this.mainBoard.board[row][col] = 1;
+                aux[row][col] =1;
             }
         }
 
-        mainBoard.resetBoard(this.mainBoard.board);
+        mainBoard.resetBoard(aux);
 
-        assertArrayEquals(this.mainBoard.board,resultBoard);
+        this.mainBoard.setBoard(aux);
+
+        assertArrayEquals(this.mainBoard.getBoard(),resultBoard);
     }
     @Test
     public void checkGameOverFalse() {
@@ -291,13 +300,13 @@ public class MainBoardTest {
 
         Piece piece = new Piece(this.S_PIECE);
 
-        this.mainBoard.addPiece(piece,this.mainBoard.board);
+        this.mainBoard.addPiece(piece,this.mainBoard.getBoard());
 
-        this.mainBoard.removePiece(piece,this.mainBoard.board);
+        this.mainBoard.removePiece(piece,this.mainBoard.getBoard());
 
         int[][] result = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
 
-        assertArrayEquals(result,this.mainBoard.board);
+        assertArrayEquals(result,this.mainBoard.getBoard());
     }
 
     @Test
@@ -327,7 +336,7 @@ public class MainBoardTest {
         this.mainBoard = new MainBoard();
 
         Piece piece = new Piece(this.I_PIECE);
-        this.mainBoard.addPiece(piece,this.mainBoard.board);
+        this.mainBoard.addPiece(piece,this.mainBoard.getBoard());
 
         this.mainBoard.moveOneDown(piece,true);
         this.mainBoard.moveOneDown(piece,true);
@@ -348,7 +357,7 @@ public class MainBoardTest {
         board[18][5] = 8;
         board[19][5] = 8;
 
-        assertArrayEquals(board,this.mainBoard.board);
+        assertArrayEquals(board,this.mainBoard.getBoard());
     }
 
     @Test
@@ -385,7 +394,7 @@ public class MainBoardTest {
         this.mainBoard = new MainBoard();
 
         Piece piece = new Piece(this.I_PIECE);
-        this.mainBoard.addPiece(piece, this.mainBoard.board);
+        this.mainBoard.addPiece(piece, this.mainBoard.getBoard());
         this.mainBoard.moveToRight(piece,true);
 
         int[][] board = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
@@ -400,7 +409,7 @@ public class MainBoardTest {
         board[19][6] = 8;
         board[19][7] = 8;
 
-        assertArrayEquals(board,this.mainBoard.board);
+        assertArrayEquals(board,this.mainBoard.getBoard());
     }
 
     @Test
@@ -437,7 +446,7 @@ public class MainBoardTest {
         this.mainBoard = new MainBoard();
 
         Piece piece = new Piece(this.I_PIECE);
-        this.mainBoard.addPiece(piece, this.mainBoard.board);
+        this.mainBoard.addPiece(piece, this.mainBoard.getBoard());
         this.mainBoard.moveDown(piece);
 
         int[][] board = new int[this.BOARD_NUM_ROWS][this.BOARD_NUM_COLS];
@@ -447,7 +456,7 @@ public class MainBoardTest {
         board[19][5] = 2;
         board[19][6] = 2;
 
-        assertArrayEquals(board, this.mainBoard.board);
+        assertArrayEquals(board, this.mainBoard.getBoard());
     }
 
     @Test
@@ -481,7 +490,7 @@ public class MainBoardTest {
         this.mainBoard = new MainBoard();
 
         Piece piece = new Piece(this.I_PIECE);
-        this.mainBoard.addPiece(piece,this.mainBoard.board);
+        this.mainBoard.addPiece(piece,this.mainBoard.getBoard());
 
         this.mainBoard.shadowPiece(piece,true);
 
@@ -498,7 +507,7 @@ public class MainBoardTest {
         this.mainBoard = new MainBoard();
 
         Piece piece = new Piece(this.I_PIECE);
-        this.mainBoard.addPiece(piece,this.mainBoard.board);
+        this.mainBoard.addPiece(piece,this.mainBoard.getBoard());
 
         this.mainBoard.shadowPiece(piece,true);
 

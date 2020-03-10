@@ -205,7 +205,7 @@ public class MainGame extends View implements View.OnClickListener {
             upcomingPiece.setColor(numColor);
             upcomingPiece.invalidate();
             for (int row = 0; row < mainBoard.getActualRows(); row++) {
-                for (int col = 0; col < mainBoard.getBOARD_NUM_COLS(); col++) {
+                for (int col = 0; col < mainBoard.getBOARDNUMCOLS(); col++) {
                     int blocks = mainBoard.drawBlocks(row, col, numColor);
                     loadBlocks(blocks, paint, col, row, alto, ancho, canvas);
                 }
@@ -214,7 +214,7 @@ public class MainGame extends View implements View.OnClickListener {
             cond = false;
         } else {
             for (int row = 0; row < mainBoard.getActualRows(); row++) {
-                for (int col = 0; col < mainBoard.getBOARD_NUM_COLS(); col++) {
+                for (int col = 0; col < mainBoard.getBOARDNUMCOLS(); col++) {
                     int blocks = mainBoard.drawBlocks(row, col, numColor);
                     loadBlocks(blocks, paint, col, row, alto, ancho, canvas);
                 }
