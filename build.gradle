@@ -25,7 +25,7 @@ sonarqube {
         property "sonar.login", "f87126cc2281106e1e110c19a99e1d5c9c70c03b"
         property "sonar.java.coveragePlugin", "jacoco"
        // property "sonar.tests", "app/src/androidTest/java/com/example/protetris"
-        property "sonar.coverage.jacoco.xmlReportPaths", "app/build/reports/coverage/debug"
+        property "sonar.coverage.jacoco.xmlReportPaths", "app/build/reports/coverage/debug/report.xml"
         //property "tsonar.junit.reportPaths", "C:\\Users\\Daniel\\Documents\\GitHub\\calidad-tetris\\test-results\\connected"
     }
 }
