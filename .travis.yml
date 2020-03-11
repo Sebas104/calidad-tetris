@@ -22,7 +22,9 @@ android:
 
 
 script:
-  - chmod +x ./gradlew
+ # - chmod +x ./gradlew
+    - ./gradlew sonarqube  -Dsonar.projectKey=CalidadSoftwareG6_calidad-tetris -Dsonar.organization=calidadsoftwareg6 -Dsonar.host.url=https://sonarcloud.io
+    - ./gradlew clean
 
 before_install:
   - chmod +x gradlew
