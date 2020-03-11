@@ -11,13 +11,6 @@ public class MainBoard {
 
     //Constantes y variables
     private static final int EMPTY = 0;
-    private static final int S_PIECE = 1;
-    private static final int I_PIECE = 2;
-    private static final int J_PIECE = 3;
-    private static final int O_PIECE = 4;
-    private static final int L_PIECE = 5;
-    private static final int Z_PIECE = 6;
-    private static final int T_PIECE = 7;
     private static final int SHADOW = 8;
 
     private ColorPieceMap colorMap = new ColorPieceMap();
@@ -114,81 +107,13 @@ public class MainBoard {
     //Para dibujar los bloques en el tablero
     public int drawBlocks(int row, int col,int num) {
 
-        //int result;
-
         if (num == 0){
             return colorMap.pieceToColor(board[row][col]);
         }else{
             return drawBlocksNormalCase(row,col,colorMap.pieceToString(num));
         }
-        /*
-        switch (num){
-            case 0: {
-                result = drawBlocksBaseCase(row, col);
-                break;
-            }
-            case 1: {
-                result = drawBlocksNormalCase(row,col,"#0087FC");
-                break;
-            }
-            case 2: {
-                result = drawBlocksNormalCase(row,col,"#FD2929");
-                break;
-            }
-            case 3: {
-                result = drawBlocksNormalCase(row,col,"#00D1FE");
-                break;
-            }
-            case 4: {
-                result = drawBlocksNormalCase(row,col,"#9C00E2");
-                break;
-            }
-            case 5: {
-                result = drawBlocksNormalCase(row,col,"#FDD401");
-                break;
-            }
-            case 6: {
-                result = drawBlocksNormalCase(row,col,"#FD6801");
-                break;
-            }
-            case 7: {
-                result = drawBlocksNormalCase(row,col,"#03DF04");
-                break;
-            }
-            default:{
-                result = Color.parseColor(this.FINALCOLORSTRING);
-                break;
-            }
-        }
-
-        return result;*/
     }
 
-    /*private int drawBlocksBaseCase(int row,int col){
-        switch (board[row][col]) {
-            case EMPTY:
-                return Color.parseColor(this.FINALCOLORSTRING);
-            case S_PIECE:
-                return Color.parseColor("#0087FC");
-            case I_PIECE:
-                return Color.parseColor("#FD2929");
-            case J_PIECE:
-                return Color.parseColor("#9C00E2");
-            case O_PIECE:
-                return Color.parseColor("#00D1FE");
-            case L_PIECE:
-                return Color.parseColor("#FDD401");
-            case Z_PIECE:
-                return Color.parseColor("#FD6801");
-            case T_PIECE:
-                return Color.parseColor("#03DF04");
-            case SHADOW:
-                return Color.parseColor("#26F2F2F2");
-            default:{
-                return Color.parseColor("#FFF");
-            }
-        }
-    }*/
 
     private int drawBlocksNormalCase(int row,int col,String color){
         if (board[row][col] == EMPTY) {
@@ -198,9 +123,6 @@ public class MainBoard {
         }
         return Color.parseColor(color);
     }
-
-
-
 
 
     public int removeCompleteLines(Piece randomPiece) {
