@@ -23,7 +23,7 @@ sonarqube {
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.login", "f87126cc2281106e1e110c19a99e1d5c9c70c03b"
         property "sonar.coverageReportPaths", "C:\\Users\\Daniel\\Documents\\GitHub\\calidad-tetris\\build"
-        property "sonar.junit.reportPaths", "C:\\Users\\Daniel\\Documents\\GitHub\\calidad-tetris\\build"
+        property "sonar.testExecutionReportPaths", "C:\\Users\\Daniel\\Documents\\GitHub\\calidad-tetris\\build"
     }
 }
 
