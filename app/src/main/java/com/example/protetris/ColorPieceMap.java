@@ -9,7 +9,7 @@ public class ColorPieceMap {
     public ColorPieceMap(){
         this.map = new HashMap<>();
         //Base color
-        map.put(0,"0");
+        map.put(0,defaultColor);
         //S piece
         map.put(1,"#0087FC");
         //I piece
