@@ -135,13 +135,13 @@ public class MainBoard {
                     rowComplete++;
                 }
             }
-            removeCompleteLinesAux(rowComplete,row,randomPiece,linesToRemove);
+            linesToRemove = removeCompleteLinesAux(rowComplete,row,randomPiece,linesToRemove);
         }
         return linesToRemove;
     }
 
 
-    public void removeCompleteLinesAux(int rowComplete,int row,Piece randomPiece,int linesToRemove){
+    public int removeCompleteLinesAux(int rowComplete,int row,Piece randomPiece,int linesToRemove){
         if (rowComplete == BOARDNUMCOLS) {
             for (int row1 = row; row1 > 0; row1--) {
                 for (int col1 = 0; col1 < BOARDNUMCOLS; col1++) {
@@ -158,6 +158,7 @@ public class MainBoard {
 
             linesToRemove++;
         }
+        return linesToRemove;
     }
 
     public void removePiece(Piece actualPiece, int [][] board) {
@@ -303,7 +304,6 @@ public class MainBoard {
          */
         actualPiece.moveCoord(-2, 0);
 
-        //reduceBoardAux3(firstRows,actualPiece,randomPiece,firstRowsRandom);
         if (firstRows) {
             this.addPiece(actualPiece, this.board);
             return;
@@ -367,28 +367,4 @@ public class MainBoard {
         }
         return firstRowsRandom;
     }
-
-
-    /*public void  reduceBoardAux3(Boolean firstRows, Piece actualPiece, Piece randomPiece, Boolean firstRowsRandom){
-        if (firstRows) {
-            this.addPiece(actualPiece, this.board);
-            return;
-        }
-
-        this.moveOneDown(actualPiece, true);
-        this.moveOneDown(actualPiece, true);
-
-        //Hacemos lo mismo para el caso de la pieza aleatoria
-        if (randomPiece != null) {
-            randomPiece.moveCoord(-2,0);
-
-            if (firstRowsRandom) {
-                this.addPiece(randomPiece, this.board);
-                return;
-            }
-
-            this.moveOneDown(randomPiece, false);
-            this.moveOneDown(randomPiece, false);
-        }
-    }*/
 }
