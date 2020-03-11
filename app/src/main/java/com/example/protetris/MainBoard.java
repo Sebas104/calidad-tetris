@@ -110,8 +110,7 @@ public class MainBoard {
         if (num == 0){
             return colorMap.pieceToColor(board[row][col]);
         }else{
-            return colorMap.pieceToColor(board[row][col]);
-           // return drawBlocksNormalCase(row,col,colorMap.pieceToString(num));
+            return drawBlocksNormalCase(row,col,colorMap.pieceToString(num));
         }
     }
 
