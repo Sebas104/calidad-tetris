@@ -135,24 +135,29 @@ public class MainBoard {
                     rowComplete++;
                 }
             }
-            if (rowComplete == BOARDNUMCOLS) {
-                for (int row1 = row; row1 > 0; row1--) {
-                    for (int col1 = 0; col1 < BOARDNUMCOLS; col1++) {
-                        this.board[row1][col1] = this.board[row1 - 1][col1];
-                    }
-                }
-                //Tenemos que actualizar las coordenadas de la pieza aleatoria en caso de que esté en el tablero
-                if (randomPiece != null) {
-                    randomPiece.moveCoord(1, 0);
-                }
-
-                //En caso de que se haga fila con la pieza random, actualizar la posicion de la pieza actual
-                this.getActualPiece().moveCoord(1,0);
-
-                linesToRemove++;
-            }
+            removeCompleteLinesAux(rowComplete,row,randomPiece,linesToRemove);
         }
         return linesToRemove;
+    }
+
+
+    public void removeCompleteLinesAux(int rowComplete,int row,Piece randomPiece,int linesToRemove){
+        if (rowComplete == BOARDNUMCOLS) {
+            for (int row1 = row; row1 > 0; row1--) {
+                for (int col1 = 0; col1 < BOARDNUMCOLS; col1++) {
+                    this.board[row1][col1] = this.board[row1 - 1][col1];
+                }
+            }
+            //Tenemos que actualizar las coordenadas de la pieza aleatoria en caso de que esté en el tablero
+            if (randomPiece != null) {
+                randomPiece.moveCoord(1, 0);
+            }
+
+            //En caso de que se haga fila con la pieza random, actualizar la posicion de la pieza actual
+            this.getActualPiece().moveCoord(1,0);
+
+            linesToRemove++;
+        }
     }
 
     public void removePiece(Piece actualPiece, int [][] board) {
@@ -272,37 +277,9 @@ public class MainBoard {
         Coordinates newXY = actualPiece.copyCoord(actualPiece.coord);
         newXY.updateCoord(2, 0);
 
-        //Pieza en la fila 0 del tablero
-        if (actualPiece.getCoord1().x == 0 || actualPiece.getCoord2().x == 0 || actualPiece.getCoord3().x == 0 || actualPiece.getCoord4().x == 0 && !actualPiece.checkCollision(this.board, newXY)) {
-            actualPiece.moveCoord(1,0);
-        }
+        reduceBoardAux1(actualPiece,firstRows,newXY);
 
-        //Pieza en la fila 1 del tablero
-        if (actualPiece.getCoord1().x == 1 || actualPiece.getCoord2().x == 1 || actualPiece.getCoord3().x == 1 || actualPiece.getCoord4().x == 1 && !actualPiece.checkCollision(this.board, newXY)) {
-            actualPiece.moveCoord(1,0);
-            firstRows = true;
-        }
-
-        //Hacemos lo mismo para la pieza random en caso de que se encuentre en el tablero
-        if (randomPiece != null) {
-
-            this.removePiece(randomPiece, this.board);
-
-            Coordinates randomXY = randomPiece.copyCoord(randomPiece.coord);
-            randomXY.updateCoord(2, 0);
-
-            //Pieza en la fila 0 del tablero
-            if (randomPiece.getCoord1().x == 0 || randomPiece.getCoord2().x == 0 || randomPiece.getCoord3().x == 0 || randomPiece.getCoord4().x == 0 && !randomPiece.checkCollision(this.board, randomXY)) {
-
-                randomPiece.moveCoord(1,0);
-            }
-
-            //Pieza en la fila 1 del tablero
-            if (randomPiece.getCoord1().x == 1 || randomPiece.getCoord2().x == 1 || randomPiece.getCoord3().x == 1 || randomPiece.getCoord4().x == 1 && !actualPiece.checkCollision(this.board, randomXY)) {
-                randomPiece.moveCoord(1,0);
-                firstRowsRandom = true;
-            }
-        }
+        reduceBoardAux2(randomPiece,firstRowsRandom,actualPiece);
 
         shadowActualPiece.coord = new Coordinates();
         shadowRandomPiece.coord = new Coordinates();
@@ -324,6 +301,50 @@ public class MainBoard {
          */
         actualPiece.moveCoord(-2, 0);
 
+        reduceBoardAux3(firstRows,actualPiece,randomPiece,firstRowsRandom);
+
+    }
+
+
+    public void reduceBoardAux1(Piece actualPiece,Boolean firstRows,Coordinates newXY){
+        //Pieza en la fila 0 del tablero
+        if (actualPiece.getCoord1().x == 0 || actualPiece.getCoord2().x == 0 || actualPiece.getCoord3().x == 0 || actualPiece.getCoord4().x == 0 && !actualPiece.checkCollision(this.board, newXY)) {
+            actualPiece.moveCoord(1,0);
+        }
+
+        //Pieza en la fila 1 del tablero
+        if (actualPiece.getCoord1().x == 1 || actualPiece.getCoord2().x == 1 || actualPiece.getCoord3().x == 1 || actualPiece.getCoord4().x == 1 && !actualPiece.checkCollision(this.board, newXY)) {
+            actualPiece.moveCoord(1,0);
+            firstRows = true;
+        }
+    }
+
+
+    public void reduceBoardAux2(Piece randomPiece, Boolean firstRowsRandom,Piece actualPiece){
+        //Hacemos lo mismo para la pieza random en caso de que se encuentre en el tablero
+        if (randomPiece != null) {
+
+            this.removePiece(randomPiece, this.board);
+
+            Coordinates randomXY = randomPiece.copyCoord(randomPiece.coord);
+            randomXY.updateCoord(2, 0);
+
+            //Pieza en la fila 0 del tablero
+            if (randomPiece.getCoord1().x == 0 || randomPiece.getCoord2().x == 0 || randomPiece.getCoord3().x == 0 || randomPiece.getCoord4().x == 0 && !randomPiece.checkCollision(this.board, randomXY)) {
+
+                randomPiece.moveCoord(1,0);
+            }
+
+            //Pieza en la fila 1 del tablero
+            if (randomPiece.getCoord1().x == 1 || randomPiece.getCoord2().x == 1 || randomPiece.getCoord3().x == 1 || randomPiece.getCoord4().x == 1 && !actualPiece.checkCollision(this.board, randomXY)) {
+                randomPiece.moveCoord(1,0);
+                firstRowsRandom = true;
+            }
+        }
+    }
+
+
+    public void  reduceBoardAux3(Boolean firstRows, Piece actualPiece, Piece randomPiece, Boolean firstRowsRandom){
         if (firstRows) {
             this.addPiece(actualPiece, this.board);
             return;
@@ -344,6 +365,5 @@ public class MainBoard {
             this.moveOneDown(randomPiece, false);
             this.moveOneDown(randomPiece, false);
         }
-
     }
 }
