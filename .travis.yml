@@ -34,7 +34,7 @@ android:
 
 before_script:
   - sdkmanager --list
-  - echo no | android create avd --force -n test -g google_apis
+  - echo no | android create avd -n test -g google_apis
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - abd shell input keyevent 82 &
